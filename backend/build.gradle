@@ -5,9 +5,9 @@ plugins {
 	id 'com.google.protobuf' version '0.9.5'
 }
 
-group = 'com.study'
+group = 'com.lumos'
 version = '0.0.1-SNAPSHOT'
-description = 'Study Lab Backend'
+description = 'Lumos Lab Backend'
 
 java {
 	toolchain {
