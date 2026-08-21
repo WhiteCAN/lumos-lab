@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package study.lab.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.study.lab.grpc.proto";
+option java_outer_classname = "StudyLabProto";
+
+service ConceptService {
+  rpc Explain (GrpcConceptRequest) returns (GrpcConceptResponse);
+}
+
+message GrpcConceptRequest {
+  string keyword = 1;
+}
+
+message GrpcConceptResponse {
+  string concept = 1;
+  string summary = 2;
+  string transport = 3;
+  repeated string steps = 4;
+  string server_thread = 5;
+  string handled_at = 6;
+}
