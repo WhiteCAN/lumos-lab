@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lumos-lab-backend
+  namespace: lumos-lab-dev
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - api.lab.dev.lumosgraphy.com
+      secretName: lumos-lab-backend-dev-tls
+  rules:
+    - host: api.lab.dev.lumosgraphy.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: lumos-lab-backend
+                port:
+                  number: 80

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lumos-lab-backend-dev
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: lumos-lab-backend=ghcr.io/whitecan/lumos-lab-backend
+    argocd-image-updater.argoproj.io/lumos-lab-backend.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/lumos-lab-backend.allow-tags: regexp:^[0-9a-f]{7,40}$
+    argocd-image-updater.argoproj.io/lumos-lab-backend.pull-secret: pullsecret:argocd/ghcr-secret
+    argocd-image-updater.argoproj.io/write-back-method: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/WhiteCAN/lumos-lab.git
+    targetRevision: development
+    path: backend/k8s/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lumos-lab-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

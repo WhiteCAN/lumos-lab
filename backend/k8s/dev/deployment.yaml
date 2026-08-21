@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lumos-lab-backend
+  namespace: lumos-lab-dev
+  labels:
+    app: lumos-lab-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lumos-lab-backend
+  template:
+    metadata:
+      labels:
+        app: lumos-lab-backend
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: lumos-lab-backend
+          image: ghcr.io/whitecan/lumos-lab-backend:development
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: grpc
+              containerPort: 9090
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: supabase
+            - name: APP_CORS_ALLOWED_ORIGINS
+              value: https://lab.dev.lumosgraphy.com
+          envFrom:
+            - secretRef:
+                name: lumos-lab-backend-secret
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 45
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 384Mi
+            limits:
+              cpu: 1000m
+              memory: 768Mi

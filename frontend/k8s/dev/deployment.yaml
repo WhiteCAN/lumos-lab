@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lumos-lab-frontend
+  namespace: lumos-lab-dev
+  labels:
+    app: lumos-lab-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lumos-lab-frontend
+  template:
+    metadata:
+      labels:
+        app: lumos-lab-frontend
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: lumos-lab-frontend
+          image: ghcr.io/whitecan/lumos-lab-frontend:development
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 192Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
