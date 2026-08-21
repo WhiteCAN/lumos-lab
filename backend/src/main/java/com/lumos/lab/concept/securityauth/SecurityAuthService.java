@@ -2,6 +2,7 @@ package com.lumos.lab.concept.securityauth;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Mac;
@@ -15,11 +16,18 @@ import java.util.Map;
 
 @Service
 public class SecurityAuthService {
-    private static final String SECRET = "study-lab-jwt-secret-for-debug";
     private static final TypeReference<Map<String, Object>> MAP_TYPE = new TypeReference<>() {
     };
 
+    private final String secret;
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public SecurityAuthService(@Value("${app.security.jwt-secret}") String secret) {
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalArgumentException("JWT secret must not be blank");
+        }
+        this.secret = secret;
+    }
 
     public AuthTokenResponse login(JwtLoginRequest request) {
         if (!"password".equals(request.password())) {
@@ -39,7 +47,7 @@ public class SecurityAuthService {
         payload.put("role", role);
         payload.put("iat", issuedAt.getEpochSecond());
         payload.put("exp", expiresAt.getEpochSecond());
-        payload.put("iss", "study-lab");
+        payload.put("iss", "lumos-lab");
 
         String token = createToken(header, payload);
 
@@ -174,7 +182,7 @@ public class SecurityAuthService {
 
     private String sign(String value) throws Exception {
         Mac mac = Mac.getInstance("HmacSHA256");
-        mac.init(new SecretKeySpec(SECRET.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
+        mac.init(new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
         return base64Url(mac.doFinal(value.getBytes(StandardCharsets.UTF_8)));
     }
 
