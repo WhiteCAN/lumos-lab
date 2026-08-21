@@ -1,11 +1,11 @@
-# Study Lab 프론트엔드
+# Lumos Lab 프론트엔드
 
 Next.js, React, TypeScript, Tailwind CSS, shadcn/ui를 공부하기 위한 프론트엔드입니다.
 
 ## 실행 방법
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\frontend
+cd frontend
 npm run dev
 ```
 

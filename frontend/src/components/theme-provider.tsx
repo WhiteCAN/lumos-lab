@@ -10,7 +10,7 @@ type ThemeContextValue = {
 };
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
-const storageKey = "study-lab-theme";
+const storageKey = "lumos-lab-theme";
 
 function getStoredTheme(): Theme {
   if (typeof window === "undefined") {

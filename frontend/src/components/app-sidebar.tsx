@@ -30,15 +30,18 @@ import {
   Code2Icon,
 } from "lucide-react"
 
+const apiBaseUrl =
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8080"
+
 const data = {
   user: {
-    name: "Study Lab",
+    name: "Lumos Lab",
     email: "debug mode",
     avatar: "",
   },
   teams: [
     {
-      name: "Study Lab",
+      name: "Lumos Lab",
       logo: (
         <GalleryVerticalEndIcon
         />
@@ -341,7 +344,7 @@ const data = {
   projects: [
     {
       name: "프론트엔드",
-      url: "http://localhost:3000",
+      url: "/",
       icon: (
         <RouteIcon
         />
@@ -349,7 +352,7 @@ const data = {
     },
     {
       name: "스웨거 UI",
-      url: "http://localhost:8080/swagger-ui.html",
+      url: `${apiBaseUrl}/swagger-ui.html`,
       icon: (
         <ScrollTextIcon
         />
@@ -357,7 +360,7 @@ const data = {
     },
     {
       name: "백엔드 상태",
-      url: "http://localhost:8080/api/health",
+      url: `${apiBaseUrl}/api/health`,
       icon: (
         <NetworkIcon
         />
@@ -365,7 +368,7 @@ const data = {
     },
     {
       name: "OpenAPI JSON",
-      url: "http://localhost:8080/v3/api-docs",
+      url: `${apiBaseUrl}/v3/api-docs`,
       icon: (
         <DatabaseIcon
         />
@@ -373,7 +376,7 @@ const data = {
     },
     {
       name: "DB 연결 정보",
-      url: "http://localhost:8080/api/database/info",
+      url: `${apiBaseUrl}/api/database/info`,
       icon: (
         <DatabaseIcon
         />

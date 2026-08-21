@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Study Lab",
-  description: "Spring Boot and Next.js learning lab",
+  title: "Lumos Lab",
+  description: "Spring Boot와 Next.js로 다양한 기술을 실험하는 학습 공간",
 };
 
 export default function RootLayout({
