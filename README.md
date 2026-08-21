@@ -1,13 +1,13 @@
-# Study Lab
+# Lumos Lab
 
-Spring Boot API와 Next.js 화면을 함께 공부하기 위한 실습 프로젝트입니다.
+Spring Boot API와 Next.js 화면을 함께 공부하는 하나의 웹 실험실입니다.
 
 목표는 단순 CRUD가 아니라, API를 호출하면서 Java 자료구조, 알고리즘, 디자인 패턴, React 상태 처리, Next.js 라우팅을 디버깅으로 익히는 것입니다.
 
 ## 프로젝트 구조
 
 ```text
-study-lab/
+lumos-lab/
   backend/   Spring Boot REST API, gRPC 서버, 학습용 API
   frontend/  Next.js + React + TypeScript UI
   docs/      나중에 이어서 볼 작업 문서
@@ -15,7 +15,11 @@ study-lab/
 
 이어서 작업할 때는 [작업 이어가기 가이드](docs/continuation-guide.md)를 먼저 확인합니다.
 
-## 실행 방법
+> 이 저장소의 인증, OAuth, 결제, 캐시 예제에는 학습용 mock 구현이 포함되어 있습니다. 운영 서비스의 인증·보안 구현으로 그대로 사용하지 마세요.
+
+## 로컬 실행
+
+필수 도구는 Java 21과 Node.js 22 이상입니다. 로컬 프로필은 H2 인메모리 DB를 사용하므로 PostgreSQL, MariaDB, Docker, Docker Compose를 설치할 필요가 없습니다. 백엔드를 종료하면 로컬 데이터는 초기화됩니다.
 
 이 프로젝트는 터미널을 2개 열어서 실행합니다.
 
@@ -24,12 +28,19 @@ study-lab/
 
 gRPC는 따로 명령을 실행하지 않습니다. 백엔드를 `bootRun`으로 실행하면 Spring Boot 안에서 gRPC 서버도 같이 올라갑니다.
 
+먼저 저장소를 내려받습니다.
+
+```powershell
+git clone https://github.com/WhiteCAN/lumos-lab.git
+Set-Location lumos-lab
+```
+
 ### 1. 백엔드 실행
 
 새 터미널을 열고 아래 명령을 실행합니다.
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\backend
+Set-Location backend
 .\gradlew.bat bootRun
 ```
 
@@ -51,7 +62,9 @@ cd C:\Users\skw0329\IdeaProjects\study-lab\backend
 다른 터미널을 하나 더 열고 아래 명령을 실행합니다.
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\frontend
+Set-Location frontend
+Copy-Item .env.example .env.local
+npm ci
 npm run dev
 ```
 
@@ -92,6 +105,27 @@ Get-NetTCPConnection -LocalPort 3000,8080,9090 -ErrorAction SilentlyContinue |
 - gRPC 브리지 API: [http://localhost:8080/api/concepts/grpc/explain](http://localhost:8080/api/concepts/grpc/explain)
 - Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 - OpenAPI JSON: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+
+## 선택: Supabase DB 연결
+
+개발용 PostgreSQL이 필요할 때만 `backend/.env.example`을 참고해 환경변수를 설정하고 `supabase` 프로필로 실행합니다. 비밀값이 담긴 `.env` 파일은 Git에 커밋하지 않습니다.
+
+```powershell
+Set-Location backend
+$env:SPRING_PROFILES_ACTIVE = "supabase"
+.\gradlew.bat bootRun
+```
+
+## 개발 서버 배포
+
+개발 배포는 Docker Compose가 아니라 GitHub Actions, GHCR, Kubernetes, Argo CD 구성을 사용합니다.
+
+- `development` 브랜치 push: 백엔드·프론트엔드 검증 및 GHCR 이미지 발행
+- 프론트엔드: `https://lab.dev.lumosgraphy.com`
+- 백엔드: `https://api.lab.dev.lumosgraphy.com`
+- 배포 정의: `backend/k8s/dev`, `frontend/k8s/dev`, `argocd/dev`
+
+실제 배포 전에는 GitHub 저장소와 DNS, GHCR 이미지 접근 권한, Kubernetes의 `lumos-lab-backend-secret`, Argo CD Application 등록이 필요합니다. DB는 서버에 직접 설치하지 않고 Supabase 접속 정보를 Kubernetes Secret으로 주입합니다.
 
 ## 현재 실험실
 
@@ -324,7 +358,7 @@ Next.js 화면
       -> gRPC Server 9090
 ```
 
-`backend/src/main/proto/study_lab.proto`에서 계약을 정의하고, Gradle protobuf 플러그인이 Java stub을 생성합니다. 브라우저는 REST API를 호출하고 Spring 서버 내부에서 gRPC를 호출하는 브리지 구조입니다.
+`backend/src/main/proto/lumos_lab.proto`에서 계약을 정의하고, Gradle protobuf 플러그인이 Java stub을 생성합니다. 브라우저는 REST API를 호출하고 Spring 서버 내부에서 gRPC를 호출하는 브리지 구조입니다.
 
 ### TDD 가이드
 
@@ -505,14 +539,14 @@ RAG 기본 레퍼런스와 함께 문서 등록, 벡터 검색, 질문하기 moc
 ## 로컬 DB
 
 - H2 Console: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-- JDBC URL: `jdbc:h2:mem:studylab`
+- JDBC URL: `jdbc:h2:mem:lumoslab`
 - User Name: `sa`
 - Password: 비워둠
 
 ## gRPC 설정
 
 - gRPC 서버 포트: `9090`
-- Proto 파일: `backend/src/main/proto/study_lab.proto`
+- Proto 파일: `backend/src/main/proto/lumos_lab.proto`
 - REST 브리지: `POST http://localhost:8080/api/concepts/grpc/explain`
 
 브라우저에서 gRPC를 직접 호출하려면 gRPC-Web 구성이 추가로 필요합니다. 현재 프로젝트는 학습과 디버깅을 쉽게 하기 위해 REST API가 내부 gRPC 클라이언트를 호출하는 구조입니다.
@@ -530,7 +564,7 @@ Supabase Dashboard에서 확인할 값:
 Spring Boot 실행 예시:
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\backend
+Set-Location backend
 $env:SPRING_PROFILES_ACTIVE="supabase"
 $env:SUPABASE_DB_URL="jdbc:postgresql://aws-0-region.pooler.supabase.com:6543/postgres?sslmode=require"
 $env:SUPABASE_DB_USERNAME="postgres.your-project-ref"
@@ -555,14 +589,14 @@ Supabase 실제 연결, CRUD 실험실, JPA 관계 매핑은 당장 진행하지
 백엔드:
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\backend
+Set-Location backend
 .\gradlew.bat test
 ```
 
 프론트엔드:
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\frontend
+Set-Location frontend
 npm run lint
 npm run build
 ```

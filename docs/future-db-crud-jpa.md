@@ -43,7 +43,7 @@ Spring Boot 서버에서는 Supabase API Key가 아니라 PostgreSQL 접속 정�
 ### 환경변수 예시
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\backend
+Set-Location backend
 
 $env:SPRING_PROFILES_ACTIVE="supabase"
 $env:SUPABASE_DB_URL="jdbc:postgresql://aws-0-region.pooler.supabase.com:6543/postgres?sslmode=require"
@@ -103,7 +103,7 @@ Post
 ### 백엔드 패키지 예시
 
 ```text
-com.study.lab.crud.member
+com.lumos.lab.crud.member
   Member
   MemberRepository
   MemberService
@@ -112,7 +112,7 @@ com.study.lab.crud.member
   MemberUpdateRequest
   MemberResponse
 
-com.study.lab.crud.post
+com.lumos.lab.crud.post
   Post
   PostRepository
   PostService

@@ -22,14 +22,14 @@ Spring Boot API와 Next.js 화면을 함께 실행하면서 Java 자료구조, �
 백엔드:
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\backend
+Set-Location backend
 .\gradlew.bat bootRun
 ```
 
 프론트엔드:
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\frontend
+Set-Location frontend
 npm run dev
 ```
 
@@ -148,7 +148,7 @@ RAG
 ## 백엔드 패키지 기준
 
 ```text
-com.study.lab
+com.lumos.lab
   algorithm.sort
   algorithm.search
   datastructure.stack
@@ -177,14 +177,14 @@ com.study.lab
 백엔드:
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\backend
+Set-Location backend
 .\gradlew.bat test
 ```
 
 프론트엔드:
 
 ```powershell
-cd C:\Users\skw0329\IdeaProjects\study-lab\frontend
+Set-Location frontend
 npm run lint
 npm run build
 ```

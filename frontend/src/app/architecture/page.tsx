@@ -118,7 +118,7 @@ const separateFolderStructures = [
     point: "Port와 Adapter 구분이 가장 중요합니다.",
     colorClass:
       "border-cyan-200 bg-cyan-50/50 dark:border-cyan-900/60 dark:bg-cyan-950/20",
-    tree: `com.study.lab.order
+    tree: `com.lumos.lab.order
   domain
     Order.java
     OrderStatus.java
@@ -156,7 +156,7 @@ const separateFolderStructures = [
     point: "안쪽 계층이 바깥 계층을 모르게 하는 것이 핵심입니다.",
     colorClass:
       "border-violet-200 bg-violet-50/50 dark:border-violet-900/60 dark:bg-violet-950/20",
-    tree: `com.study.lab.order
+    tree: `com.lumos.lab.order
   enterprise
     entity
       Order.java
@@ -195,7 +195,7 @@ const separateFolderStructures = [
     point: "도메인 모델과 업무 용어를 코드 중심에 둡니다.",
     colorClass:
       "border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/20",
-    tree: `com.study.lab.order
+    tree: `com.lumos.lab.order
   domain
     model
       Order.java
@@ -232,7 +232,7 @@ const separateFolderStructures = [
   },
 ];
 
-const folderTree = `com.study.lab.order
+const folderTree = `com.lumos.lab.order
   application
     port
       in

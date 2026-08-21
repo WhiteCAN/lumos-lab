@@ -142,7 +142,7 @@ void applicationNameIsLumosLabBackend() {
 Run:
 
 ```powershell
-$env:JAVA_HOME='C:\workspace\jdk-21'
+$env:JAVA_HOME='C:\path\to\jdk-21'
 Set-Location backend
 .\gradlew.bat test --tests com.study.lab.BackendApplicationTests
 ```
@@ -169,7 +169,7 @@ Java main/test 디렉터리를 `com/lumos/lab`으로 이동하고 빈 `com/study
 Run:
 
 ```powershell
-$env:JAVA_HOME='C:\workspace\jdk-21'
+$env:JAVA_HOME='C:\path\to\jdk-21'
 Set-Location backend
 .\gradlew.bat clean test --tests com.lumos.lab.BackendApplicationTests
 Set-Location ..
@@ -535,14 +535,14 @@ Java 21, Node 22, 기본 H2는 DB 설치 불필요, H2 재시작 시 초기화, 
 
 - [ ] **Step 2: 내부 문서와 에이전트 지침의 이름 및 절대 경로를 정리한다**
 
-`Study Lab`은 `Lumos Lab`, `study-lab`은 `lumos-lab`, `com.study.lab`은 `com.lumos.lab`으로 변경한다. `C:\Users\skw0329\...` 형태의 개인 절대 경로는 저장소 상대 경로 또는 일반 명령으로 교체한다. 학습 API/화면 URL은 유지한다.
+`Study Lab`은 `Lumos Lab`, `study-lab`은 `lumos-lab`, `com.study.lab`은 `com.lumos.lab`으로 변경한다. 개인 절대 경로는 저장소 상대 경로 또는 일반 명령으로 교체한다. 학습 API/화면 URL은 유지한다.
 
 - [ ] **Step 3: 이름, 경로, 비밀값 및 추적 대상 검사를 실행한다**
 
 Run:
 
 ```powershell
-rg -n "Study Lab|study-lab|com\.study\.lab|C:\\Users\\skw0329" . -g '!.git/**' -g '!backend/build/**' -g '!backend/.gradle/**' -g '!frontend/node_modules/**' -g '!frontend/.next/**'
+rg -n "Study Lab|study-lab|com\.study\.lab" . -g '!.git/**' -g '!backend/build/**' -g '!backend/.gradle/**' -g '!frontend/node_modules/**' -g '!frontend/.next/**'
 git status --short --ignored
 git ls-files | rg "(^|/)(\.env|\.env\.local|\.idea|\.next|node_modules|build|\.gradle)(/|$)|\.log$"
 ```
@@ -554,7 +554,7 @@ Expected: 첫 검색에는 과거 명칭을 설명하는 설계 문서의 변경
 Run:
 
 ```powershell
-$env:JAVA_HOME='C:\workspace\jdk-21'
+$env:JAVA_HOME='C:\path\to\jdk-21'
 Set-Location backend
 .\gradlew.bat clean test
 Set-Location ..\frontend
@@ -583,19 +583,19 @@ Expected: 커밋 후 working tree가 clean이다.
 ### Task 9: 프로젝트 폴더 이름 변경 및 최종 확인
 
 **Files:**
-- Move directory: `C:\Users\skw0329\IdeaProjects\study-lab` → `C:\Users\skw0329\IdeaProjects\lumos-lab`
+- Move directory: `C:\path\to\study-lab` → `C:\path\to\lumos-lab`
 
 **Interfaces:**
 - Consumes: clean Git working tree와 새 프로젝트 이름
-- Produces: 실제 로컬 프로젝트 경로 `C:\Users\skw0329\IdeaProjects\lumos-lab`
+- Produces: 실제 로컬 프로젝트 경로 `C:\path\to\lumos-lab`
 
 - [ ] **Step 1: 이동 전 절대 경로와 대상 충돌을 검증한다**
 
-Run from `C:\Users\skw0329\IdeaProjects`:
+Run from the project parent directory:
 
 ```powershell
-$sourcePath = (Resolve-Path -LiteralPath 'C:\Users\skw0329\IdeaProjects\study-lab').Path
-$targetPath = 'C:\Users\skw0329\IdeaProjects\lumos-lab'
+$sourcePath = (Resolve-Path -LiteralPath 'C:\path\to\study-lab').Path
+$targetPath = 'C:\path\to\lumos-lab'
 $sourcePath
 $targetPath
 Test-Path -LiteralPath $targetPath
@@ -607,7 +607,7 @@ Expected: source가 정확히 `study-lab`, target이 같은 `IdeaProjects` 아�
 - [ ] **Step 2: 프로젝트 폴더를 이동한다**
 
 ```powershell
-Move-Item -LiteralPath 'C:\Users\skw0329\IdeaProjects\study-lab' -Destination 'C:\Users\skw0329\IdeaProjects\lumos-lab'
+Move-Item -LiteralPath 'C:\path\to\study-lab' -Destination 'C:\path\to\lumos-lab'
 ```
 
 - [ ] **Step 3: 새 경로의 저장소와 최종 이름을 확인한다**
@@ -615,9 +615,9 @@ Move-Item -LiteralPath 'C:\Users\skw0329\IdeaProjects\study-lab' -Destination 'C
 Run:
 
 ```powershell
-git -C 'C:\Users\skw0329\IdeaProjects\lumos-lab' status --short --branch
-git -C 'C:\Users\skw0329\IdeaProjects\lumos-lab' log --oneline -10
-rg -n "Study Lab|study-lab|com\.study\.lab|C:\\Users\\skw0329" 'C:\Users\skw0329\IdeaProjects\lumos-lab' -g '!.git/**' -g '!backend/build/**' -g '!backend/.gradle/**' -g '!frontend/node_modules/**' -g '!frontend/.next/**'
+git -C 'C:\path\to\lumos-lab' status --short --branch
+git -C 'C:\path\to\lumos-lab' log --oneline -10
+rg -n "Study Lab|study-lab|com\.study\.lab" 'C:\path\to\lumos-lab' -g '!.git/**' -g '!backend/build/**' -g '!backend/.gradle/**' -g '!frontend/node_modules/**' -g '!frontend/.next/**'
 ```
 
 Expected: branch는 main이고 clean하며, 과거 명칭을 설명하는 설계/계획 문서 외에 의도하지 않은 기존 이름이나 개인 절대 경로가 없다.
