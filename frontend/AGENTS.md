@@ -76,3 +76,13 @@ RAG는 메뉴만 있고 아직 실제 라우트가 없습니다. 다음에 구�
 ## 주의 사항
 
 Next.js, React, shadcn/ui 버전은 빠르게 바뀔 수 있습니다. 큰 변경 전에는 오래된 예제를 그대로 믿지 말고, 로컬 파일과 현재 패키지 버전을 먼저 확인하세요.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
