@@ -1,5 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Link from "next/link";
+import { CodeBlock, ComparisonTable } from "@/components/reference-page";
 import {
   apiRestComparisons,
   apiRestSections,
@@ -9,6 +11,10 @@ import {
   restBenefits,
   restFlow,
   summaryLine,
+  protocolComparison,
+  protocolExamples,
+  protocolDecisions,
+  protocolTraps,
 } from "@/constants/api-vs-rest";
 import type {
   ApiRestSection,
@@ -69,9 +75,8 @@ export default function ApiVsRestPage() {
                     API vs REST API
                   </h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-                    이미지 내용을 웹페이지로 재구성한 정적 참고 페이지입니다.
-                    API와 REST API의 차이, REST 동작 방식, HTTP 메서드, 실생활
-                    예시를 한 번에 볼 수 있게 정리했습니다.
+                    API와 REST의 기본 관계부터 REST·GraphQL·gRPC의 차이까지
+                    정리합니다. 요청 예시와 쇼핑몰 설계 사례로 각 방식의 선택 기준을 살펴봅니다.
                   </p>
                 </div>
                 <div className="rounded-lg border border-indigo-200 bg-white p-4 text-sm text-indigo-700 dark:border-indigo-900/70 dark:bg-indigo-950/30 dark:text-indigo-200">
@@ -130,7 +135,7 @@ export default function ApiVsRestPage() {
           <section className="rounded-lg border border-cyan-200 bg-cyan-50/30 p-4 shadow-sm dark:border-cyan-900/60 dark:bg-cyan-950/20">
             <div className="mb-4">
               <h2 className="text-lg font-semibold">
-                REST API, gRPC, FastAPI는 어떻게 다를까?
+                REST · GraphQL · gRPC, 그리고 FastAPI
               </h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 REST와 gRPC는 API 통신 스타일에 가깝고, FastAPI는 Python으로
@@ -142,6 +147,37 @@ export default function ApiVsRestPage() {
               {apiStyles.map((style) => (
                 <ApiStyleCard key={style.name} style={style} />
               ))}
+            </div>
+          </section>
+
+          <section id="protocol-comparison" className="grid gap-4 scroll-mt-4">
+            <h2 className="text-xl font-semibold">REST · GraphQL · gRPC 상세 비교</h2>
+            <ComparisonTable columns={["REST", "GraphQL", "gRPC"]} rows={protocolComparison} />
+            <p className="text-sm leading-6 text-muted-foreground">REST는 자원 중심 설계, GraphQL은 API 쿼리 언어와 실행 체계, gRPC는 RPC 프레임워크입니다. 성능 순위를 정하기보다 클라이언트와 데이터 요구에 맞춰 비교합니다.</p>
+          </section>
+
+          <section className="grid min-w-0 gap-4 xl:grid-cols-3">
+            {protocolExamples.map((example) => (
+              <div key={example.title} className="grid min-w-0 content-start gap-3 [&>section]:min-w-0">
+                <CodeBlock title={example.title} code={example.code} />
+                <p className="px-1 text-sm leading-6 text-muted-foreground">{example.note}</p>
+              </div>
+            ))}
+          </section>
+
+          <section className="rounded-lg border bg-card p-4 shadow-sm">
+            <h2 className="text-xl font-semibold">쇼핑몰에서 선택하는 기준</h2>
+            <div className="mt-4 grid gap-3 lg:grid-cols-3">
+              {protocolDecisions.map((item) => <article key={item.title} className="rounded-lg border bg-muted/30 p-4"><h3 className="font-semibold">{item.title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.detail}</p></article>)}
+            </div>
+            <p className="mt-4 text-sm leading-6">예를 들어 상품 상세 화면은 GraphQL로 상품·리뷰·재고를 요청하고, 화면용 백엔드(BFF)가 내부 REST 또는 gRPC 호출 결과를 조합할 수 있습니다. 파트너의 주문 생성은 REST로 제공할 수 있습니다.</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">단순 CRUD라면 REST로 시작해도 충분합니다. 세 가지를 모두 도입할 필요는 없습니다. API Gateway의 인증·라우팅과 BFF의 화면 데이터 조합 역할을 구분하고, 서비스에서도 권한을 검증합니다.</p>
+          </section>
+
+          <section className="rounded-lg border bg-card p-4 shadow-sm">
+            <h2 className="text-xl font-semibold">면접에서 자주 나오는 9가지 함정</h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              {protocolTraps.map(([question, answer], index) => <article key={question} className="rounded-lg border p-4"><h3 className="font-semibold">{index + 1}. {question}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{answer}</p></article>)}
             </div>
           </section>
 
@@ -200,11 +236,20 @@ export default function ApiVsRestPage() {
                 <h2 className="text-lg font-semibold">중요 메모</h2>
               </div>
               <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                대부분의 현대 웹 애플리케이션은 프론트엔드와 백엔드 통신에 REST
-                API를 사용합니다. 하지만 WebSocket, GraphQL, gRPC처럼 REST가
-                아닌 API 방식도 존재합니다.
+                클라이언트 호환성, 조회 유연성, 계약과 스트리밍 요구를 먼저 확인하세요.
+                실제 요청 비용과 팀의 운영 경험까지 설명할 수 있어야 선택 근거가 됩니다.
               </p>
             </div>
+          </section>
+          <section className="rounded-lg border bg-card p-4 shadow-sm">
+            <h2 className="text-lg font-semibold">출처와 이어서 학습하기</h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">java_interview_prep의 10장 캐러셀을 기존 개념 노트에 통합했습니다. 성능 순위, HTTP 버전과 스트리밍 표현은 조건을 명시해 보완했습니다.</p>
+            <ul className="mt-3 grid gap-2 text-sm">
+              <li><a className="underline underline-offset-4" href="https://www.instagram.com/java_interview_prep/p/DdGxNe2jcAE/?img_index=1" target="_blank" rel="noreferrer">원본 · REST vs GraphQL vs gRPC</a></li>
+              <li><a className="underline underline-offset-4" href="https://graphql.org/learn/" target="_blank" rel="noreferrer">GraphQL 공식 학습 문서</a> · <a className="underline underline-offset-4" href="https://graphql.org/learn/performance/" target="_blank" rel="noreferrer">성능과 N+1</a></li>
+              <li><a className="underline underline-offset-4" href="https://grpc.io/docs/what-is-grpc/core-concepts/" target="_blank" rel="noreferrer">gRPC 공식 개념과 호출 유형</a></li>
+              <li><Link className="underline underline-offset-4" href="/grpc">gRPC 실험실</Link> · <Link className="underline underline-offset-4" href="/rest-api-design">REST API 설계</Link></li>
+            </ul>
           </section>
         </main>
       </SidebarInset>

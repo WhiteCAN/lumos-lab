@@ -104,7 +104,7 @@ export const realLifeExample = {
 };
 
 export const summaryLine =
-  "API = 애플리케이션 간 통신, REST API = 표준화된 웹 통신 방식";
+  "API는 연결 계약, REST는 자원 중심의 아키텍처 스타일";
 
 export const apiStyles: ApiStyleGuide[] = [
   {
@@ -112,7 +112,7 @@ export const apiStyles: ApiStyleGuide[] = [
     summary:
       "HTTP 메서드와 URL로 자원을 다루는 가장 널리 쓰이는 웹 API 스타일입니다.",
     bestFor: "일반 웹/모바일 앱, CRUD, 공개 API, 프론트엔드-백엔드 통신",
-    watchOut: "복잡한 실시간 양방향 통신이나 매우 강한 타입 계약에는 한계가 있습니다.",
+    watchOut: "응답 설계에 따라 불필요한 필드나 추가 요청이 생길 수 있습니다. OpenAPI로 계약을 명시할 수 있고 JSON은 필수가 아닙니다.",
     example: "GET /users, POST /orders",
     colorClass:
       "border-emerald-200 bg-emerald-50/70 dark:border-emerald-900/70 dark:bg-emerald-950/30",
@@ -147,4 +147,61 @@ export const apiStyles: ApiStyleGuide[] = [
     colorClass:
       "border-pink-200 bg-pink-50/70 dark:border-pink-900/70 dark:bg-pink-950/30",
   },
+];
+
+export const protocolComparison = [
+  { topic: "설계 중심", values: ["자원과 HTTP 메서드", "스키마에 대한 필드 선택", "서비스 메서드의 원격 호출"] },
+  { topic: "데이터·전송", values: ["JSON·XML 등 / HTTP 버전 고정 아님", "주로 JSON / 보통 HTTP", "기본적으로 Protobuf 바이너리 / HTTP/2"] },
+  { topic: "계약", values: ["OpenAPI로 명세·코드 생성 가능", "타입이 있는 GraphQL 스키마", ".proto로 메시지·서비스 정의 및 코드 생성"] },
+  { topic: "응답 선택", values: ["서버가 기본 형태 결정, 필드 선택 기능도 설계 가능", "클라이언트가 스키마 범위에서 선택", "정의된 응답 메시지 계약에 따름"] },
+  { topic: "캐싱", values: ["HTTP 캐시·ETag·CDN 활용", "쿼리·변수·권한을 고려한 캐시 설계", "애플리케이션 캐시를 주로 설계"] },
+  { topic: "스트리밍", values: ["SSE·WebSocket 등 별도 방식과 조합", "Subscription, 전송 방식은 구현에 따라 결정", "단건·서버·클라이언트·양방향 스트리밍"] },
+  { topic: "브라우저", values: ["표준 HTTP 도구와 연동 용이", "HTTP 기반 클라이언트 도구 활용", "gRPC-Web 등 연동 계층과 지원 범위 확인"] },
+];
+
+export const protocolExamples = [
+  { title: "REST · 고객 자원 조회", code: `GET /customers/123
+GET /customers/123/orders
+
+// 응답 형태와 포함 필드는 API 설계에 따라 결정
+{"id":123,"name":"민수","email":"minsu@example.com"}`, note: "필요 이상의 필드를 받으면 over-fetching, 주문을 얻기 위해 추가 요청이 필요하면 under-fetching입니다. 복합 응답이나 필드 선택 API로 개선할 수도 있습니다." },
+  { title: "GraphQL · 필요한 필드 요청", code: `query {
+  customer(id: "123") {
+    name
+    orders { id status }
+  }
+}
+
+// 응답
+{"data":{"customer":{"name":"민수","orders":[
+  {"id":"101","status":"DELIVERED"}
+]}}}`, note: "한 HTTP 요청 안에서도 resolver가 여러 DB 조회를 할 수 있습니다. 고객 100명의 주문을 각각 조회하면 1+100번이 될 수 있어 배치 조회나 요청 범위 DataLoader를 검토합니다." },
+  { title: "gRPC · 조회 계약 정의", code: `syntax = "proto3";
+
+service CustomerService {
+  rpc GetCustomer (CustomerRequest) returns (CustomerReply);
+}
+message CustomerRequest { string id = 1; }
+message CustomerReply {
+  string id = 1;
+  string name = 2;
+}`, note: "계약으로 생성한 클라이언트 stub이 원격 메서드를 호출합니다. 필드 번호와 타입의 호환성을 관리하고 deadline·오류 처리도 설계합니다." },
+];
+
+export const protocolDecisions = [
+  { title: "외부 파트너 · REST", detail: "주문 생성과 조회를 공개할 때 HTTP 호환성, 문서화, 운영 도구가 중요하면 REST를 우선 검토합니다." },
+  { title: "상품 상세 화면 · GraphQL", detail: "웹·모바일마다 상품, 리뷰, 재고의 필요한 필드가 다르면 GraphQL로 조회 형태를 유연하게 구성할 수 있습니다." },
+  { title: "내부 재고 서비스 · gRPC", detail: "정의된 계약과 코드 생성, 낮은 지연이나 스트리밍이 필요하면 gRPC를 검토하고 실제 부하로 효과를 측정합니다." },
+];
+
+export const protocolTraps = [
+  ["gRPC가 항상 더 빠른가요?", "직렬화 크기뿐 아니라 DB, 네트워크, 압축, 호출량과 구현에 좌우됩니다. 같은 조건에서 지연 시간과 처리량을 측정합니다."],
+  ["GraphQL이면 N+1이 사라지나요?", "응답 필드 선택과 DB 실행 횟수는 별개입니다. resolver의 배치 조회와 캐시 범위를 점검합니다."],
+  ["REST는 JSON 또는 HTTP/1.1만 쓰나요?", "REST는 특정 직렬화 형식이나 HTTP 버전을 강제하지 않습니다. JSON은 흔히 사용하는 표현 형식입니다."],
+  ["gRPC는 스트리밍이 되나요?", "단건 요청·응답 외에 서버 스트리밍, 클라이언트 스트리밍, 양방향 스트리밍을 지원합니다. gRPC-Web의 지원은 별도로 확인합니다."],
+  ["GraphQL은 엔드포인트가 반드시 하나인가요?", "하나의 진입점이 흔한 구성입니다. 서비스별로 여러 진입점을 둘 수도 있고, 한 진입점이 DB 하나나 쿼리 한 번을 의미하지도 않습니다."],
+  ["마이크로서비스는 모두 gRPC여야 하나요?", "클라이언트 지원, 팀의 운영 경험, 성능 요구에 따라 REST도 적합합니다. 서비스 개수만으로 결정하지 않습니다."],
+  ["GraphQL은 프론트엔드 전용인가요?", "서버 간 조회나 여러 데이터 소스 통합에도 사용할 수 있습니다. 유연한 조회가 실제로 필요한지 판단합니다."],
+  ["세 가지를 같이 써도 되나요?", "외부 REST, 화면용 GraphQL, 내부 gRPC를 조합할 수 있습니다. 프로토콜마다 관측·인증·오류 변환 비용이 생기므로 필요한 경계에 도입합니다."],
+  ["GraphQL이 더 안전한가요?", "방식 자체가 보안을 보장하지 않습니다. 인증·객체 및 필드 권한·입력 검증이 필요하고, GraphQL은 쿼리 깊이·비용과 요청량도 제한합니다."],
 ];

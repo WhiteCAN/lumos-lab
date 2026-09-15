@@ -136,7 +136,7 @@ Browser
 | 알고리즘 | `/`, `/search` |
 | 자료구조 | `/datastructures/stack`, `/datastructures/queue`, `/datastructures/heap`, `/datastructures/graph` |
 | Java 기초 | `/java/collections`, `/java/concurrency`, `/java/equality-exception`, `/java/io-string` |
-| Spring·Backend | `/sync-async`, `/transactional`, `/grpc`, `/spring-bean-di`, `/http-errors` |
+| Spring·Backend | `/sync-async`, `/transactional`, `/grpc`, `/circuit-breaker`, `/spring-bean-di`, `/http-errors` |
 | DB·성능 | `/backend/bulk-insert`, `/backend/db-index-transaction`, `/backend/redis-cache` |
 | 인증 | `/backend/security-auth` |
 | 메시징 | `/messaging/kafka`, `/messaging/kafka-config`, `/messaging/saga-outbox` |
@@ -148,6 +148,10 @@ Browser
 | 프로젝트 참고 | `/project-structure` |
 
 각 화면에는 개념 설명, 비교표, 요청 예시 또는 API 실행 UI가 포함되어 있습니다.
+
+`/api-vs-rest`에서는 REST·GraphQL·gRPC의 계약, 캐싱, 스트리밍, 요청 예시와 쇼핑몰 적용 기준을 비교합니다.
+
+`/rag/concepts`에서는 RAG 계열 개념과 Naive·Advanced·Modular·Graph·Corrective·Self·Adaptive·Agentic RAG의 흐름, 적용 상황과 평가 기준을 정리합니다.
 
 ## 환경 설정
 
@@ -198,6 +202,10 @@ npm run build
 GitHub Actions에서도 같은 백엔드 테스트와 프론트엔드 설치·lint·build를 수행합니다.
 
 ## 개발 환경 배포 구성
+
+Spring 핵심 학습은 레퍼런스의 `/spring-bean-di`에 모았습니다. Bean·DI·IoC부터 Boot 시작·자동 구성·생명주기·AOP 내부 호출 함정까지 이어서 볼 수 있습니다.
+
+레퍼런스 메뉴의 `/ci-cd`에서 커밋부터 스테이징 검증까지 실습 9개와 운영 주의점을 볼 수 있습니다. 기존 테스트 학습 화면과 연결되며, 실제 배포 실행 기능은 아닙니다. `/circuit-breaker`도 정적 개념 가이드이므로 레퍼런스에 배치합니다. 개념 실험에는 실행 결과를 확인하는 동기/비동기·트랜잭션·gRPC 화면을 둡니다.
 
 `development` 브랜치와 다음 배포 구성이 준비되어 있습니다.
 

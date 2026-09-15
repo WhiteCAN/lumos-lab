@@ -40,6 +40,8 @@ npm run dev
 - `/sync-async`
 - `/transactional`
 - `/grpc`
+- `/circuit-breaker`
+- `/ci-cd`
 - `/frontend-basics`
 - `/frontend/react`
 - `/frontend/nextjs`

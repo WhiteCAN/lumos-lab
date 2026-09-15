@@ -311,6 +311,14 @@ const data = {
           url: "/architecture",
         },
         {
+          title: "Circuit Breaker",
+          url: "/circuit-breaker",
+        },
+        {
+          title: "CI/CD",
+          url: "/ci-cd",
+        },
+        {
           title: "HTTP 에러 처리",
           url: "/http-errors",
         },

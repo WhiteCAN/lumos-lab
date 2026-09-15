@@ -94,6 +94,8 @@ RAG
   API vs REST API
   TCP vs UDP
   아키텍처
+  Circuit Breaker
+  CI/CD
   HTTP 에러 처리
   Spring Bean / DI
   테스트 기초
@@ -114,6 +116,7 @@ RAG
 - `/sync-async`: 동기 / 비동기 실험실
 - `/transactional`: `@Transactional` 실험실
 - `/grpc`: gRPC 실험실
+- `/circuit-breaker`: 장애 전파 방지, 상태 전환, Resilience4j 설정과 면접 함정 개념 정리 (정적 학습 화면)
 - `/frontend-basics`: React / Next.js 기초 레퍼런스
 - `/frontend/react`: React 기초 레퍼런스
 - `/frontend/nextjs`: Next.js 기초 레퍼런스
@@ -122,7 +125,7 @@ RAG
 - `/messaging/saga-outbox`: Saga / Outbox 패턴, 메시지 중복/유실 방지 레퍼런스
 - `/backend/redis-cache`: Redis / 캐시 / 세션 / 분산락 레퍼런스
 - `/backend/security-auth`: Security / JWT / OAuth 레퍼런스와 JWT mock 테스트
-- `/rag/concepts`: RAG / CAG / MAG / GAG 비교 레퍼런스
+- `/rag/concepts`: RAG / CAG / MAG / GAG 비교, RAG 아키텍처 8가지와 평가·선택 기준 레퍼런스
 - `/rag/documents`: RAG 문서 등록, chunking, keyword mock embedding 실험실
 - `/rag/vector-search`: RAG 벡터 검색 mock 실험실
 - `/rag/ask`: RAG 질문하기 mock 실험실
@@ -134,11 +137,12 @@ RAG
 - `/patterns/command`: Command 패턴 실험실
 - `/project-structure`: 일반 프로젝트 폴더 구조 레퍼런스
 - `/ai-concepts`: AI 핵심 개념 레퍼런스
-- `/api-vs-rest`: API / REST / gRPC / FastAPI 비교 레퍼런스
+- `/api-vs-rest`: API / REST / GraphQL / gRPC / FastAPI 비교, 요청 예시, 쇼핑몰 선택 기준과 면접 함정 레퍼런스
 - `/tcp-vs-udp`: TCP / UDP 레퍼런스
 - `/architecture`: 헥사고날 / 클린 아키텍처 / DDD 레퍼런스
+- `/ci-cd`: VERIQTA 캐러셀(표지 + 본문 10장)의 전체 흐름과 실습 9개 정리. 테스트·이미지 발행·스테이징 검증, 불변 digest와 Secret 주의점 포함. 실제 CI/CD 설정은 변경하지 않음.
 - `/http-errors`: HTTP 상태코드 / Spring 전역 예외 처리 / 프론트 에러 처리 레퍼런스
-- `/spring-bean-di`: Spring Bean / DI / IoC 레퍼런스
+- `/spring-bean-di`: Spring Bean / DI / IoC에 Boot 시작 흐름, 생명주기, 자동 구성, AOP·내부 호출 함정과 운영 점검을 보강한 레퍼런스. Spring Boot Core 캐러셀 10장 기반, 기존 메뉴·URL 유지.
 - `/testing-basics`: 단위 테스트 / 통합 테스트 / Given-When-Then 레퍼런스
 - `/tdd`: TDD 개념 / Red-Green-Refactor / JUnit 어노테이션 / 설계 주의점 레퍼런스
 - `/dto-entity-vo`: DTO / Entity / VO 차이 레퍼런스

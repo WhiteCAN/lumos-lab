@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -24,6 +25,17 @@ import {
   SearchIcon,
   ServerIcon,
 } from "lucide-react";
+
+const ragArchitectures = [
+  { name: "Naive RAG", summary: "질문에 맞는 문서를 한 번 검색해 답변의 근거로 전달하는 기본 구조입니다.", flow: ["질문", "관련 문서 검색", "컨텍스트 구성", "생성"], example: "제품 매뉴얼에서 반품 기간을 찾는 FAQ", caution: "잘못된 문서나 빠진 근거를 자동으로 교정하지 않습니다. 키워드 검색도 가능하며 벡터 DB가 필수는 아닙니다." },
+  { name: "Advanced RAG", summary: "검색 전후를 개선해 더 적절한 근거가 모델에 들어가도록 합니다.", flow: ["질문 재작성", "키워드+벡터 검색", "재순위화", "생성"], example: "약어·동의어 때문에 관련 규정을 놓치는 사내 검색", caution: "재작성으로 질문 의도가 바뀌거나 reranker 비용이 늘 수 있습니다. chunk와 메타데이터 품질부터 측정합니다." },
+  { name: "Modular RAG", summary: "질문 처리·검색·순위 조정·생성을 교체 가능한 구성 요소로 나누는 설계 관점입니다.", flow: ["질문 처리 모듈", "검색 모듈", "후처리 모듈", "생성 모듈"], example: "같은 생성기를 유지하면서 검색 엔진을 비교하는 시스템", caution: "특정 검색 알고리즘이나 품질 보증이 아닙니다. 다른 RAG 기법과 조합하며, 실제 교체 필요에 맞춰 책임을 나눕니다." },
+  { name: "Graph RAG", summary: "엔티티와 관계를 활용해 연결된 근거를 찾습니다. 위의 GAG 설명과 이어지는 개념입니다.", flow: ["질문", "관련 엔티티·관계 탐색", "근거 문서 수집", "생성"], example: "같은 공급업체에 의존하는 제품들과 장애 영향 범위 찾기", caution: "그래프 추출 오류와 구축 비용을 고려합니다. Microsoft GraphRAG는 커뮤니티 요약도 활용하므로 모든 Graph RAG를 단순 그래프 탐색으로 보면 안 됩니다." },
+  { name: "Corrective RAG · CRAG", summary: "검색 결과의 품질을 평가하고 부족하면 검색 근거를 보완합니다.", flow: ["검색", "관련성 평가", "부족하면 보완 검색", "근거 정제·생성"], example: "검색된 매뉴얼이 질문과 무관할 때 다른 근거를 찾기", caution: "원 논문은 검색 평가기의 신뢰도에 따라 행동을 선택하고 웹 검색·지식 정제를 사용합니다. 단순 재검색 루프는 아이디어를 응용한 구현입니다." },
+  { name: "Self-RAG", summary: "검색 필요성과 생성 내용의 근거·품질을 모델이 평가하도록 학습하는 기법입니다.", flow: ["검색 필요 판단", "필요 시 검색", "생성·비평", "계속 생성 또는 재검색"], example: "문장을 생성하며 근거가 충분한지 점검해야 하는 답변", caution: "원 논문은 reflection token을 학습한 모델을 사용합니다. 일반 LLM에게 스스로 검토하라는 프롬프트를 주는 것과 동일하지 않으며 자기평가가 사실성을 보장하지도 않습니다." },
+  { name: "Adaptive RAG", summary: "질문의 특성과 난이도에 따라 검색 경로와 투입 비용을 선택합니다.", flow: ["질문 분류", "검색 없음 / 단일 / 반복 검색", "선택 경로 실행", "생성"], example: "간단한 상식 질문과 여러 문서를 연결해야 하는 질문을 함께 처리", caution: "릴스는 검색 종류 선택을 강조하지만 Adaptive-RAG 논문은 질문 복잡도에 따른 검색 전략 선택을 다룹니다. 라우터 오판과 분류 비용을 평가합니다." },
+  { name: "Agentic RAG", summary: "에이전트가 목표를 나누고 검색 도구를 선택하며 근거 수집을 반복하는 접근입니다.", flow: ["계획", "검색 도구 선택", "결과 관찰·재계획", "근거 종합"], example: "여러 문서·데이터 소스를 조회해 원인을 비교하는 조사 작업", caution: "반복 횟수·토큰·시간 예산과 종료 조건을 정합니다. 검색 자료의 지시를 신뢰하지 않고 도구 권한을 제한합니다. 장기 메모리는 선택 사항입니다." },
+];
 
 const generationTypes = [
   {
@@ -197,7 +209,8 @@ export default function RagConceptsPage() {
                 <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
                   모두 LLM이 혼자 가진 파라미터 지식만 쓰지 않고 외부 지식,
                   캐시, 기억, 그래프를 붙여 답변 품질을 높이는 방식입니다.
-                  다만 무엇을 붙이는지가 다릅니다.
+                  다만 무엇을 붙이는지가 다릅니다. 이어서 RAG 아키텍처 8가지의
+                  동작과 선택 기준을 살펴봅니다.
                 </p>
               </div>
             </div>
@@ -312,15 +325,60 @@ export default function RagConceptsPage() {
             </div>
           </section>
 
+          <section id="rag-architectures" className="grid gap-4 scroll-mt-4">
+            <div className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 dark:border-sky-900/60 dark:bg-sky-950/20">
+              <h2 className="text-2xl font-bold">RAG 아키텍처 8가지</h2>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">같은 단계의 표준 분류나 성능 순위가 아닙니다. 검색 개선, 모듈 구성, 그래프 활용, 평가·제어 전략이 섞인 학습용 지도입니다. Modular 구조 안에 Advanced 검색과 Corrective 평가를 함께 둘 수도 있습니다.</p>
+            </div>
+            <div className="grid gap-4 lg:grid-cols-2">
+              {ragArchitectures.map((item, index) => (
+                <article key={item.name} className="rounded-lg border bg-card p-5 shadow-sm">
+                  <h3 className="text-lg font-semibold">{index + 1}. {item.name}</h3>
+                  <p className="mt-3 text-sm leading-6">{item.summary}</p>
+                  <Flow values={item.flow} />
+                  <p className="mt-4 text-sm leading-6"><span className="font-semibold">적용 예시 · </span>{item.example}</p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground"><span className="font-semibold">주의할 점 · </span>{item.caution}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-lg border bg-card p-5 shadow-sm">
+            <h2 className="text-lg font-semibold">어디부터 개선할까?</h2>
+            <ol className="mt-3 grid list-decimal gap-2 pl-5 text-sm leading-6">
+              <li>질문·정답·근거 문서로 평가 세트를 만들고 기본 RAG의 검색 재현율과 답변 근거 일치도를 측정합니다.</li>
+              <li>문서를 못 찾으면 chunk·메타데이터·하이브리드 검색을, 엉뚱한 문서가 앞서면 reranking을 점검합니다.</li>
+              <li>검색 실패를 감지해야 하면 Corrective, 질문별 비용 차이가 크면 Adaptive 접근을 검토합니다.</li>
+              <li>관계 연결이 핵심이면 Graph, 여러 단계의 도구 선택이 필요하면 Agentic 접근을 평가합니다.</li>
+              <li>정확도와 함께 p95 지연 시간, 검색·모델 호출 횟수, 토큰 비용을 비교합니다. 근거가 없을 때 답변을 보류하는지도 확인합니다.</li>
+            </ol>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">어떤 구조든 문서 접근 권한, 최신성, 출처 연결과 검색 자료의 프롬프트 주입 방어가 필요합니다. 복잡한 구조가 자동으로 더 나은 답변을 만들지는 않습니다.</p>
+          </section>
+
           <section className="rounded-lg border border-amber-200 bg-amber-50/45 p-4 text-sm leading-6 shadow-sm dark:border-amber-900/60 dark:bg-amber-950/20">
             <div className="flex gap-2">
               <ServerIcon className="mt-1 size-4 shrink-0 text-amber-700 dark:text-amber-300" />
               <p>
-                이 프로젝트에서 다음에 구현한다면 순서는 `RAG 기본 페이지` → `문서 등록 mock`
-                → `벡터 검색 mock` → `질문하기 mock`이 좋습니다. CAG, MAG, GAG는
-                그 다음 확장 개념으로 붙이면 됩니다.
+                현재 실험실은 키워드 기반 검색과 mock 답변으로 기본 흐름을 학습합니다.
+                <Link className="mx-1 underline underline-offset-4" href="/rag/documents">문서 등록</Link> →
+                <Link className="mx-1 underline underline-offset-4" href="/rag/vector-search">검색</Link> →
+                <Link className="mx-1 underline underline-offset-4" href="/rag/ask">질문하기</Link>에서 확인할 수 있습니다.
+                위의 8가지 아키텍처와 실제 LLM 연동은 개념 설명입니다.
               </p>
             </div>
+          </section>
+          <section className="rounded-lg border bg-card p-5 shadow-sm">
+            <h2 className="text-lg font-semibold">출처와 원 논문</h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">gauravgoyalai 릴스의 도식과 설명을 한국어로 재구성했습니다. 논문 이름이 붙은 기법은 원 자료를 함께 확인하세요.</p>
+            <ul className="mt-3 grid gap-2 text-sm">
+              {[
+                ["원본 릴스 · 8 RAG Architectures", "https://www.instagram.com/reels/Dc568T-szp-/"],
+                ["Corrective RAG 논문", "https://arxiv.org/abs/2401.15884"],
+                ["Self-RAG 논문", "https://arxiv.org/abs/2310.11511"],
+                ["Adaptive-RAG 논문", "https://aclanthology.org/2024.naacl-long.389/"],
+                ["Microsoft GraphRAG 문서", "https://microsoft.github.io/graphrag/"],
+              ].map(([label, href]) => <li key={href}><a className="underline underline-offset-4" href={href} target="_blank" rel="noreferrer">{label}</a></li>)}
+            </ul>
           </section>
         </main>
       </SidebarInset>

@@ -26,6 +26,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 - `/sync-async`: 동기와 비동기 실행 비교 실험실
 - `/transactional`: Spring `@Transactional` 커밋/롤백 실험실
 - `/grpc`: gRPC 서버/클라이언트/REST 브리지 실험실
+- `/circuit-breaker`: Circuit Breaker 상태 전환, Resilience4j 설정, Timeout·Retry 비교와 운영 주의점 개념 정리
 - `/frontend-basics`: React / Next.js 기초 참고 페이지
 - `/frontend/react`: React 기초 참고 페이지
 - `/frontend/nextjs`: Next.js 기초 참고 페이지
@@ -34,7 +35,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 - `/messaging/saga-outbox`: Saga / Outbox 패턴, 메시지 중복/유실 방지 참고 페이지
 - `/backend/redis-cache`: Redis / 캐시 / 세션 / 분산락 참고 페이지
 - `/backend/security-auth`: Spring Security / JWT / OAuth 참고 페이지와 JWT mock 테스트
-- `/rag/concepts`: RAG / CAG / MAG / GAG 비교 참고 페이지
+- `/rag/concepts`: RAG / CAG / MAG / GAG 비교와 RAG 아키텍처 8가지의 흐름·선택 기준
 - `/patterns`: 패턴 실험실 안내
 - `/patterns/strategy`: Strategy 패턴 실험실
 - `/patterns/factory`: Factory 패턴 실험실
@@ -47,9 +48,13 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 - `/datastructures/graph`: Graph / BFS / DFS 실험실
 - `/project-structure`: 일반 폴더 구조 참고 페이지
 - `/ai-concepts`: AI 핵심 개념 참고 페이지
-- `/api-vs-rest`: API와 REST API 비교 참고 페이지
+- `/api-vs-rest`: API 기본 개념, REST·GraphQL·gRPC 비교, 요청 예시, 선택 기준과 면접 함정
 - `/tcp-vs-udp`: TCP와 UDP 비교 참고 페이지
 - `/architecture`: 헥사고날 / 클린 아키텍처 / DDD 참고 페이지
+- `/ci-cd`: CI/CD 전달 흐름, 실습 9개, 이미지·보안·스테이징 검증과 현재 저장소 설정의 차이
+- `/spring-bean-di`: Bean·DI·IoC, Spring Boot 시작, 자동 구성, 생명주기, AOP 프록시와 운영 함정 (기존 레퍼런스 보강)
+
+메뉴 분류: 개념 실험에는 실행형 화면(동기/비동기·트랜잭션·gRPC)을 두고, 정적 가이드인 Circuit Breaker와 CI/CD는 레퍼런스에 둡니다. 페이지 URL은 유지합니다.
 
 RAG 메뉴는 사이드바에 자리만 잡아둔 상태입니다. 아직 `/rag` 계열 화면은 없습니다.
 
