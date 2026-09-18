@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { TechnologyIcon } from "@/components/technology-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
@@ -67,7 +68,7 @@ export default function ReactBasicsPage() {
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
           <section className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
-            <h1 className="text-3xl font-bold tracking-tight">React 기초</h1>
+            <h1 className="flex items-center gap-3 text-3xl font-bold tracking-tight"><TechnologyIcon name="react" />React 기초</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
               HTML, CSS, JavaScript를 알고 있다면 React는 컴포넌트, props, state,
               event, effect 순서로 보면 이해하기 쉽습니다.

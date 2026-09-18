@@ -137,17 +137,19 @@ Browser
 | 자료구조 | `/datastructures/stack`, `/datastructures/queue`, `/datastructures/heap`, `/datastructures/graph` |
 | Java 기초 | `/java/collections`, `/java/concurrency`, `/java/equality-exception`, `/java/io-string` |
 | Spring·Backend | `/sync-async`, `/transactional`, `/grpc`, `/circuit-breaker`, `/spring-bean-di`, `/http-errors` |
-| DB·성능 | `/backend/bulk-insert`, `/backend/db-index-transaction`, `/backend/redis-cache` |
+| DB·성능 | `/backend/bulk-insert`, `/backend/db-index-transaction`, `/backend/redis-cache`, `/backend/sharding-replica`, `/backend/caching-strategies` |
 | 인증 | `/backend/security-auth` |
 | 메시징 | `/messaging/kafka`, `/messaging/kafka-config`, `/messaging/saga-outbox` |
 | 디자인 패턴 | `/patterns`, `/patterns/strategy`, `/patterns/factory`, `/patterns/observer`, `/patterns/decorator`, `/patterns/command` |
-| RAG·AI | `/rag/concepts`, `/rag/documents`, `/rag/vector-search`, `/rag/ask`, `/ai-concepts`, `/llm-app-structure` |
+| RAG·AI | `/rag/concepts`, `/rag/architecture-comparison`, `/rag/documents`, `/rag/vector-search`, `/rag/ask`, `/ai-concepts`, `/llm-app-structure`, `/genai-project-structure`, `/ai-agent-patterns` |
 | Frontend | `/frontend-basics`, `/frontend/react`, `/frontend/nextjs` |
 | 설계·테스트 | `/architecture`, `/testing-basics`, `/tdd`, `/dto-entity-vo`, `/rest-api-design` |
 | 네트워크·API | `/api-vs-rest`, `/tcp-vs-udp` |
 | 프로젝트 참고 | `/project-structure` |
 
 각 화면에는 개념 설명, 비교표, 요청 예시 또는 API 실행 UI가 포함되어 있습니다.
+
+공통 학습 흐름은 단계별 강조와 재생 제어, 제품별 컬러 아이콘을 제공합니다. 캐시·샤딩·AI 에이전트에서는 경로를 바꿔 볼 수 있습니다. [흐름 애니메이션 가이드](docs/flow-animation.md)
 
 `/api-vs-rest`에서는 REST·GraphQL·gRPC의 계약, 캐싱, 스트리밍, 요청 예시와 쇼핑몰 적용 기준을 비교합니다.
 

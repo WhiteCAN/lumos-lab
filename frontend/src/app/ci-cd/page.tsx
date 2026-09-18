@@ -40,7 +40,7 @@ export default function CiCdPage() {
         { topic: "운영 반영", values: ["CI 자체의 필수 범위는 아님", "운영 배포 결정에 수동 승인 가능", "자동화된 정책·검증을 통과하면 반영"] },
         { topic: "핵심 증거", values: ["빌드·테스트·품질 검사 결과", "검증된 산출물과 배포 준비 상태", "배포 후 실제 서비스 상태"] },
       ]} />
-      <FlowSection title="전체 전달 흐름" steps={["커밋·PR", "빌드·테스트", "보안 검사", "아티팩트·이미지", "레지스트리", "스테이징 검증", "승인·운영 배포", "관찰·피드백"]} colorClass="bg-card" />
+      <FlowSection title="전체 전달 흐름" steps={[{ label: "커밋·PR", icon: "github" }, { label: "빌드·테스트", icon: "code" }, { label: "보안 검사", icon: "verify" }, { label: "아티팩트·이미지", icon: "docker" }, { label: "레지스트리", icon: "server" }, { label: "스테이징 검증", icon: "verify" }, { label: "승인·운영 배포", icon: "kubernetes" }, { label: "관찰·피드백", icon: "search" }]} colorClass="bg-card" />
       <section aria-labelledby="projects-title" className="rounded-lg border bg-card p-4">
         <h2 id="projects-title" className="text-xl font-semibold">작은 실습 9개로 나누기</h2>
         <p className="mt-2 text-sm text-muted-foreground">고장 내는 연습은 개인 실습 브랜치와 격리된 환경에서만 합니다.</p>

@@ -97,13 +97,14 @@ export default function SpringBeanDiPage() {
       title="Spring Boot 핵심 · Bean, DI, IoC"
       description="객체 생성과 주입부터 시작 흐름, Bean 생명주기, 자동 구성, AOP 프록시까지 연결해 봅니다. 기존 Bean·DI 설명에 Spring Boot Core 게시물 10장의 내용을 보강한 정적 레퍼런스입니다."
       icon={PackageCheckIcon}
+      brand="spring"
       colorClass="border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/20"
     >
       <ConceptGrid items={cards} />
       <ComparisonTable columns={["역할", "주로 하는 일", "이 프로젝트 예시"]} rows={rows} />
       <FlowSection
         title="Bean 생성과 주입 흐름"
-        steps={["Component Scan", "Bean 후보 발견", "생성자 의존성 확인", "필요 Bean 먼저 생성", "생성자 주입", "애플리케이션 실행"]}
+        steps={[{ label: "Component Scan", icon: "spring" }, { label: "Bean 후보 발견", icon: "search" }, { label: "생성자 의존성 확인", icon: "branch" }, { label: "필요 Bean 먼저 생성", icon: "code" }, { label: "생성자 주입", icon: "spring" }, { label: "애플리케이션 실행", icon: "server" }]}
         colorClass="border-blue-200 bg-blue-50/40 dark:border-blue-900/60 dark:bg-blue-950/20"
       />
       <section className="grid gap-4 xl:grid-cols-3">

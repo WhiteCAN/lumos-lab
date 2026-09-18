@@ -1,9 +1,11 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { FlowSection } from "@/components/flow-section";
+import { TechnologyIcon } from "@/components/technology-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AlertTriangleIcon, DatabaseIcon, KeyRoundIcon, LockKeyholeIcon, RefreshCwIcon, ServerIcon, TimerIcon } from "lucide-react";
+import { AlertTriangleIcon, KeyRoundIcon, LockKeyholeIcon, RefreshCwIcon, ServerIcon, TimerIcon } from "lucide-react";
 
 const concepts = [
   ["Cache Aside", "애플리케이션이 캐시를 먼저 보고, 없으면 DB 조회 후 캐시에 저장합니다.", "조회 성능 개선에 가장 흔합니다."],
@@ -35,7 +37,7 @@ export default function RedisCachePage() {
         <main className="flex flex-1 flex-col gap-4 p-4">
           <section className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-5 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
             <div className="flex items-start gap-3">
-              <DatabaseIcon className="mt-1 size-6 text-emerald-700 dark:text-emerald-300" />
+              <TechnologyIcon name="redis" />
               <div>
                 <h1 className="text-3xl font-bold tracking-tight">Redis / 캐시 / 세션 / 분산락</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
@@ -62,12 +64,9 @@ export default function RedisCachePage() {
               <RefreshCwIcon className="size-4 text-muted-foreground" />
               <h2 className="text-lg font-semibold">대표 흐름</h2>
             </div>
-            <div className="grid gap-3 md:grid-cols-2">
+              <div className="grid gap-3">
               {flows.map(([title, flow]) => (
-                <div key={title} className="rounded-lg border bg-white/75 p-4 dark:bg-background/45">
-                  <p className="font-semibold">{title}</p>
-                  <p className="mt-2 font-mono text-xs leading-6 text-muted-foreground">{flow}</p>
-                </div>
+                <FlowSection key={title} title={title} steps={flow.split(" -> ").map((label) => ({ label, icon: label.includes("Redis") || title === "분산락" ? "redis" : label.includes("DB") ? "database" : "server" }))} />
               ))}
             </div>
           </section>

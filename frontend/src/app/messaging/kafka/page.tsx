@@ -1,4 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { FlowSection } from "@/components/flow-section";
+import { TechnologyIcon } from "@/components/technology-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Breadcrumb,
@@ -187,6 +189,7 @@ export default function KafkaReferencePage() {
                     메시지 브로커 레퍼런스
                   </div>
                   <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
+                    <TechnologyIcon name="apachekafka" className="mr-3 align-middle" />
                     Kafka는 메시지를 어떻게 나눠 담고 읽을까?
                   </h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
@@ -227,6 +230,12 @@ export default function KafkaReferencePage() {
             </div>
           </section>
 
+          <FlowSection title="메시지 한 건의 전달 흐름" steps={[
+            { label: "Producer", icon: "server", detail: "이벤트와 키를 전달" },
+            { label: "Topic · Partition", icon: "apachekafka", detail: "선택된 파티션 로그에 저장" },
+            { label: "Consumer", icon: "server", detail: "할당된 파티션에서 읽고 처리" },
+            { label: "Offset 커밋", icon: "done", detail: "처리 위치 기록 · 정책에 따라 시점 결정" },
+          ]} />
           <section className="rounded-lg border border-cyan-200 bg-cyan-50/40 p-4 shadow-sm dark:border-cyan-900/60 dark:bg-cyan-950/20">
             <div className="mb-4 flex items-center gap-2">
               <RouteIcon className="size-4 text-muted-foreground" />

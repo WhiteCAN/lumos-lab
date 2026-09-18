@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "redis",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/redis/redis-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "4707378B190878F36F7E6E1C01FA3EE7E7884C76101809D191DDDD943A2E6BDB",
+    "modified": false
+  },
+  {
+    "slug": "react",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/react/react-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "5825B649C8C04DEC13ECF01D0182401BD0EC71789D2FA06224866D882CD1515F",
+    "modified": false
+  },
+  {
+    "slug": "spring",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/spring/spring-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "4BAE92720D27ACB7D8CDE3BED758A26AED07CD81C353F59AB379B8DD651FF973",
+    "modified": false
+  },
+  {
+    "slug": "docker",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/docker/docker-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "3FD830EA69431ED7A0B8D068CD5B34AD3F00A1A78195D50F13FF56713F2462E1",
+    "modified": false
+  },
+  {
+    "slug": "apachekafka",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/apachekafka/apachekafka-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "2505C5B688C18C8FD5DD8E888561EB7B23A56A75D291FF17E8EE18770193F3E8",
+    "modified": false
+  },
+  {
+    "slug": "postgresql",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/postgresql/postgresql-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "F220A436258ED014C512BA4F9C0DE6B9E5C2C4B55331A0A29F8C7A1A12C36443",
+    "modified": false
+  },
+  {
+    "slug": "kubernetes",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/kubernetes/kubernetes-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "FB31E4163238978201CFDE0601728EE5168B74E476C32C37739BED626FA281AE",
+    "modified": false
+  },
+  {
+    "slug": "github",
+    "provider": "Devicon",
+    "variant": "original",
+    "source": "https://raw.githubusercontent.com/devicons/devicon/7330accdbc47e2dc0c19789a48533c4a3c50fe58/icons/github/github-original.svg",
+    "revision": "7330accdbc47e2dc0c19789a48533c4a3c50fe58",
+    "sha256": "45262793DE6292206A895ED63593CDB1EAED82074173F7F4B5BDB3E427CA805A",
+    "modified": false
+  }
+]

@@ -34,8 +34,13 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 - `/messaging/kafka-config`: Kafka 설정 옵션 참고 페이지
 - `/messaging/saga-outbox`: Saga / Outbox 패턴, 메시지 중복/유실 방지 참고 페이지
 - `/backend/redis-cache`: Redis / 캐시 / 세션 / 분산락 참고 페이지
+- `/backend/sharding-replica`: 샤딩·레플리카 비교, 데이터 배치 그림, 읽기·쓰기 흐름, 복제 지연과 장애 전환 참고 페이지
+- `/backend/caching-strategies`: Cache-Aside / Write-Through 흐름·비교와 실패 시 정합성 보완
+- `/genai-project-structure`: 생성형 AI 모듈의 책임, 폴더 예시와 수집·질문 처리 경로
+- `/ai-agent-patterns`: AI 에이전트 설계 패턴 5가지, 선택 기준과 조합 예시
 - `/backend/security-auth`: Spring Security / JWT / OAuth 참고 페이지와 JWT mock 테스트
 - `/rag/concepts`: RAG / CAG / MAG / GAG 비교와 RAG 아키텍처 8가지의 흐름·선택 기준
+- `/rag/architecture-comparison`: Learnbay 게시물 기반 Classic·Graph·Agentic RAG 비교, 순차 흐름과 추가 검색 경로, 비용·선택 기준
 - `/patterns`: 패턴 실험실 안내
 - `/patterns/strategy`: Strategy 패턴 실험실
 - `/patterns/factory`: Factory 패턴 실험실
@@ -92,6 +97,8 @@ src/
 
 ## 검증 방법
 
+학습 흐름은 순차 강조·연결선 이동·재생 제어를 제공합니다. Redis·React·Spring 등의 제품 아이콘은 Devicon의 원본 SVG를 색상·형태 변경 없이 사용합니다. 사용법과 검증은 [흐름 애니메이션 가이드](../docs/flow-animation.md)를 참고합니다.
+
 ```powershell
 npm run lint
 npm run build
@@ -104,3 +111,5 @@ API 호출과 상태 변화를 브라우저에서 디버깅하기 쉽도록, 각
 백엔드 DB 연결 상태는 [http://localhost:8080/api/database/info](http://localhost:8080/api/database/info)에서 확인합니다. Supabase 프로필로 실행하면 PostgreSQL 연결 정보가 표시됩니다.
 
 다음 작업을 이어갈 때는 [작업 이어가기 가이드](../docs/continuation-guide.md)를 먼저 확인합니다.
+
+RAG 아키텍처 비교의 데이터 흐름은 데스크톱에서 세로 흐름 3열, 모바일에서 한 열로 표시합니다.

@@ -13,7 +13,9 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import type { LucideIcon } from "lucide-react";
-import { ArrowRightIcon, CheckCircle2Icon } from "lucide-react";
+import { CheckCircle2Icon } from "lucide-react";
+import { TechnologyIcon, type BrandName } from "@/components/technology-icon";
+export { FlowSection } from "@/components/flow-section";
 import type { ReactNode } from "react";
 
 type ReferencePageProps = {
@@ -22,6 +24,7 @@ type ReferencePageProps = {
   title: string;
   description: string;
   icon: LucideIcon;
+  brand?: BrandName;
   colorClass: string;
   children: ReactNode;
 };
@@ -32,6 +35,7 @@ export function ReferencePage({
   title,
   description,
   icon: Icon,
+  brand,
   colorClass,
   children,
 }: ReferencePageProps) {
@@ -57,7 +61,7 @@ export function ReferencePage({
         <main className="flex flex-1 flex-col gap-4 p-4">
           <section className={`rounded-lg border p-5 shadow-sm ${colorClass}`}>
             <div className="flex items-start gap-3">
-              <Icon className="mt-1 size-6" />
+              {brand ? <TechnologyIcon name={brand} /> : <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-background/70 text-sky-700 dark:text-sky-300"><Icon className="size-6" /></span>}
               <div>
                 <div className="inline-flex rounded-md border bg-white/75 px-3 py-1 text-sm font-medium dark:bg-background/45">
                   {label}
@@ -158,34 +162,6 @@ export function ComparisonTable({
                 {value}
               </div>
             ))}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function FlowSection({
-  title,
-  steps,
-  colorClass,
-}: {
-  title: string;
-  steps: string[];
-  colorClass: string;
-}) {
-  return (
-    <section className={`rounded-lg border p-4 shadow-sm ${colorClass}`}>
-      <h2 className="text-lg font-semibold">{title}</h2>
-      <div className="mt-4 flex flex-wrap items-center gap-2">
-        {steps.map((step, index) => (
-          <div key={`${step}-${index}`} className="flex items-center gap-2">
-            <span className="rounded-lg border bg-white/75 px-3 py-2 text-sm dark:bg-background/45">
-              {step}
-            </span>
-            {index < steps.length - 1 ? (
-              <ArrowRightIcon className="size-4 text-muted-foreground" />
-            ) : null}
           </div>
         ))}
       </div>

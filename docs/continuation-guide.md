@@ -124,8 +124,14 @@ RAG
 - `/messaging/kafka-config`: Kafka 설정 옵션 레퍼런스
 - `/messaging/saga-outbox`: Saga / Outbox 패턴, 메시지 중복/유실 방지 레퍼런스
 - `/backend/redis-cache`: Redis / 캐시 / 세션 / 분산락 레퍼런스
+- `/backend/sharding-replica`: 샤딩·레플리카 개념 비교, 데이터 배치, 읽기·쓰기 흐름과 운영 주의점 (백엔드 메뉴, API 호출 없는 정적 가이드)
+- `/backend/caching-strategies`: Instagram `DdYIumfpPYp`의 캐시 전략을 한국어로 정리하고 부분 실패·TTL·쓰기 정책을 보완한 정적 페이지 (백엔드 메뉴)
+- 공통 흐름은 CSS 기반 순차 재생과 경로 선택을 지원합니다. `FlowSection`·브랜드 아이콘 사용법과 검증은 [흐름 애니메이션 가이드](flow-animation.md)를 참고합니다. 본문 설명은 서버 컴포넌트로 유지하고 재생 영역만 클라이언트 컴포넌트입니다.
+- `/genai-project-structure`: Instagram `DcQvJsnJXYB`의 GenAI 프로젝트 책임 구분을 정리한 정적 페이지. 폴더 트리는 학습용 예시이며 현재 저장소 구조를 변경하지 않음 (레퍼런스 메뉴)
+- `/ai-agent-patterns`: Instagram `DdRObqoohGj`의 Single-shot·ReAct·Planner-executor·Reflexive·Verifier-gated 정리 (레퍼런스 메뉴)
 - `/backend/security-auth`: Security / JWT / OAuth 레퍼런스와 JWT mock 테스트
 - `/rag/concepts`: RAG / CAG / MAG / GAG 비교, RAG 아키텍처 8가지와 평가·선택 기준 레퍼런스
+- `/rag/architecture-comparison`: Learnbay 원문을 바탕으로 Classic·Graph·Agentic RAG를 비교합니다. 그래프 준비와 검색을 구분하고, 공통 FlowSection으로 순차 흐름·추가 검색 경로를 표시합니다. 출처와 비용·선택 기준을 함께 제공합니다.
 - `/rag/documents`: RAG 문서 등록, chunking, keyword mock embedding 실험실
 - `/rag/vector-search`: RAG 벡터 검색 mock 실험실
 - `/rag/ask`: RAG 질문하기 mock 실험실

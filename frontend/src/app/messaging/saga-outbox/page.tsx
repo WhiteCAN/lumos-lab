@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import { FlowSection } from "@/components/flow-section";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { ReactNode } from "react";
 import {
@@ -212,6 +213,13 @@ export default function SagaOutboxPage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <FlowSection title="Outbox 전달 흐름 · 저장과 발행의 경계" steps={[
+            { label: "주문 요청", icon: "user" },
+            { label: "주문 + Outbox 커밋", icon: "database", detail: "같은 DB 트랜잭션" },
+            { label: "Relay 발행", icon: "server", detail: "커밋된 이벤트를 전달" },
+            { label: "Kafka", icon: "apachekafka" },
+            { label: "Consumer 처리", icon: "verify", detail: "중복 이벤트는 멱등하게 처리" },
+          ]} />
           <section className="overflow-hidden rounded-lg border border-violet-200 bg-card text-card-foreground shadow-sm dark:border-violet-900/60">
             <div className="border-b border-violet-200 bg-violet-50/70 p-5 dark:border-violet-900/60 dark:bg-violet-950/25">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">

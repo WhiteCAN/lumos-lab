@@ -68,7 +68,7 @@ export default function LlmAppStructurePage() {
       <ComparisonTable columns={["역할", "예시", "좋아지는 점"]} rows={rows} />
       <FlowSection
         title="LLM 앱 요청 처리 흐름"
-        steps={["질문 수신", "의도 분류", "RAG 검색", "Tool 호출", "답변 생성", "검증", "응답"]}
+        steps={[{ label: "질문 수신", icon: "user" }, { label: "의도 분류", icon: "model" }, { label: "RAG 검색", icon: "search" }, { label: "Tool 호출", icon: "code" }, { label: "답변 생성", icon: "model" }, { label: "검증", icon: "verify" }, { label: "응답", icon: "done" }]}
         colorClass="border-sky-200 bg-sky-50/40 dark:border-sky-900/60 dark:bg-sky-950/20"
       />
       <section className="grid gap-4 xl:grid-cols-3">

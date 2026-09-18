@@ -199,6 +199,14 @@ const data = {
           url: "/backend/redis-cache",
         },
         {
+          title: "샤딩 / 레플리카",
+          url: "/backend/sharding-replica",
+        },
+        {
+          title: "Cache-Aside / Write-Through",
+          url: "/backend/caching-strategies",
+        },
+        {
           title: "Security / JWT / OAuth",
           url: "/backend/security-auth",
         },
@@ -267,6 +275,10 @@ const data = {
         {
           title: "RAG / CAG / MAG / GAG",
           url: "/rag/concepts",
+        },
+        {
+          title: "Classic / Graph / Agentic",
+          url: "/rag/architecture-comparison",
         },
         {
           title: "문서",
@@ -345,6 +357,14 @@ const data = {
         {
           title: "LLM 앱 구조",
           url: "/llm-app-structure",
+        },
+        {
+          title: "생성형 AI 프로젝트 구조",
+          url: "/genai-project-structure",
+        },
+        {
+          title: "AI 에이전트 패턴",
+          url: "/ai-agent-patterns",
         },
       ],
     },
