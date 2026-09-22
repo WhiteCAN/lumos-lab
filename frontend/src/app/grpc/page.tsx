@@ -27,6 +27,10 @@ import {
   ServerIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/grpc");
+
 type GrpcExplainResponse = {
   concept: string;
   summary: string;
@@ -82,7 +86,7 @@ export default function GrpcPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Concept Labs / gRPC</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -98,9 +102,7 @@ export default function GrpcPage() {
                   <CableIcon className="size-4" />
                   gRPC 호출 실험실
                 </div>
-                <h1 className="mt-3 text-3xl font-bold tracking-tight">
-                  REST로 누르고, 내부에서는 gRPC로 통신하기
-                </h1>
+                <h1 className="mt-3 text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
                   브라우저는 Spring REST API를 호출하고, Spring은 내부 gRPC
                   클라이언트로 9090 포트의 gRPC 서버를 호출합니다. `proto` 계약,

@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { FolderTreeIcon } from "lucide-react";
 import { CodeBlock, FlowSection, ReferencePage } from "@/components/reference-page";
 
-export const metadata: Metadata = {
-  title: "생성형 AI 프로젝트 구조 | Lumos Lab",
-  description: "LLM 클라이언트, 프롬프트, RAG, 전처리, 추론과 평가의 책임을 분리하는 프로젝트 구조를 정리합니다.",
-};
+import { getStudyMetadata } from "@/lib/study-pages";
+
+export const metadata = getStudyMetadata("/genai-project-structure");
 
 const modules = [
   ["core / llm_clients", "설정·공통 계약과 모델 공급자 연동", "모델 호출, 타임아웃, 재시도, 응답 형식을 이 경계에서 관리합니다. 업무 규칙을 특정 공급자 SDK에 직접 결합하지 않습니다."],
@@ -36,7 +34,7 @@ const tree = `genai-app/                     # 학습용 재구성 예시
 
 export default function GenaiProjectStructurePage() {
   return (
-    <ReferencePage breadcrumb="레퍼런스 / 생성형 AI 프로젝트 구조" label="GenAI · 책임과 변경 경계" title="생성형 AI 프로젝트 구조"
+    <ReferencePage pageHref="/genai-project-structure" label="GenAI · 책임과 변경 경계"
       description="모델 호출이 동작한 뒤에는 프롬프트, 검색, 전처리, API, 평가가 각자 바뀔 수 있어야 합니다. 폴더 이름보다 중요한 것은 책임의 경계와 데이터가 이동하는 흐름입니다."
       icon={FolderTreeIcon} colorClass="border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20">
       <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">원문의 핵심: 바뀌는 이유에 따라 나누기</h2><p className="mt-3 text-sm leading-6">모델 공급자를 바꾸는 일, 문서를 나누는 기준을 바꾸는 일, 프롬프트를 개선하는 일은 서로 다른 변경입니다. 이를 한 파일에서 처리하면 작은 수정도 전체 흐름에 영향을 줍니다. 원문은 모델 연동·프롬프트·RAG·전처리·추론·평가·배포의 경계를 제안합니다.</p></section>
@@ -50,7 +48,7 @@ export default function GenaiProjectStructurePage() {
         <article className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">어디를 테스트할까?</h2><ul className="mt-3 grid gap-2 text-sm leading-6"><li>전처리: 빈 문서·중복·긴 문장에서 청크와 출처가 유지되는지 확인합니다.</li><li>모델 연동: 타임아웃, 제한 응답, 잘못된 출력 스키마를 가짜 클라이언트로 재현합니다.</li><li>RAG: 고정 질문으로 필요한 근거가 검색되는지, 없는 근거를 꾸며내지 않는지 평가합니다.</li><li>API: 입력 오류와 접근 불가 문서를 차단하고 실패 응답을 명확히 반환하는지 확인합니다.</li></ul></article>
         <article className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">작게 시작하는 기준</h2><ul className="mt-3 grid gap-2 text-sm leading-6"><li>처음에는 API, 모델 호출, 프롬프트, 테스트 정도의 경계로 시작할 수 있습니다.</li><li>외부 문서가 필요한 시점에 수집·전처리·검색 모듈을 추가합니다.</li><li>실제 데이터·캐시·벡터 인덱스와 비밀값은 소스 저장소에 넣지 않습니다.</li><li>Docker 파일만으로 재현성이 완성되지는 않습니다. 의존성·모델·프롬프트·인덱스 버전도 기록합니다.</li></ul></article>
       </section>
-      <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">Lumos Lab에서 연결해서 보기</h2><p className="mt-3 text-sm leading-6">이 구조는 Python 기반 GenAI 앱을 이해하기 위한 예시이며, 현재 저장소의 폴더를 바꾸는 제안은 아닙니다. Lumos Lab의 frontend는 사용자 화면, backend는 API와 처리 흐름이라는 기존 경계를 유지합니다.</p><div className="mt-3 flex flex-wrap gap-4 text-sm"><Link className="underline underline-offset-4" href="/llm-app-structure">LLM 애플리케이션 구조</Link><Link className="underline underline-offset-4" href="/rag/concepts">RAG 개념과 아키텍처</Link><Link className="underline underline-offset-4" href="/project-structure">일반 프로젝트 구조</Link></div></section>
+      <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">Lumos Lab에서 연결해서 보기</h2><p className="mt-3 text-sm leading-6">이 구조는 Python 기반 GenAI 앱을 이해하기 위한 예시이며, 현재 저장소의 폴더를 바꾸는 제안은 아닙니다. Lumos Lab의 frontend는 사용자 화면, backend는 API와 처리 흐름이라는 기존 경계를 유지합니다.</p><div className="mt-3 flex flex-wrap gap-4 text-sm"><Link className="underline underline-offset-4" href="/llm-app-structure">LLM 애플리케이션 구조</Link><Link className="underline underline-offset-4" href="/rag/concepts">RAG·CAG·MAG·GAG 비교</Link><Link className="underline underline-offset-4" href="/project-structure">프론트엔드·백엔드 프로젝트 구조</Link></div></section>
       <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">출처</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">게시물 캡션과 도표의 책임 구분을 한국어로 정리했습니다. 폴더 트리·검증 항목·Lumos Lab 연결 설명은 학습용 재구성입니다.</p><a className="mt-3 inline-block text-sm underline underline-offset-4" href="https://www.instagram.com/reels/DcQvJsnJXYB/">원문 · gauravgoyalai의 Generative AI Project Structure</a></section>
     </ReferencePage>
   );

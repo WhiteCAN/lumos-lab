@@ -21,6 +21,10 @@ import {
   UserRoundIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/backend/security-auth");
+
 type TokenResponse = {
   accessToken: string;
   tokenType: string;
@@ -174,7 +178,7 @@ export default function SecurityAuthPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Backend / Security Auth</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -184,7 +188,7 @@ export default function SecurityAuthPage() {
             <div className="flex items-start gap-3">
               <ShieldCheckIcon className="mt-1 size-6 text-violet-700 dark:text-violet-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Spring Security / JWT / OAuth</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   로그인, JWT 발급, Bearer token 보호 API, 권한 실패, 토큰 변조,
                   OAuth callback mock을 버튼으로 호출해보는 학습 페이지입니다.

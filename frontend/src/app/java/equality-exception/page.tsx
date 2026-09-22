@@ -11,6 +11,10 @@ import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { AlertTriangleIcon, GitCompareArrowsIcon, PlayIcon } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/java/equality-exception");
+
 type EqualityResponse = {
   scenario: string;
   results: { expression: string; value: boolean; reason: string }[];
@@ -66,14 +70,14 @@ export default function EqualityExceptionPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Java 기초 / 비교 / 예외</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
           <section className="rounded-lg border border-fuchsia-200 bg-fuchsia-50/50 p-5 shadow-sm dark:border-fuchsia-900/60 dark:bg-fuchsia-950/20">
-            <h1 className="text-3xl font-bold tracking-tight">==, equals, hashCode / 예외 처리</h1>
+            <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
               자바에서 많이 헷갈리는 비교 기준과 예외 종류를 API 결과로 확인합니다.
             </p>

@@ -1,3 +1,5 @@
+import { getStudyPage } from "@/lib/study-pages";
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
@@ -19,9 +21,8 @@ export { FlowSection } from "@/components/flow-section";
 import type { ReactNode } from "react";
 
 type ReferencePageProps = {
-  breadcrumb: string;
+  pageHref: string;
   label: string;
-  title: string;
   description: string;
   icon: LucideIcon;
   brand?: BrandName;
@@ -30,27 +31,27 @@ type ReferencePageProps = {
 };
 
 export function ReferencePage({
-  breadcrumb,
+  pageHref,
   label,
-  title,
   description,
   icon: Icon,
   brand,
   colorClass,
   children,
 }: ReferencePageProps) {
+  const page = getStudyPage(pageHref);
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
         <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b px-4">
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>{breadcrumb}</BreadcrumbPage>
+                  <BreadcrumbPage>{page.category} &gt; {page.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -62,12 +63,12 @@ export function ReferencePage({
           <section className={`rounded-lg border p-5 shadow-sm ${colorClass}`}>
             <div className="flex items-start gap-3">
               {brand ? <TechnologyIcon name={brand} /> : <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-background/70 text-sky-700 dark:text-sky-300"><Icon className="size-6" /></span>}
-              <div>
+              <div className="min-w-0">
                 <div className="inline-flex rounded-md border bg-white/75 px-3 py-1 text-sm font-medium dark:bg-background/45">
                   {label}
                 </div>
-                <h1 className="mt-3 text-3xl font-bold tracking-tight">
-                  {title}
+                <h1 className="mt-3 text-3xl font-bold tracking-tight [overflow-wrap:anywhere]">
+                  {page.title}
                 </h1>
                 <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
                   {description}
@@ -75,6 +76,7 @@ export function ReferencePage({
               </div>
             </div>
           </section>
+          <PageDebugLab href={pageHref} />
           {children}
         </main>
       </SidebarInset>
@@ -158,7 +160,7 @@ export function ComparisonTable({
           >
             <div className="border-r p-3 font-medium">{row.topic}</div>
             {row.values.map((value, index) => (
-              <div key={`${row.topic}-${value}`} className={index < row.values.length - 1 ? "border-r p-3 leading-6" : "p-3 leading-6"}>
+              <div key={`${row.topic}-${columns[index]}`} className={index < row.values.length - 1 ? "border-r p-3 leading-6" : "p-3 leading-6"}>
                 {value}
               </div>
             ))}

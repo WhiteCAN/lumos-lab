@@ -28,6 +28,10 @@ import {
   RouteIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/datastructures/graph");
+
 type TraversalType = "BFS" | "DFS";
 
 type GraphEdge = {
@@ -140,7 +144,7 @@ export default function GraphPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Structures / Graph</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -156,9 +160,7 @@ export default function GraphPage() {
                   <GitBranchIcon className="size-4" />
                   Graph Traversal
                 </div>
-                <h1 className="mt-3 text-3xl font-bold tracking-tight">
-                  그래프 BFS / DFS 실험실
-                </h1>
+                <h1 className="mt-3 text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
                   간선을 입력하고 시작 노드를 정하면 백엔드에서 BFS 또는 DFS로
                   그래프를 순회합니다. BFS는 Queue, DFS는 Stack을 사용하므로

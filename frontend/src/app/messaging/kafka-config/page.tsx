@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
@@ -22,6 +23,10 @@ import {
   ShieldCheckIcon,
   ShuffleIcon,
 } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/messaging/kafka-config");
 
 const producerOptions = [
   ["key", "같은 key는 같은 파티션으로 가기 쉬워 순서 보장 단위가 됩니다."],
@@ -84,7 +89,7 @@ export default function KafkaConfigPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Messaging / Kafka 설정 옵션</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -92,11 +97,12 @@ export default function KafkaConfigPage() {
           <ThemeToggle />
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/messaging/kafka-config" />
           <section className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
             <div className="flex items-start gap-3">
               <Settings2Icon className="mt-1 size-6 text-sky-700 dark:text-sky-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Kafka 설정 옵션 레퍼런스</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   Kafka 옵션은 성능 스위치가 아니라 메시지가 어디로 가고, 언제 재처리되고,
                   어디까지 안전해지는지를 바꾸는 설계값입니다.
@@ -174,3 +180,5 @@ function OptionTable({
     </section>
   );
 }
+
+export const metadata = getStudyMetadata("/messaging/kafka-config");

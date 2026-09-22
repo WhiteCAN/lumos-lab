@@ -11,6 +11,10 @@ import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { DatabaseIcon, PlayIcon, RouteIcon, TimerIcon } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/backend/bulk-insert");
+
 type SimulationResponse = {
   mode: string;
   rowCount: number;
@@ -73,7 +77,7 @@ export default function BulkInsertPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>DB 실습 / 벌크 인서트</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -83,7 +87,7 @@ export default function BulkInsertPage() {
             <div className="flex items-start gap-3">
               <DatabaseIcon className="mt-1 size-6 text-rose-700 dark:text-rose-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Bulk Insert 실습</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   단건 insert, JDBC batch insert, DB 전용 bulk 적재는 DB 왕복 횟수와 트랜잭션 범위가 다릅니다.
                   먼저 시뮬레이션으로 감을 잡고, 실제 실행으로 현재 DB에서 시간을 확인합니다.

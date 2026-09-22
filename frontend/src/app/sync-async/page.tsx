@@ -27,6 +27,10 @@ import {
   ZapIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/sync-async");
+
 type TaskResult = {
   taskNumber: number;
   delayMillis: number;
@@ -120,7 +124,7 @@ export default function SyncAsyncPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Concept Labs / Sync vs Async</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -136,9 +140,7 @@ export default function SyncAsyncPage() {
                   <GitCompareArrowsIcon className="size-4" />
                   실행 방식 비교 실험실
                 </div>
-                <h1 className="mt-3 text-3xl font-bold tracking-tight">
-                  동기 vs 비동기
-                </h1>
+                <h1 className="mt-3 text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
                   같은 작업 목록을 백엔드에서 순차 실행과 병렬 실행으로 돌려보고,
                   실제 걸린 시간을 비교합니다. IntelliJ에서

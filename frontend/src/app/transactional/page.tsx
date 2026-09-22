@@ -28,6 +28,10 @@ import {
   ShieldCheckIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/transactional");
+
 type TransactionalScenario =
   | "NORMAL_COMMIT"
   | "RUNTIME_EXCEPTION_ROLLBACK"
@@ -172,7 +176,7 @@ export default function TransactionalPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Concept Labs / Transactional</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -188,9 +192,7 @@ export default function TransactionalPage() {
                   <ShieldCheckIcon className="size-4" />
                   Spring @Transactional 실험실
                 </div>
-                <h1 className="mt-3 text-3xl font-bold tracking-tight">
-                  커밋과 롤백을 직접 눌러서 확인하기
-                </h1>
+                <h1 className="mt-3 text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
                   H2 메모리 DB에 로그를 저장한 뒤 예외 종류별로 커밋되는지
                   롤백되는지 비교합니다. IntelliJ에서는 `TransactionalWorker`의

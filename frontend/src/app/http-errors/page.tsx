@@ -14,6 +14,8 @@ import {
   ShieldCheckIcon,
 } from "lucide-react";
 
+import { getStudyMetadata } from "@/lib/study-pages";
+
 const statusCards = [
   {
     title: "2xx Success",
@@ -64,10 +66,8 @@ public class GlobalExceptionHandler {
 
 export default function HttpErrorsPage() {
   return (
-    <ReferencePage
-      breadcrumb="Reference / HTTP Errors"
+    <ReferencePage pageHref="/http-errors"
       label="에러 처리 레퍼런스"
-      title="HTTP 상태코드와 예외 처리"
       description="REST API를 만들 때 성공, 입력 오류, 인증 실패, 권한 부족, 서버 장애를 어떤 상태코드로 표현할지 정리합니다. Spring의 전역 예외 처리와 프론트 fetch 처리까지 함께 보면 좋습니다."
       icon={FileWarningIcon}
       colorClass="border-rose-200 bg-rose-50/50 dark:border-rose-900/60 dark:bg-rose-950/20"
@@ -99,3 +99,5 @@ export default function HttpErrorsPage() {
     </ReferencePage>
   );
 }
+
+export const metadata = getStudyMetadata("/http-errors");

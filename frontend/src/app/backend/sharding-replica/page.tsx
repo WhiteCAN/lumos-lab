@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { CopyIcon, DatabaseIcon, GitBranchIcon } from "lucide-react";
 import { ConceptGrid, FlowSection, ReferencePage } from "@/components/reference-page";
 
-export const metadata: Metadata = {
-  title: "샤딩 / 레플리카 | Lumos Lab",
-  description: "샤딩과 레플리카의 차이, 데이터 배치, 읽기·쓰기 흐름과 복제 지연을 정리합니다.",
-};
+import { getStudyMetadata } from "@/lib/study-pages";
+
+export const metadata = getStudyMetadata("/backend/sharding-replica");
 
 const comparisons = [
   ["데이터 배치", "서로 다른 데이터를 샤드에 나눠 저장", "같은 데이터의 사본을 여러 노드에 저장"],
@@ -28,10 +26,8 @@ const cautions = [
 
 export default function ShardingReplicaPage() {
   return (
-    <ReferencePage
-      breadcrumb="백엔드 / 샤딩 / 레플리카"
+    <ReferencePage pageHref="/backend/sharding-replica"
       label="데이터베이스 확장과 복제"
-      title="샤딩 / 레플리카"
       description="샤딩(Sharding)은 데이터를 나누어 저장하는 방식이고, 레플리카(Replica)는 같은 데이터를 복제해 둔 사본입니다. 나누기와 복사는 서로 다른 문제를 해결하며 함께 사용할 수 있습니다."
       icon={DatabaseIcon}
       colorClass="border-indigo-200 bg-indigo-50/50 dark:border-indigo-900/60 dark:bg-indigo-950/20"
@@ -103,7 +99,7 @@ export default function ShardingReplicaPage() {
           <li><strong>장애에도 서비스를 유지해야 한다면:</strong> 복제뿐 아니라 장애 감지, 승격, 요청 전환과 복구 훈련까지 준비합니다.</li>
           <li><strong>샤딩과 파티셔닝:</strong> 파티셔닝은 데이터를 나누는 넓은 개념입니다. 한 DB 내부의 테이블 파티셔닝이 곧 여러 서버로의 샤딩을 뜻하지는 않습니다.</li>
         </ul>
-        <Link href="/backend/db-index-transaction" className="mt-4 inline-block text-sm underline underline-offset-4">함께 보기: 인덱스 / 격리수준 →</Link>
+        <Link href="/backend/db-index-transaction" className="mt-4 inline-block text-sm underline underline-offset-4">DB 인덱스·트랜잭션 격리 수준</Link>
       </section>
     </ReferencePage>
   );

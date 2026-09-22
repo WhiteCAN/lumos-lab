@@ -11,6 +11,10 @@ import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { GitBranchIcon, LockIcon, PlayIcon, WorkflowIcon } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/java/concurrency");
+
 type ConcurrencyResponse = {
   scenario: string;
   steps: string[];
@@ -45,7 +49,7 @@ export default function JavaConcurrencyPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Java 기초 / 동시성</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -55,7 +59,7 @@ export default function JavaConcurrencyPage() {
             <div className="flex items-start gap-3">
               <WorkflowIcon className="mt-1 size-6 text-cyan-700 dark:text-cyan-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Thread, Executor, CompletableFuture, synchronized</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   동시성은 “작업을 어떻게 나누고, 완료를 어떻게 모으고, 공유 자원을 어떻게 보호할지”가 핵심입니다.
                 </p>

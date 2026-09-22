@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { aiConcepts } from "@/constants/ai-concepts";
@@ -19,6 +20,10 @@ import {
   LightbulbIcon,
   SparklesIcon,
 } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/ai-concepts");
 
 const conceptColors = [
   "border-sky-200 bg-sky-50/70 dark:border-sky-900/70 dark:bg-sky-950/30",
@@ -56,7 +61,7 @@ export default function AiConceptsPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Reference / AI Concepts 2026</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -65,6 +70,7 @@ export default function AiConceptsPage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/ai-concepts" />
           <section className="overflow-hidden rounded-lg border border-sky-200 bg-card text-card-foreground shadow-sm dark:border-sky-900/60">
             <div className="border-b border-sky-200 bg-sky-50/80 p-5 dark:border-sky-900/60 dark:bg-sky-950/30">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -72,9 +78,7 @@ export default function AiConceptsPage() {
                   <div className="inline-flex rounded-md border border-sky-200 bg-white px-3 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-800 dark:bg-sky-950/60 dark:text-sky-200">
                     AI 실전 가이드 · 2026
                   </div>
-                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    2026 AI 핵심 개념 9가지
-                  </h1>
+                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">{studyPage.title}</h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                     이미지 내용을 웹페이지로 재구성한 정적 참고 페이지입니다.
                     AI 프로젝트를 만들거나 공부할 때 자주 등장하는 개념을 한
@@ -257,3 +261,5 @@ function ReasonCard({
     </div>
   );
 }
+
+export const metadata = getStudyMetadata("/ai-concepts");

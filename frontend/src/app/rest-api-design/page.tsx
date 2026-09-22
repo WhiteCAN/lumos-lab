@@ -14,6 +14,8 @@ import {
   SendIcon,
 } from "lucide-react";
 
+import { getStudyMetadata } from "@/lib/study-pages";
+
 const cards = [
   {
     title: "Resource 중심 URI",
@@ -57,10 +59,8 @@ PATCH  /api/orders/{orderId}/shipping-address`;
 
 export default function RestApiDesignPage() {
   return (
-    <ReferencePage
-      breadcrumb="Reference / REST API Design"
+    <ReferencePage pageHref="/rest-api-design"
       label="API 설계"
-      title="REST API 설계 규칙"
       description="REST API는 URI, HTTP method, status code, request/response DTO의 약속입니다. 일관된 규칙을 정해두면 프론트와 백엔드가 덜 헷갈립니다."
       icon={Globe2Icon}
       colorClass="border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20"
@@ -92,3 +92,5 @@ export default function RestApiDesignPage() {
     </ReferencePage>
   );
 }
+
+export const metadata = getStudyMetadata("/rest-api-design");

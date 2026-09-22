@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import type { ReactNode } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -37,6 +38,10 @@ import {
   TrophyIcon,
 } from "lucide-react";
 
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/project-structure");
+
 export default function ProjectStructurePage() {
   return (
     <SidebarProvider>
@@ -49,7 +54,7 @@ export default function ProjectStructurePage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Reference / Folder Structure</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -58,6 +63,7 @@ export default function ProjectStructurePage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/project-structure" />
           <section className="rounded-lg border border-blue-200 bg-blue-50/60 p-5 text-card-foreground shadow-sm dark:border-blue-900/60 dark:bg-blue-950/20">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
@@ -65,9 +71,7 @@ export default function ProjectStructurePage() {
                   <FolderTreeIcon className="size-4" />
                   이미지 내용을 웹페이지로 옮긴 일반 폴더 구조 가이드
                 </div>
-                <h1 className="mt-2 text-3xl font-semibold tracking-tight">
-                  프론트엔드 & 백엔드 폴더 구조
-                </h1>
+                <h1 className="mt-2 text-3xl font-semibold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
                   특정 프로젝트 설명이 아니라, 새 프로젝트를 만들 때 참고하는
                   일반적인 구조 예시입니다. React, Next.js, Vue 같은 프론트엔드와
@@ -263,3 +267,5 @@ function Checklist({ items }: { items: string[] }) {
     </ul>
   );
 }
+
+export const metadata = getStudyMetadata("/project-structure");

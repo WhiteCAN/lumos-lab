@@ -13,6 +13,8 @@ import {
   MicroscopeIcon,
 } from "lucide-react";
 
+import { getStudyMetadata } from "@/lib/study-pages";
+
 const cards = [
   {
     title: "Unit Test",
@@ -57,10 +59,8 @@ void searchReturnsTopKChunks() {
 
 export default function TestingBasicsPage() {
   return (
-    <ReferencePage
-      breadcrumb="Reference / Testing Basics"
+    <ReferencePage pageHref="/testing-basics"
       label="테스트 기초"
-      title="단위 테스트, 통합 테스트, Given-When-Then"
       description="테스트는 코드를 고정하는 안전장치이자 학습용 디버깅 도구입니다. 작은 서비스 테스트부터 시작해 Controller와 UI 흐름으로 넓혀가면 좋습니다."
       icon={ListChecksIcon}
       colorClass="border-blue-200 bg-blue-50/50 dark:border-blue-900/60 dark:bg-blue-950/20"
@@ -88,3 +88,5 @@ export default function TestingBasicsPage() {
     </ReferencePage>
   );
 }
+
+export const metadata = getStudyMetadata("/testing-basics");

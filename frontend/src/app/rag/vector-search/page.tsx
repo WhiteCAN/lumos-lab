@@ -12,6 +12,10 @@ import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { AlertTriangleIcon, ArrowRightIcon, BarChart3Icon, PlayIcon, SearchIcon } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/rag/vector-search");
+
 type RagSearchHit = {
   documentId: number;
   title: string;
@@ -68,7 +72,7 @@ export default function RagVectorSearchPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>RAG / 벡터 검색</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -78,7 +82,8 @@ export default function RagVectorSearchPage() {
             <div className="flex items-start gap-3">
               <SearchIcon className="mt-1 size-6 text-violet-700 dark:text-violet-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Vector Search mock</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
+                <p className="mt-2"><span className="rounded-md bg-amber-100 px-2 py-1 text-xs font-medium text-amber-950 dark:bg-amber-950 dark:text-amber-200">모의 실습</span></p>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   실제 embedding 대신 keyword 겹침 점수로 topK chunk를 찾습니다.
                   브레이크포인트를 걸면 query → keyword → chunk score → topK 선택 흐름을 따라갈 수 있습니다.

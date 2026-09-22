@@ -26,6 +26,10 @@ import {
   PlayIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/");
+
 type SortType = "BUBBLE" | "SELECTION" | "INSERTION" | "QUICK" | "MERGE" | "HEAP";
 
 type SortResponse = {
@@ -203,7 +207,7 @@ export default function Home() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Algorithms / Sort Lab</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -219,9 +223,7 @@ export default function Home() {
                   <ChartNoAxesColumnIncreasingIcon className="size-4" />
                   Spring Boot Strategy Pattern
                 </div>
-                <h1 className="mt-2 text-2xl font-semibold tracking-tight">
-                  정렬 알고리즘 실험실
-                </h1>
+                <h1 className="mt-2 text-2xl font-semibold tracking-tight">{studyPage.title}</h1>
               </div>
               <div className="rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground">
                 API: POST /api/algorithms/sort

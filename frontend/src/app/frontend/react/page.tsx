@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { TechnologyIcon } from "@/components/technology-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -5,6 +6,10 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/co
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { BoxesIcon, BracesIcon, CheckCircle2Icon, ComponentIcon, FileCode2Icon, MousePointerClickIcon, RefreshCwIcon } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/frontend/react");
 
 const concepts = [
   {
@@ -62,13 +67,14 @@ export default function ReactBasicsPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Frontend / React 기초</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/frontend/react" />
           <section className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
-            <h1 className="flex items-center gap-3 text-3xl font-bold tracking-tight"><TechnologyIcon name="react" />React 기초</h1>
+            <h1 className="flex items-center gap-3 text-3xl font-bold tracking-tight"><TechnologyIcon name="react" />{studyPage.title}</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
               HTML, CSS, JavaScript를 알고 있다면 React는 컴포넌트, props, state,
               event, effect 순서로 보면 이해하기 쉽습니다.
@@ -107,3 +113,5 @@ export default function ReactBasicsPage() {
     </SidebarProvider>
   );
 }
+
+export const metadata = getStudyMetadata("/frontend/react");

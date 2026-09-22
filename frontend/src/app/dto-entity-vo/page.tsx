@@ -14,6 +14,8 @@ import {
   ScaleIcon,
 } from "lucide-react";
 
+import { getStudyMetadata } from "@/lib/study-pages";
+
 const cards = [
   {
     title: "DTO",
@@ -67,10 +69,8 @@ public record Money(long amount) {
 
 export default function DtoEntityVoPage() {
   return (
-    <ReferencePage
-      breadcrumb="Reference / DTO Entity VO"
+    <ReferencePage pageHref="/dto-entity-vo"
       label="객체 모델링"
-      title="DTO, Entity, VO 차이"
       description="Spring 프로젝트에서 Request record, JPA Entity, 도메인 값 객체가 섞이기 쉽습니다. 각 객체가 맡는 책임을 분리하면 API와 DB 변경에 덜 흔들립니다."
       icon={BoxesIcon}
       colorClass="border-amber-200 bg-amber-50/50 dark:border-amber-900/60 dark:bg-amber-950/20"
@@ -102,3 +102,5 @@ export default function DtoEntityVoPage() {
     </ReferencePage>
   );
 }
+
+export const metadata = getStudyMetadata("/dto-entity-vo");

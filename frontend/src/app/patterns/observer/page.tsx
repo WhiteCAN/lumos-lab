@@ -1,5 +1,7 @@
 "use client";
 
+import { BookPatternContent } from "@/components/book-pattern-content";
+
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -11,6 +13,10 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/co
 import { API_BASE_URL } from "@/constants/api";
 import type { ApiResponse } from "@/types/api";
 import { BellRingIcon, PlayIcon } from "lucide-react";
+
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/patterns/observer");
 
 type ObserverResponse = {
   title: string;
@@ -56,7 +62,7 @@ export default function ObserverPatternPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Patterns / Observer</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -66,7 +72,7 @@ export default function ObserverPatternPage() {
               <BellRingIcon className="size-4" />
               Observer Pattern
             </div>
-            <h1 className="mt-3 text-3xl font-bold">옵저버 패턴 실험실</h1>
+            <h1 className="mt-3 text-3xl font-bold">{studyPage.title}</h1>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               Publisher의 이벤트가 여러 Subscriber에게 전파되는 흐름을 봅니다.
             </p>
@@ -94,6 +100,7 @@ export default function ObserverPatternPage() {
               <div className="flex min-h-[420px] items-center justify-center text-muted-foreground">실행 결과가 여기에 표시됩니다.</div>
             )}
           </section>
+          <BookPatternContent slug="observer" />
         </main>
       </SidebarInset>
     </SidebarProvider>

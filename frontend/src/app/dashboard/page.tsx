@@ -53,3 +53,5 @@ export default function Page() {
     </SidebarProvider>
   )
 }
+
+export const metadata = { title: "대시보드 | Lumos Lab" };

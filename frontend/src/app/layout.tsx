@@ -1,3 +1,4 @@
+import { getStudyMetadata } from "@/lib/study-pages";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -14,10 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Lumos Lab",
-  description: "Spring Boot와 Next.js로 다양한 기술을 실험하는 학습 공간",
-};
+export const metadata: Metadata = getStudyMetadata("/");
 
 export default function RootLayout({
   children,
