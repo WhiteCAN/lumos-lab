@@ -225,7 +225,7 @@ POST   http://localhost:8080/api/rag/ask
 
 ### Supabase / CRUD / JPA
 
-지금은 보류 상태입니다. 시작할 때는 [DB / CRUD / JPA 관계 매핑 가이드](future-db-crud-jpa.md)를 먼저 봅니다.
+개발계 DB는 기존 Lumos MariaDB의 전용 `LUMOS_LAB` 스키마로 연결합니다. 로컬은 H2를 유지하며 환경 구분과 실행·Secret·검증 절차는 [로컬 및 개발계 DB 설정](database-environments.md)을 봅니다. Supabase 프로필은 선택 기능으로 유지합니다. 추가 CRUD·관계 매핑 학습 확장은 [DB / CRUD / JPA 관계 매핑 가이드](future-db-crud-jpa.md)를 참고합니다.
 
 ## 로그 파일 주의
 

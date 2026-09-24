@@ -18,7 +18,11 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
+  verify:
+    uses: ./.github/workflows/ci.yml
+
   publish-backend:
+    needs: verify
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,6 +47,7 @@ jobs:
           cache-to: type=gha,mode=max,scope=lumos-lab-backend
 
   publish-frontend:
+    needs: verify
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

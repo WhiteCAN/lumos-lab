@@ -167,21 +167,25 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 
 기본값도 `http://localhost:8080`이므로 일반적인 로컬 실행에서는 추가 변경이 필요하지 않습니다.
 
-### Supabase PostgreSQL 사용
+### 백엔드 로컬 / 개발계
 
-Supabase는 선택 사항입니다. `backend/.env.example`을 참고해 환경변수를 설정한 뒤 `supabase` 프로필로 실행합니다.
+기본 프로필은 `local`이며 별도 DB 없이 H2 메모리 DB로 실행합니다. 개발계는 `dev` 프로필로 기존 Lumos MariaDB의 전용 `LUMOS_LAB` 스키마에 연결합니다.
+
+`backend/.env.example`은 변수 안내용이며 Spring Boot가 `.env`를 자동으로 읽지는 않습니다. 실제 값은 실행 환경변수 또는 Kubernetes Secret으로 전달합니다.
 
 ```powershell
 Set-Location backend
-$env:SPRING_PROFILES_ACTIVE = "supabase"
-$env:SUPABASE_DB_URL = "jdbc:postgresql://..."
-$env:SUPABASE_DB_USERNAME = "postgres.project-ref"
-$env:SUPABASE_DB_PASSWORD = "your-password"
+$env:SPRING_PROFILES_ACTIVE = "dev"
+$env:LUMOS_LAB_DB_URL = "jdbc:mariadb://your-lumos-db-host:3306/LUMOS_LAB?connectTimeout=5000&socketTimeout=30000"
+$env:LUMOS_LAB_DB_USERNAME = "your-database-user"
+$env:LUMOS_LAB_DB_PASSWORD = "your-password"
 $env:LUMOS_LAB_JWT_SECRET = "change-this-secret"
 .\gradlew.bat bootRun
 ```
 
-비밀번호와 JWT 비밀값이 포함된 `.env` 파일은 Git에 커밋하지 않습니다.
+비밀번호와 JWT 비밀값이 포함된 `.env` 파일은 Git에 커밋하지 않습니다. 개발계는 시작 시 DB 스키마를 검증하며 자동 변경하지 않습니다. 초기 테이블은 `backend/db/mariadb/001-lumos-lab.sql`로 준비합니다.
+
+상세 실행·Secret·검증 절차는 [로컬 및 개발계 DB 설정](docs/database-environments.md)을 참고합니다. 기존 `supabase` 프로필은 선택 사용을 위해 유지하지만 개발계 배포에서는 사용하지 않습니다.
 
 ## 검증
 
@@ -217,7 +221,7 @@ Spring 핵심 학습은 레퍼런스의 `/spring-bean-di`에 모았습니다. Be
 - Argo CD Application: `backend/argocd/dev`, `frontend/argocd/dev`
 - 개발 도메인: `lab.dev.lumosgraphy.com`, `api.lab.dev.lumosgraphy.com`
 
-실제 개발 서버 배포에는 DNS, GHCR 접근 권한, Kubernetes Secret, Argo CD Application 등록이 별도로 필요합니다. DB는 서버에 직접 설치하지 않고 Supabase 접속 정보를 Secret으로 주입합니다.
+실제 개발 서버 배포에는 DNS, GHCR 접근 권한, Kubernetes Secret, Argo CD Application 등록이 별도로 필요합니다. DB는 기존 Lumos MariaDB의 `LUMOS_LAB`을 사용하며 접속 정보는 `lumos-lab-backend-secret`으로 주입합니다. 개발계 DB 계정은 가능하면 `LUMOS_LAB`에만 권한을 부여한 전용 계정을 사용합니다.
 
 ## 문서
 

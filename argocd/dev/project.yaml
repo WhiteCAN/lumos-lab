@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: lumos-lab
+  namespace: argocd
+spec:
+  description: Lumos Lab 개발계
+  sourceRepos:
+    - https://github.com/WhiteCAN/lumos-lab.git
+  destinations:
+    - namespace: lumos-lab-dev
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace

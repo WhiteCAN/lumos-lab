@@ -10,7 +10,7 @@ metadata:
     argocd-image-updater.argoproj.io/lumos-lab-frontend.pull-secret: pullsecret:argocd/ghcr-secret
     argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
-  project: default
+  project: lumos-lab
   source:
     repoURL: https://github.com/WhiteCAN/lumos-lab.git
     targetRevision: development

@@ -28,7 +28,7 @@ spec:
               containerPort: 9090
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: supabase
+              value: dev
             - name: APP_CORS_ALLOWED_ORIGINS
               value: https://lab.dev.lumosgraphy.com
           envFrom:
