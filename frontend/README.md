@@ -6,6 +6,8 @@ Next.js, React, TypeScript, Tailwind CSS, shadcn/ui를 공부하기 위한 프�
 
 2026-09-24에 Next.js와 eslint-config-next를 16.3.6으로 맞추고, 취약점이 보고된 하위 의존성을 갱신했습니다. `npm ci` 후 `npm audit`, `npm run test:team-navigation`, `npm run lint`, `npm run build`로 점검합니다. 취약점 데이터는 바뀔 수 있으므로 배포 전 다시 검사합니다.
 
+잠금 파일은 CI와 동일한 Node.js 22 / npm 10.9.8 기준으로 관리합니다. 다른 npm 버전으로 갱신했다면 `npx --yes npm@10.9.8 install --package-lock-only --ignore-scripts` 후 `npx --yes npm@10.9.8 ci --dry-run --ignore-scripts`로 CI 호환성을 확인합니다.
+
 ## 공통 팀 전환
 
 공통 순서는 Lumos Photo (`Alt+1`), Lumos Lab (`Alt+2`), Lumos Admin (`Alt+3`)입니다. Lab은 아직 로그인 연동이 없으므로 Photo와 Lab만 표시하고 `Alt+3`도 무시합니다. 두 사이트를 새 탭으로 열며 현재 페이지는 Lumos Lab 표시를 유지합니다. 입력 중·키 반복·IME 조합 중에는 단축키가 동작하지 않습니다. `npm run test:team-navigation`으로 이동 대상과 단축키 보호 동작을 검증합니다. 로그인은 [JWT 인증 학습 과제](../docs/future-jwt-auth.md)로 남깁니다.
