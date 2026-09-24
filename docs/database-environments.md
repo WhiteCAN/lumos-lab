@@ -18,7 +18,7 @@
 - 기존 `LMB`, `LMC`, `LMP`, `LMR`, `LMU`, `LMV`의 테이블이나 권한은 변경하지 않았습니다.
 - 초기 연결 검증 후 배포용 전용 계정 `lumos_lab_dev`를 생성했습니다. `LUMOS_LAB`에만 `SELECT/INSERT/UPDATE/DELETE/CREATE`를 부여했으며 기존 `LMP` 접근 거부를 확인했습니다.
 - DB 연결 도구의 읽기 전용 설정은 생성 작업 동안만 해제하고 다시 활성화했습니다.
-- `lumos-lab-dev` 네임스페이스에 DB/JWT Secret과 GHCR pull Secret을 반영했습니다. 실제 값은 저장소에 저장하지 않습니다. Argo CD 동기화 및 서비스 검증 결과는 후속 배포 기록을 참고합니다.
+- `lumos-lab-dev` 네임스페이스에 DB/JWT Secret과 GHCR pull Secret을 반영했습니다. 실제 값은 저장소에 저장하지 않습니다. Argo CD 동기화와 HTTPS·DB·gRPC 검증을 완료했습니다. 상세 결과는 [개발계 배포 기록](development-deployment-2026-09-24.md)을 참고합니다.
 
 ## 초기 스키마
 
