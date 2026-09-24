@@ -6,6 +6,7 @@ import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
+import { TEAM_LINKS } from "@/lib/team-navigation"
 import {
   Sidebar,
   SidebarContent,
@@ -23,6 +24,8 @@ import {
   DatabaseIcon,
   FolderTreeIcon,
   GalleryVerticalEndIcon,
+  ShieldCheckIcon,
+  BookOpenCheckIcon,
   GitBranchIcon,
   NetworkIcon,
   RouteIcon,
@@ -41,12 +44,16 @@ const data = {
   },
   teams: [
     {
-      name: "Lumos Lab",
-      logo: (
-        <GalleryVerticalEndIcon
-        />
-      ),
-      plan: "Spring + Next",
+      ...TEAM_LINKS.lumosGraphy,
+      logo: <GalleryVerticalEndIcon />,
+    },
+    {
+      ...TEAM_LINKS.lumosLab,
+      logo: <BookOpenCheckIcon />,
+    },
+    {
+      ...TEAM_LINKS.lumosAdmin,
+      logo: <ShieldCheckIcon />,
     },
   ],
   navMain: [

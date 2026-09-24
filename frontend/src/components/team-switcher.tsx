@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { getVisibleTeams, handleTeamShortcut, openTeamLink } from "@/lib/team-navigation"
 
 import {
   DropdownMenu,
@@ -27,10 +28,19 @@ export function TeamSwitcher({
     name: string
     logo: React.ReactNode
     plan: string
+    url: string
+    adminOnly?: boolean
   }[]
 }) {
   const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const activeTeam = teams.find(team => team.name === "Lumos Lab")
+  // 로그인 연동 전에는 관리자 여부를 확인할 수 없으므로 공개 팀만 표시합니다.
+  const visibleTeams: typeof teams = getVisibleTeams(teams)
+  React.useEffect(() => {
+    const handler = (event: KeyboardEvent) => handleTeamShortcut(event, getVisibleTeams(teams))
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [teams])
   if (!activeTeam) {
     return null
   }
@@ -65,17 +75,19 @@ export function TeamSwitcher({
               <DropdownMenuLabel className="text-xs text-muted-foreground">
                 Teams
               </DropdownMenuLabel>
-              {teams.map((team, index) => (
+              {visibleTeams.map((team, index) => (
                 <DropdownMenuItem
                   key={team.name}
-                  onClick={() => setActiveTeam(team)}
+                  onClick={() => openTeamLink(team)}
+                  aria-label={`${team.name} (새 탭)`}
+                  aria-keyshortcuts={`Alt+${index + 1}`}
                   className="gap-2 p-2"
                 >
                   <div className="flex size-6 items-center justify-center rounded-md border">
                     {team.logo}
                   </div>
                   {team.name}
-                  <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                  <DropdownMenuShortcut>Alt+{index + 1}</DropdownMenuShortcut>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuGroup>

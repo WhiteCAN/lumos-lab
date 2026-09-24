@@ -2,6 +2,10 @@
 
 Next.js, React, TypeScript, Tailwind CSS, shadcn/ui를 공부하기 위한 프론트엔드입니다.
 
+## 공통 팀 전환
+
+공통 순서는 Lumos Photo (`Alt+1`), Lumos Lab (`Alt+2`), Lumos Admin (`Alt+3`)입니다. Lab은 아직 로그인 연동이 없으므로 Photo와 Lab만 표시하고 `Alt+3`도 무시합니다. 두 사이트를 새 탭으로 열며 현재 페이지는 Lumos Lab 표시를 유지합니다. 입력 중·키 반복·IME 조합 중에는 단축키가 동작하지 않습니다. `npm run test:team-navigation`으로 이동 대상과 단축키 보호 동작을 검증합니다. 로그인은 [JWT 인증 학습 과제](../docs/future-jwt-auth.md)로 남깁니다.
+
 ## 실행 방법
 
 ```powershell

@@ -6,6 +6,8 @@
 
 Spring Boot API와 Next.js 화면을 함께 실행하면서 Java 자료구조, 알고리즘, 디자인 패턴, Spring 개념, React/Next.js 라우팅을 디버깅으로 공부합니다.
 
+후속 과제: [실제 로그인과 JWT 액세스·리프레시 토큰 학습](future-jwt-auth.md). 로그인 연동 전까지 Lab의 Admin 팀 메뉴와 `Alt+3`는 비활성화합니다.
+
 ## 실행 주소
 
 - Frontend: [http://localhost:3000](http://localhost:3000)
