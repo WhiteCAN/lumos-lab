@@ -155,6 +155,8 @@ Browser
 
 `/rag/concepts`에서는 RAG 계열 개념과 Naive·Advanced·Modular·Graph·Corrective·Self·Adaptive·Agentic RAG의 흐름, 적용 상황과 평가 기준을 정리합니다.
 
+`/genai-project-structure`에서는 생성형 AI 프로젝트의 13개 영역, 대표 파일과 책임 경계, 질문 처리·오류 예시, Recall·MRR와 답변 근거 충실도를 설명합니다. 첨부 도표를 바탕으로 한 학습용 구조이며 현재 저장소의 폴더 구성을 변경하지 않습니다.
+
 ## 환경 설정
 
 ### 프론트엔드 API 주소
