@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FolderTreeIcon } from "lucide-react";
-import { CodeBlock, FlowSection, ReferencePage } from "@/components/reference-page";
+import { FlowSection, ReferencePage } from "@/components/reference-page";
 
 export const metadata: Metadata = {
   title: "생성형 AI 프로젝트 구조 | Lumos Lab",
@@ -24,26 +24,29 @@ const modules = [
   ["루트 파일", "저장소와 실행 환경", ".gitignore는 비밀값·생성 데이터를 제외하고, requirements.txt는 Python 의존성을 명시합니다. Dockerfile은 이미지 빌드, docker-compose.yml은 앱과 저장소 등 여러 서비스의 실행 구성을 담당합니다."],
 ];
 
-const tree = `genai-app/                     # 학습용 재구성 예시
-├─ config/                     # 비밀값을 제외한 설정
-├─ data/                       # cache/ · embeddings/ · vector_db/
+const tree = `genai-app/
+├─ config/                 01
+├─ data/                   02
+│  ├─ cache/
+│  ├─ embeddings/
+│  └─ vector_db/
 ├─ src/
-│  ├─ core/                    # base_llm.py · model_registry.py
-│  ├─ llm_clients/             # 모델 공급자 연동
-│  ├─ prompts/                 # 버전 관리하는 템플릿
-│  ├─ processing/              # 정제·청크 분할
-│  ├─ rag/                     # 수집·검색·답변 조율
-│  ├─ inference/               # 모델 실행·생성 옵션 처리
-│  ├─ schemas/                 # 입력·출력 데이터 계약
-│  └─ evaluation/              # 검색 지표·근거 충실도 평가
-├─ tests/                      # 단위·통합·계약 테스트
-├─ scripts/                    # 수집·인덱스 생성 등 작업
-├─ docs/                       # 실행 방법과 설계 결정
-├─ .env.example                # 환경변수 이름과 예시만
-├─ .gitignore                  # 비밀값·생성 데이터 제외
-├─ requirements.txt            # Python 의존성
-├─ docker-compose.yml          # 필요할 때 여러 서비스 실행
-└─ Dockerfile                  # 필요할 때 재현 가능한 실행 환경`;
+│  ├─ core/                03
+│  ├─ llm_clients/         04
+│  ├─ prompts/             05
+│  ├─ rag/                 06
+│  ├─ processing/          07
+│  ├─ inference/           08
+│  ├─ schemas/             09
+│  └─ evaluation/          10
+├─ scripts/                11
+├─ docs/                   12
+├─ .gitignore              13
+├─ requirements.txt        13
+├─ docker-compose.yml      13
+├─ Dockerfile              13
+├─ .env.example
+└─ tests/`;
 
 export default function GenaiProjectStructurePage() {
   return (
@@ -51,10 +54,26 @@ export default function GenaiProjectStructurePage() {
       description="모델 호출이 동작한 뒤에는 프롬프트, 검색, 전처리, API, 평가가 각자 바뀔 수 있어야 합니다. 폴더 이름보다 중요한 것은 책임의 경계와 데이터가 이동하는 흐름입니다."
       icon={FolderTreeIcon} colorClass="border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20">
       <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">원문의 핵심: 바뀌는 이유에 따라 나누기</h2><p className="mt-3 text-sm leading-6">모델 공급자를 바꾸는 일, 문서를 나누는 기준을 바꾸는 일, 프롬프트를 개선하는 일은 서로 다른 변경입니다. 이를 한 파일에서 처리하면 작은 수정도 전체 흐름에 영향을 줍니다. 원문은 모델 연동·프롬프트·RAG·전처리·추론·평가·배포의 경계를 제안합니다.</p></section>
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3" aria-label="모듈별 책임">{modules.map(([name, title, text]) => (
-        <article key={name} className="rounded-lg border bg-card p-4 shadow-sm"><p className="text-xs font-medium text-sky-700 dark:text-sky-300">{name}</p><h2 className="mt-2 text-lg font-semibold">{title}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p></article>
-      ))}</section>
-      <CodeBlock title="폴더 지도 · 원문을 바탕으로 재구성한 예시" code={tree} />
+      <div className="grid min-w-0 items-start gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+        <section className="min-w-0 rounded-lg border bg-card p-4 shadow-sm lg:sticky lg:top-4" aria-label="폴더 구조 예시">
+          <h2 className="text-lg font-semibold">폴더 구조 예시</h2>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">번호를 따라 각 폴더의 역할을 확인하세요.</p>
+          <pre className="mt-4 max-h-[65vh] overflow-auto rounded-lg border bg-background p-4 text-xs leading-6" tabIndex={0} aria-label="번호가 표시된 폴더 트리"><code>{tree}</code></pre>
+          <p className="mt-3 text-xs leading-5 text-muted-foreground">학습용 재구성입니다. 추가한 .env.example에는 환경변수 이름·예시만, tests/에는 단위·통합·계약 테스트를 둡니다.</p>
+        </section>
+        <section className="grid min-w-0 gap-3" aria-label="모듈별 책임">{modules.map(([name, title, text], index) => (
+          <article key={name} className="min-w-0 rounded-lg border bg-card p-4 shadow-sm">
+            <div className="flex items-start gap-3">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sky-100 text-xs font-semibold text-sky-800 dark:bg-sky-950 dark:text-sky-200">{String(index + 1).padStart(2, "0")}</span>
+              <div className="min-w-0">
+                <p className="break-words text-xs font-medium text-sky-700 dark:text-sky-300">{name}</p>
+                <h2 className="mt-1 text-base font-semibold">{title}</h2>
+              </div>
+            </div>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground [overflow-wrap:anywhere]">{text}</p>
+          </article>
+        ))}</section>
+      </div>
       <section className="rounded-lg border bg-card p-5 shadow-sm">
         <h2 className="text-lg font-semibold">헷갈리는 경계 · 작업 순서와 모델 호출은 다릅니다</h2>
         <p className="mt-3 text-sm leading-6">rag/ingestion.py는 문서 읽기 → processing의 정제·분할 → 임베딩 → vector_store.py의 저장을 연결합니다. retriever.py는 질문에 맞는 근거를 찾고, answer.py는 검색 결과와 prompts/templates.py를 조합한 뒤 inference를 호출합니다. processing은 검색이나 답변 생성을 직접 맡지 않습니다.</p>

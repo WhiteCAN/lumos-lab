@@ -46,7 +46,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 - `/backend/redis-cache`: Redis / 캐시 / 세션 / 분산락 참고 페이지
 - `/backend/sharding-replica`: 샤딩·레플리카 비교, 데이터 배치 그림, 읽기·쓰기 흐름, 복제 지연과 장애 전환 참고 페이지
 - `/backend/caching-strategies`: Cache-Aside / Write-Through 흐름·비교와 실패 시 정합성 보완
-- `/genai-project-structure`: 생성형 AI 프로젝트 13개 영역의 책임과 대표 파일, 수집·질문 처리 경로, 요청·오류 예시와 검색·답변 평가 기준
+- `/genai-project-structure`: 생성형 AI 프로젝트 13개 영역의 책임과 대표 파일, 수집·질문 처리 경로, 요청·오류 예시와 검색·답변 평가 기준. 데스크톱은 번호로 연결한 폴더 트리·설명을 좌우 배치하고 트리를 스크롤 중 고정하며, 모바일은 세로로 표시합니다.
 - `/ai-agent-patterns`: AI 에이전트 설계 패턴 5가지, 선택 기준과 조합 예시
 - `/backend/security-auth`: Spring Security / JWT / OAuth 참고 페이지와 JWT mock 테스트
 - `/rag/concepts`: RAG / CAG / MAG / GAG 비교와 RAG 아키텍처 8가지의 흐름·선택 기준
