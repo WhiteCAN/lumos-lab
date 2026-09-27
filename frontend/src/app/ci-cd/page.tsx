@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { GitBranchIcon } from "lucide-react";
 import { ComparisonTable, FlowSection, ReferencePage } from "@/components/reference-page";
 
-export const metadata: Metadata = {
-  title: "CI/CD | Lumos Lab",
-  description: "커밋부터 테스트, 이미지 발행, 스테이징 배포와 운영 검증까지의 학습 가이드",
-};
+import { getStudyMetadata } from "@/lib/study-pages";
+
+export const metadata = getStudyMetadata("/ci-cd");
 
 const projects = [
   { title: "1. 첫 CI 파이프라인", goal: "커밋을 자동으로 빌드하고 실패 원인을 찾습니다.", tasks: "이벤트 → workflow → job → step 관계를 익히고, 런타임과 의존성을 고정합니다. Node 프로젝트는 lockfile과 npm ci로 설치합니다.", evidence: "실습 브랜치에서 빌드를 일부러 깨뜨린 뒤, 실패한 step의 최초 원인을 고쳐 다시 통과시키기" },
@@ -32,7 +30,7 @@ const pitfalls = [
 
 export default function CiCdPage() {
   return (
-    <ReferencePage breadcrumb="레퍼런스 / CI/CD" label="소프트웨어 전달 과정" title="CI/CD · 커밋에서 운영까지" icon={GitBranchIcon}
+    <ReferencePage pageHref="/ci-cd" label="소프트웨어 전달 과정" icon={GitBranchIcon}
       description="VERIQTA 게시물의 표지와 본문 10장(전체 흐름 + 실습 9개)을 바탕으로 재구성한 학습 노트입니다. 명령어 암기보다 각 단계의 산출물, 실패 지점, 통과 증거를 중심으로 봅니다. 이 페이지는 정적 가이드이며 실제 배포를 실행하지 않습니다."
       colorClass="border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20">
       <ComparisonTable columns={["CI", "Continuous Delivery", "Continuous Deployment"]} rows={[
@@ -65,7 +63,7 @@ export default function CiCdPage() {
           <li>이 학습 정리에서는 보안 게이트·운영 승인·자동 롤백을 구현하거나 원격 배포 상태를 확인하지 않았습니다.</li>
         </ul>
         <div className="mt-4 flex flex-wrap gap-4 text-sm underline underline-offset-4">
-          <Link href="/testing-basics">테스트 기본 개념</Link><Link href="/tdd">TDD 학습</Link><Link href="/project-structure">프로젝트 구조</Link>
+          <Link href="/testing-basics">테스트 기초: 단위·통합 테스트</Link><Link href="/tdd">테스트 주도 개발: TDD</Link><Link href="/project-structure">프론트엔드·백엔드 프로젝트 구조</Link>
         </div>
       </section>
       <section className="rounded-lg border bg-card p-4">

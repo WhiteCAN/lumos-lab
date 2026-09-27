@@ -1,5 +1,7 @@
 "use client";
 
+import { BookPatternContent } from "@/components/book-pattern-content";
+
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -11,6 +13,10 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/co
 import { API_BASE_URL } from "@/constants/api";
 import type { ApiResponse } from "@/types/api";
 import { GitBranchIcon, PlayIcon } from "lucide-react";
+
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/patterns/strategy");
 
 type StrategyResponse = {
   title: string;
@@ -59,7 +65,7 @@ export default function StrategyPatternPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Patterns / Strategy</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -69,7 +75,7 @@ export default function StrategyPatternPage() {
               <GitBranchIcon className="size-4" />
               Strategy Pattern
             </div>
-            <h1 className="mt-3 text-3xl font-bold">전략 패턴 실험실</h1>
+            <h1 className="mt-3 text-3xl font-bold">{studyPage.title}</h1>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               고객 등급에 따라 할인 전략 객체를 선택합니다. 정렬/검색 코드와 별개인 독립 예제입니다.
             </p>
@@ -90,6 +96,7 @@ export default function StrategyPatternPage() {
             </div>
           </section>
           <ResultPanel result={result} />
+          <BookPatternContent slug="strategy" />
         </main>
       </SidebarInset>
     </SidebarProvider>

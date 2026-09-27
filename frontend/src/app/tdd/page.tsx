@@ -14,6 +14,8 @@ import {
   ShieldCheckIcon,
 } from "lucide-react";
 
+import { getStudyMetadata } from "@/lib/study-pages";
+
 const cards = [
   {
     title: "Red",
@@ -209,10 +211,8 @@ void discountPriceByGrade(int price, String grade, int expected) {
 
 export default function TddPage() {
   return (
-    <ReferencePage
-      breadcrumb="Reference / TDD"
+    <ReferencePage pageHref="/tdd"
       label="테스트 설계"
-      title="TDD: Test-Driven Development"
       description="TDD는 테스트를 먼저 작성하고, 실패를 확인한 뒤, 최소 구현으로 통과시키고, 테스트를 안전망 삼아 리팩터링하는 개발 방식입니다. 실제 코드는 main이 아니라 src/test에서 직접 작성하고 실행합니다."
       icon={FlaskConicalIcon}
       colorClass="border-violet-200 bg-violet-50/50 dark:border-violet-900/60 dark:bg-violet-950/20"
@@ -225,7 +225,7 @@ export default function TddPage() {
         colorClass="border-emerald-200 bg-emerald-50/40 dark:border-emerald-900/60 dark:bg-emerald-950/20"
       />
 
-      <section className="grid gap-4 xl:grid-cols-[1fr_420px]">
+      <section className="grid min-w-0 gap-4 [overflow-wrap:anywhere] xl:grid-cols-[minmax(0,1fr)_420px]">
         <section className="rounded-lg border bg-card p-4 shadow-sm">
           <div className="mb-4 flex items-center gap-2">
             <ListChecksIcon className="size-4 text-muted-foreground" />
@@ -250,10 +250,10 @@ export default function TddPage() {
             <div className="rounded-lg border bg-white/75 p-3 dark:bg-background/45">
               <p className="font-semibold">실제 테스트 코드</p>
               <p className="mt-1 font-mono text-xs text-muted-foreground">
-                backend/src/test/java/com/study/lab/concept/tdd/PasswordPolicyTddTest.java
+                backend/src/test/java/com/lumos/lab/concept/tdd/PasswordPolicyTddTest.java
               </p>
               <p className="mt-1 font-mono text-xs text-muted-foreground">
-                backend/src/test/java/com/study/lab/concept/tdd/DiscountPolicyTddTest.java
+                backend/src/test/java/com/lumos/lab/concept/tdd/DiscountPolicyTddTest.java
               </p>
             </div>
             <div className="rounded-lg border bg-white/75 p-3 dark:bg-background/45">
@@ -325,3 +325,5 @@ export default function TddPage() {
     </ReferencePage>
   );
 }
+
+export const metadata = getStudyMetadata("/tdd");

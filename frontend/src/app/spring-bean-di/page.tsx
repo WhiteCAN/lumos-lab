@@ -15,6 +15,8 @@ import {
   WorkflowIcon,
 } from "lucide-react";
 
+import { getStudyMetadata } from "@/lib/study-pages";
+
 const cards = [
   {
     title: "IoC",
@@ -91,10 +93,8 @@ class OrderService {
 
 export default function SpringBeanDiPage() {
   return (
-    <ReferencePage
-      breadcrumb="Reference / Spring Bean DI"
+    <ReferencePage pageHref="/spring-bean-di"
       label="Spring 핵심"
-      title="Spring Boot 핵심 · Bean, DI, IoC"
       description="객체 생성과 주입부터 시작 흐름, Bean 생명주기, 자동 구성, AOP 프록시까지 연결해 봅니다. 기존 Bean·DI 설명에 Spring Boot Core 게시물 10장의 내용을 보강한 정적 레퍼런스입니다."
       icon={PackageCheckIcon}
       brand="spring"
@@ -150,7 +150,7 @@ export default function SpringBeanDiPage() {
       <section className="rounded-lg border bg-card p-4">
         <h2 className="text-xl font-semibold">면접 질문을 운영 점검 순서로 바꾸기</h2>
         <div className="mt-4 grid gap-3 lg:grid-cols-2">{traps.map(([title, text]) => <article key={title} className="rounded-lg border p-4"><h3 className="font-semibold">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div>
-        <p className="mt-4 text-sm leading-6">Bean 등록 → 주입 후보 → 초기화 → 프록시 경계 → 기능 설정 → 실제 호출 결과 순으로 좁혀 봅니다. <Link className="underline underline-offset-4" href="/transactional">트랜잭션 실험실</Link>과 <Link className="underline underline-offset-4" href="/sync-async">동기/비동기 실험실</Link>에서 관련 흐름을 이어서 볼 수 있습니다.</p>
+        <p className="mt-4 text-sm leading-6">Bean 등록 → 주입 후보 → 초기화 → 프록시 경계 → 기능 설정 → 실제 호출 결과 순으로 좁혀 봅니다. <Link className="underline underline-offset-4" href="/transactional">트랜잭션: 커밋·롤백</Link>과 <Link className="underline underline-offset-4" href="/sync-async">동기·비동기 처리 비교</Link>에서 관련 흐름을 이어서 볼 수 있습니다.</p>
       </section>
       <section className="rounded-lg border bg-card p-4 text-sm leading-6">
         <h2 className="text-lg font-semibold">출처와 버전 주의</h2>
@@ -166,3 +166,5 @@ export default function SpringBeanDiPage() {
     </ReferencePage>
   );
 }
+
+export const metadata = getStudyMetadata("/spring-bean-di");

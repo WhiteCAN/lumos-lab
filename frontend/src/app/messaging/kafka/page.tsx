@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { FlowSection } from "@/components/flow-section";
 import { TechnologyIcon } from "@/components/technology-icon";
@@ -27,6 +28,10 @@ import {
   Settings2Icon,
   ShuffleIcon,
 } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/messaging/kafka");
 
 const kafkaTerms = [
   {
@@ -172,7 +177,7 @@ export default function KafkaReferencePage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Messaging / Kafka 기초</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -181,6 +186,7 @@ export default function KafkaReferencePage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/messaging/kafka" />
           <section className="overflow-hidden rounded-lg border border-sky-200 bg-card text-card-foreground shadow-sm dark:border-sky-900/60">
             <div className="border-b border-sky-200 bg-sky-50/70 p-5 dark:border-sky-900/60 dark:bg-sky-950/25">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -188,10 +194,7 @@ export default function KafkaReferencePage() {
                   <div className="inline-flex rounded-md border border-sky-200 bg-white px-3 py-1.5 text-sm font-medium text-sky-700 dark:border-sky-900 dark:bg-sky-950/50 dark:text-sky-200">
                     메시지 브로커 레퍼런스
                   </div>
-                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    <TechnologyIcon name="apachekafka" className="mr-3 align-middle" />
-                    Kafka는 메시지를 어떻게 나눠 담고 읽을까?
-                  </h1>
+                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl"><TechnologyIcon name="apachekafka" className="mr-3 align-middle" />{studyPage.title}</h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                     라운드로빈, 파티션, consumer group, offset, 설정 옵션이 실제
                     데이터 흐름을 어떻게 바꾸는지 그림처럼 볼 수 있게 정리한
@@ -398,3 +401,5 @@ function Message({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+export const metadata = getStudyMetadata("/messaging/kafka");

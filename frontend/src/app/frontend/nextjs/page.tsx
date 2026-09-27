@@ -1,9 +1,14 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ArrowRightIcon, CheckCircle2Icon, Code2Icon, FileCode2Icon, FolderTreeIcon, RouteIcon, ServerIcon } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/frontend/nextjs");
 
 const routes = [
   ["src/app/page.tsx", "/"],
@@ -56,13 +61,14 @@ export default function NextJsBasicsPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Frontend / Next.js 기초</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/frontend/nextjs" />
           <section className="rounded-lg border border-blue-200 bg-blue-50/50 p-5 shadow-sm dark:border-blue-900/60 dark:bg-blue-950/20">
-            <h1 className="text-3xl font-bold tracking-tight">Next.js 기초</h1>
+            <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
               Next.js는 React 앱에 라우팅, 서버 렌더링, 빌드 최적화, API 연동 구조를 얹은 프레임워크입니다.
               이 프로젝트는 App Router 기준으로 구성되어 있습니다.
@@ -121,3 +127,5 @@ export default function NextJsBasicsPage() {
     </SidebarProvider>
   );
 }
+
+export const metadata = getStudyMetadata("/frontend/nextjs");

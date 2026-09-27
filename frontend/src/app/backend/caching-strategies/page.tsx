@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { DatabaseIcon } from "lucide-react";
 import { ComparisonTable, FlowSection, ReferencePage } from "@/components/reference-page";
 
-export const metadata: Metadata = {
-  title: "Cache-Aside / Write-Through | Lumos Lab",
-  description: "캐시를 언제 채우고 어떻게 갱신하는지, Cache-Aside와 Write-Through의 흐름과 실패 상황을 비교합니다.",
-};
+import { getStudyMetadata } from "@/lib/study-pages";
+
+export const metadata = getStudyMetadata("/backend/caching-strategies");
 
 const rows = [
   { topic: "캐시를 채우는 시점", values: ["읽기 요청에서 캐시 miss가 발생할 때", "쓰기 요청을 처리하면서 캐시와 DB에 반영"] },
@@ -19,7 +17,7 @@ const rows = [
 
 export default function CachingStrategiesPage() {
   return (
-    <ReferencePage breadcrumb="백엔드 / 캐시 전략" label="Redis · 읽기와 쓰기 정책" title="Cache-Aside / Write-Through"
+    <ReferencePage pageHref="/backend/caching-strategies" label="Redis · 읽기와 쓰기 정책"
       description="캐시 전략은 빠른 저장소를 쓰는 것에서 끝나지 않습니다. 데이터를 언제 채우고, 변경되면 어떻게 갱신하며, 실패하면 무엇을 신뢰할지 정하는 약속입니다."
       icon={DatabaseIcon} brand="redis" colorClass="border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/20">
       <section className="grid gap-4 md:grid-cols-2">
@@ -49,7 +47,7 @@ export default function CachingStrategiesPage() {
           <li><strong>Write-Behind와 구분합니다.</strong> DB 반영을 나중에 비동기로 처리하는 방식은 별도 패턴이며 유실·순서 보장 문제를 다룹니다.</li>
         </ul>
       </section>
-      <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">출처와 함께 읽기</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">원문 캡션과 화면 도표를 바탕으로 한국어로 재구성했습니다. 실패 상황과 정합성 설명은 학습용 보완입니다.</p><ul className="mt-3 grid gap-2 text-sm"><li><a className="underline underline-offset-4" href="https://www.instagram.com/reels/DdYIumfpPYp/">원문 · careerwithcodedev의 Redis 캐시 전략</a></li><li><a className="underline underline-offset-4" href="https://redis.io/docs/latest/develop/use-cases/cache-aside/">Redis 공식 문서 · Cache-Aside</a></li><li><a className="underline underline-offset-4" href="https://redis.io/blog/cache-layer-architecture-guide/">Redis · 캐시 계층과 쓰기 패턴</a></li><li><Link className="underline underline-offset-4" href="/backend/redis-cache">함께 보기 · Redis / 캐시 / 세션 / 분산락</Link></li></ul></section>
+      <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">출처와 함께 읽기</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">원문 캡션과 화면 도표를 바탕으로 한국어로 재구성했습니다. 실패 상황과 정합성 설명은 학습용 보완입니다.</p><ul className="mt-3 grid gap-2 text-sm"><li><a className="underline underline-offset-4" href="https://www.instagram.com/reels/DdYIumfpPYp/">원문 · careerwithcodedev의 Redis 캐시 전략</a></li><li><a className="underline underline-offset-4" href="https://redis.io/docs/latest/develop/use-cases/cache-aside/">Redis 공식 문서 · Cache-Aside</a></li><li><a className="underline underline-offset-4" href="https://redis.io/blog/cache-layer-architecture-guide/">Redis · 캐시 계층과 쓰기 패턴</a></li><li><Link className="underline underline-offset-4" href="/backend/redis-cache">Redis 캐시·세션·분산 락</Link></li></ul></section>
     </ReferencePage>
   );
 }

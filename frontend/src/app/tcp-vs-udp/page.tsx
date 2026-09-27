@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
@@ -38,6 +39,10 @@ import {
   ZapIcon,
 } from "lucide-react";
 
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/tcp-vs-udp");
+
 export default function TcpVsUdpPage() {
   return (
     <SidebarProvider>
@@ -50,7 +55,7 @@ export default function TcpVsUdpPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Reference / TCP vs UDP</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -59,6 +64,7 @@ export default function TcpVsUdpPage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/tcp-vs-udp" />
           <section className="overflow-hidden rounded-lg border border-blue-200 bg-card text-card-foreground shadow-sm dark:border-blue-900/60">
             <div className="border-b border-blue-200 bg-blue-50/70 p-5 dark:border-blue-900/60 dark:bg-blue-950/25">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -66,9 +72,7 @@ export default function TcpVsUdpPage() {
                   <div className="inline-flex rounded-md border border-blue-200 bg-white px-3 py-1.5 text-sm font-medium text-blue-700 dark:border-blue-900 dark:bg-blue-950/50 dark:text-blue-200">
                     네트워킹 개념 노트
                   </div>
-                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    TCP vs UDP
-                  </h1>
+                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">{studyPage.title}</h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                     이미지 내용을 웹페이지로 재구성한 정적 참고 페이지입니다.
                     TCP와 UDP의 차이, 동작 방식, 사용 사례, 헤더 구조, 기억할
@@ -343,3 +347,5 @@ function TipCard({
     </div>
   );
 }
+
+export const metadata = getStudyMetadata("/tcp-vs-udp");

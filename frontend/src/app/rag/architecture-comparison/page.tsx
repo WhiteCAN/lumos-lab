@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { BrainCircuitIcon } from "lucide-react";
 import { ComparisonTable, FlowSection, ReferencePage } from "@/components/reference-page";
 
-export const metadata: Metadata = {
-  title: "Classic · Graph · Agentic RAG 비교 | Lumos Lab",
-  description: "세 RAG 구조의 검색 방식, 실행 흐름과 선택 기준을 비교합니다.",
-};
+import { getStudyMetadata } from "@/lib/study-pages";
+
+export const metadata = getStudyMetadata("/rag/architecture-comparison");
 
 const architectures = [
   { name: "Classic RAG", title: "관련 문서를 찾아 답하기", description: "질문과 관련 있는 문서 조각을 검색하고, 그 근거를 모델에 전달하는 고정된 흐름입니다.", example: "사내 규정 조회, 제품 FAQ, 문서 기반 고객 지원", caution: "개별 문서 검색으로 풀리는 질문의 출발점입니다. 검색되지 않은 근거는 모델도 활용하기 어렵습니다." },
@@ -16,7 +14,7 @@ const architectures = [
 
 export default function RagArchitectureComparisonPage() {
   return (
-    <ReferencePage breadcrumb="RAG / 아키텍처 비교" label="검색 · 관계 · 도구 선택" title="Classic · Graph · Agentic RAG"
+    <ReferencePage pageHref="/rag/architecture-comparison" label="검색 · 관계 · 도구 선택"
       description="관련 문서를 찾을 것인가, 관계를 연결할 것인가, 검색 절차를 상황에 따라 바꿀 것인가. 질문이 요구하는 작업을 기준으로 세 구조를 비교합니다."
       icon={BrainCircuitIcon} colorClass="border-teal-200 bg-teal-50/50 dark:border-teal-900/60 dark:bg-teal-950/20">
       <section className="rounded-lg border bg-card p-5 shadow-sm">
@@ -96,9 +94,9 @@ export default function RagArchitectureComparisonPage() {
           <li><a className="underline underline-offset-4" href="https://www.instagram.com/reels/Dab9yGpyxIq/">원문 · Learnbay의 Classic RAG vs Graph RAG vs Agentic RAG</a></li>
           <li><a className="underline underline-offset-4" href="https://microsoft.github.io/graphrag/">Microsoft · GraphRAG 공식 문서</a></li>
           <li><a className="underline underline-offset-4" href="https://docs.langchain.com/oss/python/deepagents/retrieval">LangChain · Retrieval 공식 문서</a></li>
-          <li><Link className="underline underline-offset-4" href="/rag/concepts">함께 보기 · RAG 개요와 아키텍처 8가지</Link></li>
-          <li><Link className="underline underline-offset-4" href="/ai-agent-patterns">함께 보기 · AI 에이전트 설계 패턴</Link></li>
-          <li><Link className="underline underline-offset-4" href="/rag/ask">실습 · 문서에 질문하기</Link></li>
+          <li><Link className="underline underline-offset-4" href="/rag/concepts">RAG·CAG·MAG·GAG 비교</Link></li>
+          <li><Link className="underline underline-offset-4" href="/ai-agent-patterns">AI 에이전트 설계 패턴</Link></li>
+          <li><Link className="underline underline-offset-4" href="/rag/ask">RAG 질문·답변</Link></li>
         </ul>
       </section>
     </ReferencePage>

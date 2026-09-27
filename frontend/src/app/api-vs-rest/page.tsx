@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
@@ -41,6 +42,10 @@ import {
   ShieldCheckIcon,
 } from "lucide-react";
 
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/api-vs-rest");
+
 export default function ApiVsRestPage() {
   const ExampleIcon = realLifeExample.icon;
 
@@ -55,7 +60,7 @@ export default function ApiVsRestPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Reference / API vs REST API</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -64,6 +69,7 @@ export default function ApiVsRestPage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/api-vs-rest" />
           <section className="overflow-hidden rounded-lg border border-blue-200 bg-card text-card-foreground shadow-sm dark:border-blue-900/60">
             <div className="border-b border-blue-200 bg-blue-50/70 p-5 dark:border-blue-900/60 dark:bg-blue-950/25">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -71,9 +77,7 @@ export default function ApiVsRestPage() {
                   <div className="inline-flex rounded-md border border-blue-200 bg-white px-3 py-1.5 text-sm font-medium text-blue-700 dark:border-blue-900 dark:bg-blue-950/50 dark:text-blue-200">
                     네트워크 개념 노트
                   </div>
-                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    API vs REST API
-                  </h1>
+                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">{studyPage.title}</h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                     API와 REST의 기본 관계부터 REST·GraphQL·gRPC의 차이까지
                     정리합니다. 요청 예시와 쇼핑몰 설계 사례로 각 방식의 선택 기준을 살펴봅니다.
@@ -248,7 +252,7 @@ export default function ApiVsRestPage() {
               <li><a className="underline underline-offset-4" href="https://www.instagram.com/java_interview_prep/p/DdGxNe2jcAE/?img_index=1" target="_blank" rel="noreferrer">원본 · REST vs GraphQL vs gRPC</a></li>
               <li><a className="underline underline-offset-4" href="https://graphql.org/learn/" target="_blank" rel="noreferrer">GraphQL 공식 학습 문서</a> · <a className="underline underline-offset-4" href="https://graphql.org/learn/performance/" target="_blank" rel="noreferrer">성능과 N+1</a></li>
               <li><a className="underline underline-offset-4" href="https://grpc.io/docs/what-is-grpc/core-concepts/" target="_blank" rel="noreferrer">gRPC 공식 개념과 호출 유형</a></li>
-              <li><Link className="underline underline-offset-4" href="/grpc">gRPC 실험실</Link> · <Link className="underline underline-offset-4" href="/rest-api-design">REST API 설계</Link></li>
+              <li><Link className="underline underline-offset-4" href="/grpc">gRPC 통신 흐름</Link> · <Link className="underline underline-offset-4" href="/rest-api-design">REST API 설계</Link></li>
             </ul>
           </section>
         </main>
@@ -331,3 +335,5 @@ function InfoBlock({
     </div>
   );
 }
+
+export const metadata = getStudyMetadata("/api-vs-rest");

@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:team-navigation": "node --test tests/team-shortcuts.test.mjs"
+    "test:team-navigation": "node --test tests/team-shortcuts.test.mjs",
+    "test:labs": "node --experimental-strip-types --test scripts/debug-labs.test.mjs scripts/book-patterns.test.mjs",
+    "test:study": "node --experimental-strip-types --test scripts/study-*.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

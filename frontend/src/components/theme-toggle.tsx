@@ -1,6 +1,7 @@
 "use client";
 
 import { CheckIcon, MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
+import { useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,10 +17,16 @@ const themes = [
   { value: "system", label: "시스템 모드", icon: MonitorIcon },
 ] as const;
 
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const mounted = useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
+  const visibleTheme = mounted ? theme : "system";
   const ActiveIcon =
-    themes.find((item) => item.value === theme)?.icon ?? MonitorIcon;
+    themes.find((item) => item.value === visibleTheme)?.icon ?? MonitorIcon;
 
   return (
     <DropdownMenu>
@@ -41,7 +48,7 @@ export function ThemeToggle() {
                 <Icon />
                 {item.label}
               </span>
-              {theme === item.value ? <CheckIcon /> : null}
+              {visibleTheme === item.value ? <CheckIcon /> : null}
             </DropdownMenuItem>
           );
         })}

@@ -37,9 +37,8 @@ const sources = [
 export default function KafkaArchitecturePage() {
   return (
     <ReferencePage
-      breadcrumb="메시징 / Kafka 아키텍처"
+      pageHref="/messaging/kafka-architecture"
       label="이벤트가 저장되고 소비되는 구조"
-      title="Kafka 아키텍처"
       description="Producer가 보낸 이벤트는 브로커의 파티션 로그에 저장되고, Consumer가 자신의 속도로 읽습니다. 주문 이벤트 한 건을 따라가며 구성 요소의 관계와 장애·재처리의 기준을 알아봅니다."
       icon={NetworkIcon}
       brand="apachekafka"

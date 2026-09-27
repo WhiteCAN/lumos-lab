@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { FlowSection } from "@/components/flow-section";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -29,6 +30,10 @@ import {
   SirenIcon,
   WorkflowIcon,
 } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/messaging/saga-outbox");
 
 const sagaSteps = [
   {
@@ -204,7 +209,7 @@ export default function SagaOutboxPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Messaging / Saga & Outbox</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -213,6 +218,7 @@ export default function SagaOutboxPage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/messaging/saga-outbox" />
           <FlowSection title="Outbox 전달 흐름 · 저장과 발행의 경계" steps={[
             { label: "주문 요청", icon: "user" },
             { label: "주문 + Outbox 커밋", icon: "database", detail: "같은 DB 트랜잭션" },
@@ -227,9 +233,7 @@ export default function SagaOutboxPage() {
                   <div className="inline-flex rounded-md border border-violet-200 bg-white px-3 py-1.5 text-sm font-medium text-violet-700 dark:border-violet-900 dark:bg-violet-950/50 dark:text-violet-200">
                     분산 트랜잭션 패턴
                   </div>
-                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    Saga와 메시지 Outbox 패턴
-                  </h1>
+                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">{studyPage.title}</h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                     Kafka 같은 메시지 브로커를 쓰는 서비스에서 주문, 결제, 재고처럼
                     여러 서비스에 걸친 작업을 어떻게 안전하게 이어갈지 정리한
@@ -747,3 +751,5 @@ function BlueprintNote({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+export const metadata = getStudyMetadata("/messaging/saga-outbox");

@@ -12,6 +12,10 @@ import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { AlertTriangleIcon, BotIcon, FileSearchIcon, MessageCircleQuestionIcon, PlayIcon, QuoteIcon } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/rag/ask");
+
 type RagCitation = {
   documentId: number;
   title: string;
@@ -82,7 +86,7 @@ export default function RagAskPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>RAG / 질문하기</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -92,7 +96,8 @@ export default function RagAskPage() {
             <div className="flex items-start gap-3">
               <MessageCircleQuestionIcon className="mt-1 size-6 text-emerald-700 dark:text-emerald-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">RAG 질문하기 mock</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
+                <p className="mt-2"><span className="rounded-md bg-amber-100 px-2 py-1 text-xs font-medium text-amber-950 dark:bg-amber-950 dark:text-amber-200">모의 실습</span></p>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   질문을 보내면 백엔드가 먼저 검색을 수행하고, 검색된 chunk를 근거로 mock 답변과 citation을 만듭니다.
                   실제 LLM 호출 직전까지의 서버 흐름을 디버깅하기 좋은 페이지입니다.

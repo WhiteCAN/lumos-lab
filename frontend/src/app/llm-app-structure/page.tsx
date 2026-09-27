@@ -14,6 +14,8 @@ import {
   ShieldCheckIcon,
 } from "lucide-react";
 
+import { getStudyMetadata } from "@/lib/study-pages";
+
 const cards = [
   {
     title: "Prompt",
@@ -56,10 +58,8 @@ const code = `User question
 
 export default function LlmAppStructurePage() {
   return (
-    <ReferencePage
-      breadcrumb="Reference / LLM App Structure"
+    <ReferencePage pageHref="/llm-app-structure"
       label="AI 앱 구조"
-      title="LLM 애플리케이션 구조"
       description="Prompt, Tool Calling, RAG, Memory, Agent, Guardrail을 한 페이지에서 연결합니다. 지금 프로젝트의 RAG mock은 이 구조 중 검색과 컨텍스트 조립 단계를 학습하기 위한 작은 버전입니다."
       icon={BrainCircuitIcon}
       colorClass="border-violet-200 bg-violet-50/50 dark:border-violet-900/60 dark:bg-violet-950/20"
@@ -91,3 +91,5 @@ export default function LlmAppStructurePage() {
     </ReferencePage>
   );
 }
+
+export const metadata = getStudyMetadata("/llm-app-structure");

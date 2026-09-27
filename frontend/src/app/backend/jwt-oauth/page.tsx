@@ -15,7 +15,7 @@ const concepts = [
 ];
 
 export default function JwtOauthPage() {
-  return <ReferencePage breadcrumb="백엔드 / JWT · OAuth · OIDC" label="토큰 형식과 인증·인가 구분" title="JWT · OAuth · OIDC" icon={KeyRoundIcon}
+  return <ReferencePage pageHref="/backend/jwt-oauth" label="토큰 형식과 인증·인가 구분" icon={KeyRoundIcon}
     description="JWT와 OAuth는 경쟁 기술이 아닙니다. 토큰의 형식, 접근 권한을 위임하는 절차, 사용자 인증을 서로 다른 역할로 구분하면 소셜 로그인 흐름을 이해하기 쉬워집니다."
     colorClass="border-violet-200 bg-violet-50/50 dark:border-violet-900/60 dark:bg-violet-950/20">
     <section className="grid gap-4 lg:grid-cols-3" aria-label="세 개념 비교">

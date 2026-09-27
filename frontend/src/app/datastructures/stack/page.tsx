@@ -27,6 +27,10 @@ import {
   RotateCcwIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/datastructures/stack");
+
 type StackResponse = {
   values: number[];
   top: number | null;
@@ -117,7 +121,7 @@ export default function StackPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Structures / Stack</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -133,9 +137,7 @@ export default function StackPage() {
                   <Layers3Icon className="size-4" />
                   Java Deque 기반 LIFO 구조
                 </div>
-                <h1 className="mt-2 text-2xl font-semibold tracking-tight">
-                  Stack 실험실
-                </h1>
+                <h1 className="mt-2 text-2xl font-semibold tracking-tight">{studyPage.title}</h1>
               </div>
               <div className="rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground">
                 API: /api/datastructures/stack

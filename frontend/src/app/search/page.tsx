@@ -26,6 +26,10 @@ import {
   SearchIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/search");
+
 type SearchType = "LINEAR" | "BINARY";
 
 type SearchResponse = {
@@ -148,7 +152,7 @@ export default function SearchPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Algorithms / Search Lab</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -164,9 +168,7 @@ export default function SearchPage() {
                   <SearchIcon className="size-4" />
                   Spring Boot Strategy Pattern
                 </div>
-                <h1 className="mt-3 text-3xl font-bold tracking-tight">
-                  검색 알고리즘 실험실
-                </h1>
+                <h1 className="mt-3 text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
                   Linear Search와 Binary Search를 같은 API 형태로 호출하고,
                   비교 횟수와 탐색 단계를 확인합니다. Binary Search는 내부에서

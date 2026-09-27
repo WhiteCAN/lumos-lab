@@ -1,5 +1,7 @@
 "use client";
 
+import { BookPatternContent } from "@/components/book-pattern-content";
+
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -11,6 +13,10 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/co
 import { API_BASE_URL } from "@/constants/api";
 import type { ApiResponse } from "@/types/api";
 import { CoffeeIcon, PlayIcon } from "lucide-react";
+
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/patterns/decorator");
 
 type DecoratorResponse = {
   title: string;
@@ -57,7 +63,7 @@ export default function DecoratorPatternPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Patterns / Decorator</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -67,7 +73,7 @@ export default function DecoratorPatternPage() {
               <CoffeeIcon className="size-4" />
               Decorator Pattern
             </div>
-            <h1 className="mt-3 text-3xl font-bold">데코레이터 패턴 실험실</h1>
+            <h1 className="mt-3 text-3xl font-bold">{studyPage.title}</h1>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               Americano 객체를 Milk, Shot 데코레이터로 감싸 기능과 가격을 추가합니다.
             </p>
@@ -95,6 +101,7 @@ export default function DecoratorPatternPage() {
               <div className="flex min-h-[420px] items-center justify-center text-muted-foreground">실행 결과가 여기에 표시됩니다.</div>
             )}
           </section>
+          <BookPatternContent slug="decorator" />
         </main>
       </SidebarInset>
     </SidebarProvider>

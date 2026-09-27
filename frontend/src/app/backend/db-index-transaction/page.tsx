@@ -1,9 +1,14 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { DatabaseZapIcon, GitCompareArrowsIcon, LockKeyholeIcon, SearchIcon } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/backend/db-index-transaction");
 
 const indexes = [
   ["B-Tree Index", "범위 검색과 정렬에 강한 일반적인 인덱스입니다.", "where created_at between ... order by created_at"],
@@ -28,17 +33,18 @@ export default function DbIndexTransactionPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>DB 실습 / 인덱스 / 격리수준</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/backend/db-index-transaction" />
           <section className="rounded-lg border border-indigo-200 bg-indigo-50/50 p-5 shadow-sm dark:border-indigo-900/60 dark:bg-indigo-950/20">
             <div className="flex items-start gap-3">
               <DatabaseZapIcon className="mt-1 size-6 text-indigo-700 dark:text-indigo-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">DB Index / Transaction Isolation</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   인덱스는 조회 속도를 올리지만 쓰기 비용과 저장 공간을 늘립니다. 격리수준은 정합성과 동시성의 균형을 정하는 옵션입니다.
                 </p>
@@ -97,3 +103,5 @@ export default function DbIndexTransactionPage() {
     </SidebarProvider>
   );
 }
+
+export const metadata = getStudyMetadata("/backend/db-index-transaction");

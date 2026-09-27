@@ -27,6 +27,10 @@ import {
   RotateCcwIcon,
 } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/datastructures/queue");
+
 type QueueResponse = {
   values: number[];
   front: number | null;
@@ -119,7 +123,7 @@ export default function QueuePage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Structures / Queue</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -135,9 +139,7 @@ export default function QueuePage() {
                   <ListStartIcon className="size-4" />
                   Java Deque 기반 FIFO 구조
                 </div>
-                <h1 className="mt-2 text-2xl font-semibold tracking-tight">
-                  Queue 실험실
-                </h1>
+                <h1 className="mt-2 text-2xl font-semibold tracking-tight">{studyPage.title}</h1>
               </div>
               <div className="rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground">
                 API: /api/datastructures/queue

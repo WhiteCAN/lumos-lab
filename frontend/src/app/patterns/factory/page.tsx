@@ -1,5 +1,7 @@
 "use client";
 
+import { BookPatternContent } from "@/components/book-pattern-content";
+
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -11,6 +13,10 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/co
 import { API_BASE_URL } from "@/constants/api";
 import type { ApiResponse } from "@/types/api";
 import { FactoryIcon, PlayIcon } from "lucide-react";
+
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/patterns/factory");
 
 type FactoryResponse = {
   title: string;
@@ -57,7 +63,7 @@ export default function FactoryPatternPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Patterns / Factory</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -67,7 +73,7 @@ export default function FactoryPatternPage() {
               <FactoryIcon className="size-4" />
               Factory Pattern
             </div>
-            <h1 className="mt-3 text-3xl font-bold">팩토리 패턴 실험실</h1>
+            <h1 className="mt-3 text-3xl font-bold">{studyPage.title}</h1>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               알림 채널에 따라 생성되는 구체 알림 객체를 Factory가 선택합니다.
             </p>
@@ -96,6 +102,7 @@ export default function FactoryPatternPage() {
               <div className="flex min-h-[420px] items-center justify-center text-muted-foreground">실행 결과가 여기에 표시됩니다.</div>
             )}
           </section>
+          <BookPatternContent slug="factory-method" />
         </main>
       </SidebarInset>
     </SidebarProvider>

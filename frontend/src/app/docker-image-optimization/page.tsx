@@ -19,7 +19,7 @@ const tips = [
 ];
 
 export default function DockerImageOptimizationPage() {
-  return <ReferencePage breadcrumb="레퍼런스 / Docker 이미지 최적화" label="크기 · 캐시 · 실행 검증" title="Docker 이미지 최적화" icon={PackageIcon}
+  return <ReferencePage pageHref="/docker-image-optimization" label="크기 · 캐시 · 실행 검증" icon={PackageIcon}
     description="목표는 실행에 필요한 파일만 담는 것입니다. 원본의 10가지 방법을 크기 감소, 빌드 컨텍스트, 캐시 속도, 검증으로 나누어 실제 효과와 주의점을 함께 정리합니다."
     colorClass="border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/20">
     <FlowSection title="측정하면서 줄이는 순서" steps={["현재 크기 측정", "큰 레이어 확인", "한 가지 원인 개선", "재빌드와 실행 확인", "같은 조건으로 비교"]} />

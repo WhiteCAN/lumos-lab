@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
 import { CodeBlock, ComparisonTable, ConceptGrid, FlowSection, ReferencePage } from "@/components/reference-page";
 import { CheckCircle2Icon, ShieldCheckIcon, RefreshCcwIcon, ShieldAlertIcon } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Circuit Breaker | Lumos Lab",
-  description: "장애 전파 방지, 상태 전환, Resilience4j 설정과 운영 시 주의점을 정리합니다.",
-};
+import { getStudyMetadata } from "@/lib/study-pages";
+
+export const metadata = getStudyMetadata("/circuit-breaker");
 
 const states = [
   { title: "CLOSED · 정상 호출", description: "요청을 전달하면서 최근 호출 결과를 관찰합니다.", bullets: ["최소 호출 수를 채운 뒤 실패율과 느린 호출 비율 평가", "설정 임계값 이상이면 OPEN으로 전환"], icon: CheckCircle2Icon, colorClass: "border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/20" },
@@ -67,7 +65,7 @@ const questions = [
 
 export default function CircuitBreakerPage() {
   return (
-    <ReferencePage breadcrumb="레퍼런스 / Circuit Breaker" label="장애 격리와 복구" title="Circuit Breaker 개념 정리"
+    <ReferencePage pageHref="/circuit-breaker" label="장애 격리와 복구"
       description="결제 서비스 하나가 느려졌을 때 주문 서비스까지 멈추지 않도록, 최근 호출 결과를 보고 잠시 호출을 차단하는 패턴입니다. 장애가 있는 서비스에는 회복할 시간을 주고 호출하는 쪽의 자원 소모를 줄입니다."
       icon={ShieldCheckIcon} colorClass="border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20">
       <FlowSection title="왜 필요한가: 장애가 전파되는 과정" steps={["결제 응답 지연", "주문 요청 대기 누적", "스레드·연결 풀 고갈", "주문 서비스도 지연"]} colorClass="border-rose-200 bg-rose-50/40 dark:border-rose-900/60 dark:bg-rose-950/20" />

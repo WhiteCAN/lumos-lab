@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
@@ -24,6 +25,10 @@ import {
   PackageIcon,
   ShieldCheckIcon,
 } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/architecture");
 
 const architectureCards = [
   {
@@ -324,7 +329,7 @@ export default function ArchitecturePage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Reference / Architecture</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -333,6 +338,7 @@ export default function ArchitecturePage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/architecture" />
           <section className="overflow-hidden rounded-lg border border-indigo-200 bg-card shadow-sm dark:border-indigo-900/60">
             <div className="border-b border-indigo-200 bg-indigo-50/70 p-5 dark:border-indigo-900/60 dark:bg-indigo-950/25">
               <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
@@ -341,9 +347,7 @@ export default function ArchitecturePage() {
                     <CompassIcon className="size-4" />
                     설계 참고 노트
                   </div>
-                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    헥사고날 · 클린 아키텍처 · DDD
-                  </h1>
+                  <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">{studyPage.title}</h1>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                     세 개념은 서로 경쟁하는 선택지가 아니라 함께 섞어 쓰는 경우가
                     많습니다. 이 페이지는 개요, 사용 예시, Spring Boot 프로젝트
@@ -581,3 +585,5 @@ function FolderStructureCard({
     </article>
   );
 }
+
+export const metadata = getStudyMetadata("/architecture");

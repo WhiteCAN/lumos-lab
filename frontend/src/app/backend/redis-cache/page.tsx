@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { FlowSection } from "@/components/flow-section";
 import { TechnologyIcon } from "@/components/technology-icon";
@@ -6,6 +7,10 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/co
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AlertTriangleIcon, KeyRoundIcon, LockKeyholeIcon, RefreshCwIcon, ServerIcon, TimerIcon } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/backend/redis-cache");
 
 const concepts = [
   ["Cache Aside", "애플리케이션이 캐시를 먼저 보고, 없으면 DB 조회 후 캐시에 저장합니다.", "조회 성능 개선에 가장 흔합니다."],
@@ -30,16 +35,17 @@ export default function RedisCachePage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Backend / Redis Cache</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/backend/redis-cache" />
           <section className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-5 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
             <div className="flex items-start gap-3">
               <TechnologyIcon name="redis" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Redis / 캐시 / 세션 / 분산락</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   Redis는 빠른 key-value 저장소입니다. 캐시, 세션, 랭킹, pub/sub, 분산락에 자주 쓰지만,
                   모든 문제를 Redis로 풀면 데이터 정합성 문제가 생길 수 있습니다.
@@ -93,3 +99,5 @@ function InfoCard({ icon: Icon, title, text }: { icon: typeof ServerIcon; title:
     </article>
   );
 }
+
+export const metadata = getStudyMetadata("/backend/redis-cache");

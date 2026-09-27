@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { FolderTreeIcon } from "lucide-react";
 import { FlowSection, ReferencePage } from "@/components/reference-page";
 
-export const metadata: Metadata = {
-  title: "생성형 AI 프로젝트 구조 | Lumos Lab",
-  description: "LLM 클라이언트, 프롬프트, RAG, 전처리, 추론과 평가의 책임을 분리하는 프로젝트 구조를 정리합니다.",
-};
+import { getStudyMetadata } from "@/lib/study-pages";
+
+export const metadata = getStudyMetadata("/genai-project-structure");
 
 const modules = [
   ["config", "환경별 설정과 로깅", "model_config.yaml에는 모델 이름·호출 옵션을, logging_config.yaml에는 로그 수준·형식을 둡니다. API 키는 파일에 적지 않고 환경변수나 비밀 관리 도구로 주입하며 로그에서도 제외합니다."],
@@ -50,7 +48,7 @@ const tree = `genai-app/
 
 export default function GenaiProjectStructurePage() {
   return (
-    <ReferencePage breadcrumb="레퍼런스 / 생성형 AI 프로젝트 구조" label="GenAI · 책임과 변경 경계" title="생성형 AI 프로젝트 구조"
+    <ReferencePage pageHref="/genai-project-structure" label="GenAI · 책임과 변경 경계"
       description="모델 호출이 동작한 뒤에는 프롬프트, 검색, 전처리, API, 평가가 각자 바뀔 수 있어야 합니다. 폴더 이름보다 중요한 것은 책임의 경계와 데이터가 이동하는 흐름입니다."
       icon={FolderTreeIcon} colorClass="border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20">
       <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">원문의 핵심: 바뀌는 이유에 따라 나누기</h2><p className="mt-3 text-sm leading-6">모델 공급자를 바꾸는 일, 문서를 나누는 기준을 바꾸는 일, 프롬프트를 개선하는 일은 서로 다른 변경입니다. 이를 한 파일에서 처리하면 작은 수정도 전체 흐름에 영향을 줍니다. 원문은 모델 연동·프롬프트·RAG·전처리·추론·평가·배포의 경계를 제안합니다.</p></section>

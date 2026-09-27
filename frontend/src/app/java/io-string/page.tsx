@@ -11,6 +11,10 @@ import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { FileTextIcon, PlayIcon, QuoteIcon, RefreshCcwIcon } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/java/io-string");
+
 type ParseResponse = {
   scannerTokens: string[];
   stringTokenizerTokens: string[];
@@ -71,7 +75,7 @@ export default function JavaIoStringPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Java 기초 / 입출력 / 문자열</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -81,7 +85,7 @@ export default function JavaIoStringPage() {
             <div className="flex items-start gap-3">
               <FileTextIcon className="mt-1 size-6 text-sky-700 dark:text-sky-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Scanner, BufferedReader, StringTokenizer</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   콘솔 입력은 편한 도구와 빠른 도구가 다릅니다. 여기서는 같은 문자열을 여러 방식으로 파싱하고,
                   문자열 반복 조립은 StringBuilder/StringBuffer 결과를 비교합니다.

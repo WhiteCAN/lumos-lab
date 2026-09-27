@@ -12,6 +12,10 @@ import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { AlertTriangleIcon, DatabaseIcon, FileTextIcon, PlayIcon, RotateCcwIcon } from "lucide-react";
 
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/rag/documents");
+
 type RagDocument = {
   id: number;
   title: string;
@@ -105,7 +109,7 @@ export default function RagDocumentsPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>RAG / 문서</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -115,7 +119,8 @@ export default function RagDocumentsPage() {
             <div className="flex items-start gap-3">
               <FileTextIcon className="mt-1 size-6 text-sky-700 dark:text-sky-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">RAG 문서 등록 mock</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
+                <p className="mt-2"><span className="rounded-md bg-amber-100 px-2 py-1 text-xs font-medium text-amber-950 dark:bg-amber-950 dark:text-amber-200">모의 실습</span></p>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   문서를 입력하면 백엔드가 chunk와 keyword를 만들고 인메모리에 저장합니다.
                   실제 구현의 document loader, splitter, embedding 저장 단계를 단순화한 화면입니다.

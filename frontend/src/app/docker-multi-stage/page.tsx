@@ -18,7 +18,7 @@ USER 10001:10001
 CMD ["java", "-cp", "/app", "Main"]`;
 
 export default function DockerMultiStagePage() {
-  return <ReferencePage breadcrumb="레퍼런스 / Docker 멀티스테이지 빌드" label="빌드와 실행 환경 분리" title="Docker 멀티스테이지 빌드" icon={BoxesIcon}
+  return <ReferencePage pageHref="/docker-multi-stage" label="빌드와 실행 환경 분리" icon={BoxesIcon}
     description="소스를 컴파일하는 데 필요한 도구와 완성된 프로그램을 실행하는 데 필요한 파일은 다릅니다. 여러 FROM으로 단계를 나누고 최종 이미지에는 실행에 필요한 산출물만 남깁니다."
     colorClass="border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20">
     <section className="grid gap-4 lg:grid-cols-2" aria-label="단일 단계와 다단계 비교">

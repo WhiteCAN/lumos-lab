@@ -1,0 +1,144 @@
+{
+  "iterator": [
+    {
+      "path": "1 Iterator/Sample/Main.java",
+      "code": "import java.util.Iterator;\n\npublic class Main {\n    public static void main(String[] args) {\n        BookShelf bookShelf = new BookShelf(4);\n        bookShelf.appendBook(new Book(\"Around the World in 80 Days\"));\n        bookShelf.appendBook(new Book(\"Bible\"));\n        bookShelf.appendBook(new Book(\"Cinderella\"));\n        bookShelf.appendBook(new Book(\"Daddy-Long-Legs\"));\n\n        // 명시적으로 Iterator를 사용하는 방법 \n        Iterator<Book> it = bookShelf.iterator();\n        while (it.hasNext()) {\n            Book book = it.next();\n            System.out.println(book.getName());\n        }\n        System.out.println();\n\n        // 확장 for문을 사용하는 방법 \n        for (Book book: bookShelf) {\n            System.out.println(book.getName());\n        }\n        System.out.println();\n    }\n}\n"
+    }
+  ],
+  "adapter": [
+    {
+      "path": "2 Adapter/Sample1/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        Print p = new PrintBanner(\"Hello\");\n        p.printWeak();\n        p.printStrong();\n    }\n}\n"
+    },
+    {
+      "path": "2 Adapter/Sample2/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        Print p = new PrintBanner(\"Hello\");\n        p.printWeak();\n        p.printStrong();\n    }\n}\n"
+    }
+  ],
+  "template-method": [
+    {
+      "path": "3 TemplateMethod/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        // 'H'를 가진 CharDisplay 인스턴스를 하나 만든다 \n        AbstractDisplay d1 = new CharDisplay('H');\n\n        // \"Hello, world.\"를 가진 StringDisplay 인스턴스를 하나 만든다 \n        AbstractDisplay d2 = new StringDisplay(\"Hello, world.\");\n\n        // d1,d2 모두 같은 AbstractDisplay의 하위 클래스의 인스턴스이므로\n        // 상속한 display 메소드를 호출할 수 있다\n        // 실제 동작은 CharDisplay나 StringDisplay 클래스에서 정해진다\n        d1.display();\n        d2.display();\n    }\n}\n"
+    }
+  ],
+  "factory-method": [
+    {
+      "path": "4 FactoryMethod/Sample/Main.java",
+      "code": "import framework.Factory;\nimport framework.Product;\nimport idcard.IDCardFactory;\n\npublic class Main {\n    public static void main(String[] args) {\n        Factory factory = new IDCardFactory();\n        Product card1 = factory.create(\"Youngjin Kim\");\n        Product card2 = factory.create(\"Heungmin Son\");\n        Product card3 = factory.create(\"Kane\");\n        card1.use();\n        card2.use();\n        card3.use();\n    }\n}\n"
+    }
+  ],
+  "singleton": [
+    {
+      "path": "5 Singleton/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Start.\");\n        Singleton obj1 = Singleton.getInstance();\n        Singleton obj2 = Singleton.getInstance();\n        if (obj1 == obj2) {\n            System.out.println(\"obj1과 obj2는 같은 인스턴스입니다.\");\n        } else {\n            System.out.println(\"obj1과 obj2는 같은 인스턴스가 아닙니다.\");\n        }\n        System.out.println(\"End.\");\n    }\n}\n"
+    }
+  ],
+  "prototype": [
+    {
+      "path": "6 Prototype/Sample/Main.java",
+      "code": "import framework.Manager;\nimport framework.Product;\n\npublic class Main {\n    public static void main(String[] args) {\n        // 준비 \n        Manager manager = new Manager();\n        UnderlinePen upen = new UnderlinePen('-');\n        MessageBox mbox = new MessageBox('*');\n        MessageBox sbox = new MessageBox('/');\n\n        // 등록 \n        manager.register(\"strong message\", upen);\n        manager.register(\"warning box\", mbox);\n        manager.register(\"slash box\", sbox);\n\n        // 생성과 사용 \n        Product p1 = manager.create(\"strong message\");\n        p1.use(\"Hello, world.\");\n\n        Product p2 = manager.create(\"warning box\");\n        p2.use(\"Hello, world.\");\n\n        Product p3 = manager.create(\"slash box\");\n        p3.use(\"Hello, world.\");\n    }\n}\n"
+    }
+  ],
+  "builder": [
+    {
+      "path": "7 Builder/Sample/Main.java",
+      "code": "import java.io.IOException;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\n\npublic class Main {\n    public static void main(String[] args) {\n        if (args.length != 1) {\n            usage();\n            System.exit(0);\n        }\n        if (args[0].equals(\"text\")) {\n            TextBuilder textbuilder = new TextBuilder();\n            Director director = new Director(textbuilder);\n            director.construct();\n            String result = textbuilder.getTextResult();\n            System.out.println(result);\n        } else if (args[0].equals(\"html\")) {\n            HTMLBuilder htmlbuilder = new HTMLBuilder();\n            Director director = new Director(htmlbuilder);\n            director.construct();\n            String filename = htmlbuilder.getHTMLResult();\n            System.out.println(\"HTML파일 \" + filename + \"이 작성되었습니다.\");\n        } else {\n            usage();\n            System.exit(0);\n        }\n    }\n\n    // 사용 방법을 표시한다 \n    public static void usage() {\n        System.out.println(\"Usage: java Main text       텍스트로 문서 작성\");\n        System.out.println(\"Usage: java Main html       HTML 파일로 문서 작성\");\n    }\n}\n"
+    }
+  ],
+  "abstract-factory": [
+    {
+      "path": "8 AbstractFactory/Sample/Main.java",
+      "code": "import factory.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        if (args.length != 2) {\n            System.out.println(\"Usage: java Main filename.html class.name.of.ConcreteFactory\");\n            System.out.println(\"Example 1: java Main list.html listfactory.ListFactory\");\n            System.out.println(\"Example 2: java Main div.html divfactory.DivFactory\");\n            System.exit(0);\n        }\n\n        String filename = args[0];\n        String classname = args[1];\n\n        Factory factory = Factory.getFactory(classname);\n\n        // Blog\n        Link blog1 = factory.createLink(\"Blog 1\", \"https://example.com/blog1\");\n        Link blog2 = factory.createLink(\"Blog 2\", \"https://example.com/blog2\");\n        Link blog3 = factory.createLink(\"Blog 3\", \"https://example.com/blog3\");\n\n        Tray blogTray = factory.createTray(\"Blog Site\");\n        blogTray.add(blog1);\n        blogTray.add(blog2);\n        blogTray.add(blog3);\n\n        // News\n        Link news1 = factory.createLink(\"News 1\", \"https://example.com/news1\");\n        Link news2 = factory.createLink(\"News 2\", \"https://example.com/news2\");\n        Tray news3 = factory.createTray(\"News 3\");\n        news3.add(factory.createLink(\"News 3 (US)\", \"https://example.com/news3us\"));\n        news3.add(factory.createLink(\"News 3 (Korea)\", \"https://example.com/news3kr\"));\n\n        Tray newsTray = factory.createTray(\"News Site\");\n        newsTray.add(news1);\n        newsTray.add(news2);\n        newsTray.add(news3);\n\n        // Page\n        Page page = factory.createPage(\"Blog and News\", \"Youngjin.com\");\n        page.add(blogTray);\n        page.add(newsTray);\n\n        page.output(filename);\n    }\n}\n"
+    }
+  ],
+  "bridge": [
+    {
+      "path": "9 Bridge/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        Display d1 = new Display(new StringDisplayImpl(\"Hello, Korea.\"));\n        Display d2 = new CountDisplay(new StringDisplayImpl(\"Hello, World.\"));\n        CountDisplay d3 = new CountDisplay(new StringDisplayImpl(\"Hello, Universe.\"));\n        d1.display();\n        d2.display();\n        d3.display();\n        d3.multiDisplay(5);\n    }\n}\n"
+    }
+  ],
+  "strategy": [
+    {
+      "path": "10 Strategy/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        if (args.length != 2) {\n            System.out.println(\"Usage: java Main randomseed1 randomseed2\");\n            System.out.println(\"Example: java Main 314 15\");\n            System.exit(0);\n        }\n        int seed1 = Integer.parseInt(args[0]);\n        int seed2 = Integer.parseInt(args[1]);\n        Player player1 = new Player(\"KIM\", new WinningStrategy(seed1));\n        Player player2 = new Player(\"LEE\", new ProbStrategy(seed2));\n        for (int i = 0; i < 10000; i++) {\n            Hand nextHand1 = player1.nextHand();\n            Hand nextHand2 = player2.nextHand();\n            if (nextHand1.isStrongerThan(nextHand2)) {\n                System.out.println(\"Winner:\" + player1);\n                player1.win();\n                player2.lose();\n            } else if (nextHand2.isStrongerThan(nextHand1)) {\n                System.out.println(\"Winner:\" + player2);\n                player1.lose();\n                player2.win();\n            } else {\n                System.out.println(\"Even...\");\n                player1.even();\n                player2.even();\n            }\n        }\n        System.out.println(\"Total result:\");\n        System.out.println(player1);\n        System.out.println(player2);\n    }\n}\n"
+    }
+  ],
+  "composite": [
+    {
+      "path": "11 Composite/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Making root entries...\");\n        Directory rootdir = new Directory(\"root\");\n        Directory bindir = new Directory(\"bin\");\n        Directory tmpdir = new Directory(\"tmp\");\n        Directory usrdir = new Directory(\"usr\");\n        rootdir.add(bindir);\n        rootdir.add(tmpdir);\n        rootdir.add(usrdir);\n        bindir.add(new File(\"vi\", 10000));\n        bindir.add(new File(\"latex\", 20000));\n        rootdir.printList();\n        System.out.println();\n\n        System.out.println(\"Making user entries...\");\n        Directory youngjin = new Directory(\"youngjin\");\n        Directory gildong = new Directory(\"gildong\");\n        Directory dojun = new Directory(\"dojun\");\n        usrdir.add(youngjin);\n        usrdir.add(gildong);\n        usrdir.add(dojun);\n        youngjin.add(new File(\"diary.html\", 100));\n        youngjin.add(new File(\"Composite.java\", 200));\n        gildong.add(new File(\"memo.tex\", 300));\n        dojun.add(new File(\"game.doc\", 400));\n        dojun.add(new File(\"junk.mail\", 500));\n        rootdir.printList();\n    }\n}\n"
+    }
+  ],
+  "decorator": [
+    {
+      "path": "12 Decorator/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        Display b1 = new StringDisplay(\"Hello, world.\");\n        Display b2 = new SideBorder(b1, '#');\n        Display b3 = new FullBorder(b2);\n        b1.show();\n        b2.show();\n        b3.show();\n        Display b4 =\n                    new SideBorder(\n                        new FullBorder(\n                            new FullBorder(\n                                new SideBorder(\n                                    new FullBorder(\n                                        new StringDisplay(\"Hello, world.\")\n                                    ),\n                                    '*'\n                                )\n                            )\n                        ),\n                        '/'\n                    );\n        b4.show();\n    }\n}\n"
+    }
+  ],
+  "visitor": [
+    {
+      "path": "13 Visitor/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Making root entries...\");\n        Directory rootdir = new Directory(\"root\");\n        Directory bindir = new Directory(\"bin\");\n        Directory tmpdir = new Directory(\"tmp\");\n        Directory usrdir = new Directory(\"usr\");\n        rootdir.add(bindir);\n        rootdir.add(tmpdir);\n        rootdir.add(usrdir);\n        bindir.add(new File(\"vi\", 10000));\n        bindir.add(new File(\"latex\", 20000));\n        rootdir.accept(new ListVisitor());\n        System.out.println();\n\n        System.out.println(\"Making user entries...\");\n        Directory youngjin = new Directory(\"youngjin\");\n        Directory gildong = new Directory(\"gildong\");\n        Directory dojun = new Directory(\"dojun\");\n        usrdir.add(youngjin);\n        usrdir.add(gildong);\n        usrdir.add(dojun);\n        youngjin.add(new File(\"diary.html\", 100));\n        youngjin.add(new File(\"Composite.java\", 200));\n        gildong.add(new File(\"memo.tex\", 300));\n        dojun.add(new File(\"game.doc\", 400));\n        dojun.add(new File(\"junk.mail\", 500));\n        rootdir.accept(new ListVisitor());\n    }\n}\n\n"
+    }
+  ],
+  "chain-of-responsibility": [
+    {
+      "path": "14 ChainOfResponsibility/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        Support alice = new NoSupport(\"Alice\");\n        Support bob = new LimitSupport(\"Bob\", 100);\n        Support charlie = new SpecialSupport(\"Charlie\", 429);\n        Support diana = new LimitSupport(\"Diana\", 200);\n        Support elmo = new OddSupport(\"Elmo\");\n        Support fred = new LimitSupport(\"Fred\", 300);\n\n        // 사슬 형성 \n        alice.setNext(bob).setNext(charlie).setNext(diana).setNext(elmo).setNext(fred);\n\n        // 다양한 트러블 발생\n        for (int i = 0; i < 500; i += 33) {\n            alice.support(new Trouble(i));\n        }\n    }\n}\n"
+    }
+  ],
+  "facade": [
+    {
+      "path": "15 Facade/Sample/Main.java",
+      "code": "import pagemaker.PageMaker;\n\npublic class Main {\n    public static void main(String[] args) {\n        PageMaker.makeWelcomePage(\"hyuki@example.com\", \"welcome.html\");\n    }\n}\n"
+    }
+  ],
+  "mediator": [
+    {
+      "path": "16 Mediator/Sample/Main.java",
+      "code": "public class Main {\n    static public void main(String[] args) {\n        new LoginFrame(\"Mediator Sample\");\n    }\n}\n"
+    }
+  ],
+  "observer": [
+    {
+      "path": "17 Observer/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        NumberGenerator generator = new RandomNumberGenerator();\n        Observer observer1 = new DigitObserver();\n        Observer observer2 = new GraphObserver();\n        generator.addObserver(observer1);\n        generator.addObserver(observer2);\n        generator.execute();\n    }\n}\n"
+    }
+  ],
+  "memento": [
+    {
+      "path": "18 Memento/Sample/Main.java",
+      "code": "import game.Memento;\nimport game.Gamer;\n\npublic class Main {\n    public static void main(String[] args) {\n        Gamer gamer = new Gamer(100)\t\t\t// 최초 소지금은 100\n        Memento memento = gamer.createMemento()\t// 최초 상태를 저장해 둔다\n\n        // 게임 시작 \n        for (int i = 0; i < 100; i++) {\n            System.out.println(\"==== \" + i);\t\t// 횟수 표시 \n            System.out.println(\"상태:\" + gamer);\t// 현재 주인공의 상태 표시 \n\n            // 게임을 진행한다 \n            gamer.bet();\n\n            System.out.println(\"소지금은 \" + gamer.getMoney() + \"원이 되었습니다.\");\n\n            // Memento 취급 방법 결정 \n            if (gamer.getMoney() > memento.getMoney()) {\n                System.out.println(\"※많이 늘었으니 현재 상태를 저장하자!\");\n                memento = gamer.createMemento();\n            } else if (gamer.getMoney() < memento.getMoney() / 2) {\n                System.out.println(\"※많이 줄었으니 이전 상태를 복원하자！\");\n                gamer.restoreMemento(memento);\n            }\n\n            // 잠시 대기 \n            try {\n                Thread.sleep(1000);\n            } catch (InterruptedException e) {\n            }\n            System.out.println();\n        }\n    }\n}\n"
+    }
+  ],
+  "state": [
+    {
+      "path": "19 State/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        SafeFrame frame = new SafeFrame(\"State Sample\");\n        while (true) {\n            for (int hour = 0; hour < 24; hour++) {\n                frame.setClock(hour);   // 시간 설정 \n                try {\n                    Thread.sleep(1000);\n                } catch (InterruptedException e) {\n                }\n            }\n        }\n    }\n}\n"
+    }
+  ],
+  "flyweight": [
+    {
+      "path": "20 Flyweight/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        if (args.length == 0) {\n            System.out.println(\"Usage: java Main digits\");\n            System.out.println(\"Example: java Main 1212123\");\n            System.exit(0);\n        }\n\n        BigString bs = new BigString(args[0]);\n        bs.print();\n    }\n}\n"
+    }
+  ],
+  "proxy": [
+    {
+      "path": "21 Proxy/Sample/Main.java",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        Printable p = new PrinterProxy(\"Alice\");\n        System.out.println(\"이름은 현재 \" + p.getPrinterName() + \"입니다.\");\n        p.setPrinterName(\"Bob\");\n        System.out.println(\"이름은 현재 \" + p.getPrinterName() + \"입니다.\");\n        p.print(\"Hello, world.\");\n    }\n}\n"
+    }
+  ],
+  "command": [
+    {
+      "path": "22 Command/Sample/Main.java",
+      "code": "import command.*;\nimport drawer.*;\n\nimport java.awt.*;\nimport java.awt.event.*;\nimport javax.swing.*;\n\npublic class Main extends JFrame implements MouseMotionListener, WindowListener {\n    // 그리기 이력 \n    private MacroCommand history = new MacroCommand();\n    // 그리는 영역 \n    private DrawCanvas canvas = new DrawCanvas(400, 400, history);\n    // 삭제 버튼\n    private JButton clearButton  = new JButton(\"clear\");\n\n    // 생성자 \n    public Main(String title) {\n        super(title);\n\n        this.addWindowListener(this);\n        canvas.addMouseMotionListener(this);\n        clearButton.addActionListener(e -> {\n            history.clear();\n            canvas.repaint();\n        });\n\n        Box buttonBox = new Box(BoxLayout.X_AXIS);\n        buttonBox.add(clearButton);\n        Box mainBox = new Box(BoxLayout.Y_AXIS);\n        mainBox.add(buttonBox);\n        mainBox.add(canvas);\n        getContentPane().add(mainBox);\n\n        pack();\n        setVisible(true);\n    }\n\n    // MouseMotionListener용\n    @Override\n    public void mouseMoved(MouseEvent e) {\n    }\n\n    @Override\n    public void mouseDragged(MouseEvent e) {\n        Command cmd = new DrawCommand(canvas, e.getPoint());\n        history.append(cmd);\n        cmd.execute();\n    }\n\n    // WindowListener용 \n    @Override\n    public void windowClosing(WindowEvent e) {\n        System.exit(0);\n    }\n\n    @Override public void windowActivated(WindowEvent e) {}\n    @Override public void windowClosed(WindowEvent e) {}\n    @Override public void windowDeactivated(WindowEvent e) {}\n    @Override public void windowDeiconified(WindowEvent e) {}\n    @Override public void windowIconified(WindowEvent e) {}\n    @Override public void windowOpened(WindowEvent e) {}\n\n    public static void main(String[] args) {\n        new Main(\"Command Pattern Sample\");\n    }\n}\n"
+    }
+  ],
+  "interpreter": [
+    {
+      "path": "23 Interpreter/Sample/Main.java",
+      "code": "import java.nio.file.Files;\nimport java.nio.file.Path;\n\npublic class Main {\n    public static void main(String[] args) {\n        try {\n            for (String text: Files.readAllLines(Path.of(\"program.txt\"))) {\n                System.out.println(\"text = \\\"\" + text + \"\\\"\");\n                Node node = new ProgramNode();\n                node.parse(new Context(text));\n                System.out.println(\"node = \" + node);\n            }\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n"
+    }
+  ]
+}

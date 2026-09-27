@@ -1,5 +1,7 @@
 "use client"
 
+import { StudyProgress } from "@/components/study-progress"
+
 import * as React from "react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
@@ -302,7 +304,7 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
   )
 }
 
-function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
+function SidebarInset({ className, children, ...props }: React.ComponentProps<"main">) {
   return (
     <main
       data-slot="sidebar-inset"
@@ -311,7 +313,10 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
         className
       )}
       {...props}
-    />
+    >
+      <StudyProgress />
+      {children}
+    </main>
   )
 }
 

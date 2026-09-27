@@ -1,3 +1,4 @@
+import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
@@ -25,6 +26,10 @@ import {
   SearchIcon,
   ServerIcon,
 } from "lucide-react";
+
+import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/rag/concepts");
 
 const ragArchitectures = [
   { name: "Naive RAG", summary: "질문에 맞는 문서를 한 번 검색해 답변의 근거로 전달하는 기본 구조입니다.", flow: ["질문", "관련 문서 검색", "컨텍스트 구성", "생성"], example: "제품 매뉴얼에서 반품 기간을 찾는 FAQ", caution: "잘못된 문서나 빠진 근거를 자동으로 교정하지 않습니다. 키워드 검색도 가능하며 벡터 DB가 필수는 아닙니다." },
@@ -190,7 +195,7 @@ export default function RagConceptsPage() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
-                  <BreadcrumbPage>RAG / Concepts</BreadcrumbPage>
+                  <BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -199,13 +204,12 @@ export default function RagConceptsPage() {
         </header>
 
         <main className="flex flex-1 flex-col gap-4 p-4">
+          <PageDebugLab href="/rag/concepts" />
           <section className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
             <div className="flex items-start gap-3">
               <BrainCircuitIcon className="mt-1 size-6 text-sky-700 dark:text-sky-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">
-                  RAG, CAG, MAG, GAG 정리
-                </h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
                   모두 LLM이 혼자 가진 파라미터 지식만 쓰지 않고 외부 지식,
                   캐시, 기억, 그래프를 붙여 답변 품질을 높이는 방식입니다.
@@ -360,9 +364,9 @@ export default function RagConceptsPage() {
               <ServerIcon className="mt-1 size-4 shrink-0 text-amber-700 dark:text-amber-300" />
               <p>
                 현재 실험실은 키워드 기반 검색과 mock 답변으로 기본 흐름을 학습합니다.
-                <Link className="mx-1 underline underline-offset-4" href="/rag/documents">문서 등록</Link> →
-                <Link className="mx-1 underline underline-offset-4" href="/rag/vector-search">검색</Link> →
-                <Link className="mx-1 underline underline-offset-4" href="/rag/ask">질문하기</Link>에서 확인할 수 있습니다.
+                <Link className="mx-1 underline underline-offset-4" href="/rag/documents">RAG 문서 등록</Link> →
+                <Link className="mx-1 underline underline-offset-4" href="/rag/vector-search">RAG 벡터 검색</Link> →
+                <Link className="mx-1 underline underline-offset-4" href="/rag/ask">RAG 질문·답변</Link>에서 확인할 수 있습니다.
                 위의 8가지 아키텍처와 실제 LLM 연동은 개념 설명입니다.
               </p>
             </div>
@@ -402,3 +406,5 @@ function Flow({ values }: { values: string[] }) {
     </div>
   );
 }
+
+export const metadata = getStudyMetadata("/rag/concepts");

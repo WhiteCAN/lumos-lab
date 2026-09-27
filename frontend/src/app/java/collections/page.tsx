@@ -10,6 +10,11 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
 import { BracesIcon, PlayIcon, TableIcon } from "lucide-react";
+import { CollectionDebugger } from "./collection-debugger";
+
+import { getStudyPage } from "@/lib/study-pages";
+
+const studyPage = getStudyPage("/java/collections");
 
 type CompareItem = {
   name: string;
@@ -74,7 +79,7 @@ export default function JavaCollectionsPage() {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>Java 기초 / 컬렉션</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
+            <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbPage>{studyPage.category} &gt; {studyPage.title}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>
           </div>
           <ThemeToggle />
         </header>
@@ -84,13 +89,15 @@ export default function JavaCollectionsPage() {
             <div className="flex items-start gap-3">
               <BracesIcon className="mt-1 size-6 text-lime-700 dark:text-lime-300" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">Java Collection Framework</h1>
+                <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
                 <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
                   List, Set, Map, Queue는 이름보다 “순서, 중복, 조회 방식”으로 고르면 이해가 빨라집니다.
                 </p>
               </div>
             </div>
           </section>
+
+          <CollectionDebugger />
 
           <section className="rounded-lg border bg-card p-4 shadow-sm">
             <div className="mb-4 flex items-center gap-2">
