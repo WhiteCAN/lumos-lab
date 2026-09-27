@@ -38,7 +38,7 @@ npm run dev
 | --- | --- |
 | URL과 페이지 | `src/app/<경로>/page.tsx`. 예: `/backend/sharding-replica` → `src/app/backend/sharding-replica/page.tsx` |
 | 루트 레이아웃 | `src/app/layout.tsx`: 한국어 문서, 폰트, ThemeProvider, TooltipProvider. 사이드바는 여기서 제공하지 않음 |
-| 정적 학습 페이지 틀 | `src/components/reference-page.tsx`의 `ReferencePage`: 사이드바, 헤더, breadcrumb, 테마 토글, 소개 영역과 main 제공 |
+| 정적 학습 페이지 틀 | `src/components/reference-page.tsx`의 `ReferencePage`: 사이드바, 헤더, breadcrumb, 테마 토글, 소개 영역 제공. `SidebarInset`이 main을 제공하므로 콘텐츠에 main을 중첩하지 않음 |
 | 학습 콘텐츠 블록 | 같은 파일의 `ConceptGrid`, `ComparisonTable`, `FlowSection`, `CodeBlock`. 필요한 블록만 재사용 |
 | 순차 흐름·경로 선택 | `src/components/flow-section.tsx`: 화면 진입 시 한 번 재생, 일시정지·다시 보기, 동작 줄이기 대응. 문자열 또는 `{ label, icon, detail }` 사용. `reference-page.tsx`에서 재내보냄 |
 | 제품·역할 아이콘 | `src/components/technology-icon.tsx`: 브랜드는 Devicon 등의 원본 SVG를 `public/brands/`에 수정 없이 저장하며 임의로 재색칠하지 않음. 일반 역할은 Lucide. 사용법은 `../docs/flow-animation.md` |

@@ -70,12 +70,14 @@ Get-NetTCPConnection -LocalPort 3000,8080,9090 -ErrorAction SilentlyContinue |
 
 메시징
   Kafka 기초
+  Kafka 아키텍처
   Kafka 설정 옵션
   Saga / Outbox
 
 백엔드
   Redis / 캐시 / 분산락
   Security / JWT / OAuth
+  JWT · OAuth · OIDC
 
 디자인 패턴
   전략 패턴
@@ -98,6 +100,8 @@ RAG
   아키텍처
   Circuit Breaker
   CI/CD
+  Docker 멀티스테이지 빌드
+  Docker 이미지 최적화
   HTTP 에러 처리
   Spring Bean / DI
   테스트 기초
@@ -123,6 +127,7 @@ RAG
 - `/frontend/react`: React 기초 레퍼런스
 - `/frontend/nextjs`: Next.js 기초 레퍼런스
 - `/messaging/kafka`: Kafka 기초 레퍼런스
+- `/messaging/kafka-architecture`: 릴스 기반 아키텍처 정리. 브로커·파티션 복제 배치도, 소비자 그룹, 오프셋·재처리, KRaft, 자가 확인 질문과 공식 출처를 제공하는 정적 페이지
 - `/messaging/kafka-config`: Kafka 설정 옵션 레퍼런스
 - `/messaging/saga-outbox`: Saga / Outbox 패턴, 메시지 중복/유실 방지 레퍼런스
 - `/backend/redis-cache`: Redis / 캐시 / 세션 / 분산락 레퍼런스
@@ -132,6 +137,9 @@ RAG
 - `/genai-project-structure`: Instagram `DcQvJsnJXYB`의 GenAI 프로젝트 책임 구분을 정리한 정적 페이지. 폴더 트리는 학습용 예시이며 현재 저장소 구조를 변경하지 않음 (레퍼런스 메뉴)
 - `/ai-agent-patterns`: Instagram `DdRObqoohGj`의 Single-shot·ReAct·Planner-executor·Reflexive·Verifier-gated 정리 (레퍼런스 메뉴)
 - `/backend/security-auth`: Security / JWT / OAuth 레퍼런스와 JWT mock 테스트
+- `/backend/jwt-oauth`: 릴스 기반 JWT·OAuth 비교에 OIDC·토큰 검증·세션 선택을 보완한 정적 페이지. 기존 mock 실습과 연결
+- `/docker-multi-stage`: 릴스 기반 다단계 빌드 가이드. 별도 폴더에서 사용할 Java 예시이며 프로젝트 Dockerfile은 변경하지 않음
+- `/docker-image-optimization`: 릴스의 최적화 10가지, 레이어 삭제·캐시 차이, dockerignore와 이미지 측정 가이드
 - `/rag/concepts`: RAG / CAG / MAG / GAG 비교, RAG 아키텍처 8가지와 평가·선택 기준 레퍼런스
 - `/rag/architecture-comparison`: Learnbay 원문을 바탕으로 Classic·Graph·Agentic RAG를 비교합니다. 그래프 준비와 검색을 구분하고, 공통 FlowSection으로 순차 흐름·추가 검색 경로를 표시합니다. 출처와 비용·선택 기준을 함께 제공합니다.
 - `/rag/documents`: RAG 문서 등록, chunking, keyword mock embedding 실험실

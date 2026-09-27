@@ -41,6 +41,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 - `/frontend/react`: React 기초 참고 페이지
 - `/frontend/nextjs`: Next.js 기초 참고 페이지
 - `/messaging/kafka`: Kafka 기초 참고 페이지
+- `/messaging/kafka-architecture`: Kafka 아키텍처 — 브로커·복제본 배치, 소비자 그룹, 오프셋·재처리, KRaft와 면접 질문
 - `/messaging/kafka-config`: Kafka 설정 옵션 참고 페이지
 - `/messaging/saga-outbox`: Saga / Outbox 패턴, 메시지 중복/유실 방지 참고 페이지
 - `/backend/redis-cache`: Redis / 캐시 / 세션 / 분산락 참고 페이지
@@ -49,6 +50,9 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 - `/genai-project-structure`: 생성형 AI 프로젝트 13개 영역의 책임과 대표 파일, 수집·질문 처리 경로, 요청·오류 예시와 검색·답변 평가 기준. 데스크톱은 번호로 연결한 폴더 트리·설명을 좌우 배치하고 트리를 스크롤 중 고정하며, 모바일은 세로로 표시합니다.
 - `/ai-agent-patterns`: AI 에이전트 설계 패턴 5가지, 선택 기준과 조합 예시
 - `/backend/security-auth`: Spring Security / JWT / OAuth 참고 페이지와 JWT mock 테스트
+- `/backend/jwt-oauth`: JWT 형식·OAuth 권한 위임·OIDC 인증 비교, 로그인 흐름과 검증 주의점
+- `/docker-multi-stage`: 빌드·런타임 단계 분리, Java 독립 예시와 산출물 복사 흐름
+- `/docker-image-optimization`: 이미지 최적화 10가지, 레이어·캐시 차이와 변경 전후 측정
 - `/rag/concepts`: RAG / CAG / MAG / GAG 비교와 RAG 아키텍처 8가지의 흐름·선택 기준
 - `/rag/architecture-comparison`: Learnbay 게시물 기반 Classic·Graph·Agentic RAG 비교, 순차 흐름과 추가 검색 경로, 비용·선택 기준
 - `/patterns`: 패턴 실험실 안내

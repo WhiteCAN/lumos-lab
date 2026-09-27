@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { API_BASE_URL } from "@/constants/api";
@@ -53,7 +54,7 @@ type OAuthResponse = {
 const authCards = [
   ["Authentication", "누구인지 확인합니다.", "아이디/비밀번호, OAuth 로그인, 인증서 등"],
   ["Authorization", "무엇을 할 수 있는지 확인합니다.", "ROLE_USER, ROLE_ADMIN, 리소스 소유자 검사"],
-  ["JWT", "서버가 서명한 토큰입니다.", "access token, refresh token, claim, signature"],
+  ["JWT", "클레임을 담는 토큰 형식입니다. 이 실습은 서명된 JWT를 사용합니다.", "access token, claim, signature"],
   ["OAuth 2.0", "다른 서비스에 권한 위임을 하는 표준 흐름입니다.", "Google 로그인, Kakao 로그인, GitHub 로그인"],
 ];
 
@@ -189,6 +190,7 @@ export default function SecurityAuthPage() {
                   로그인, JWT 발급, Bearer token 보호 API, 권한 실패, 토큰 변조,
                   OAuth callback mock을 버튼으로 호출해보는 학습 페이지입니다.
                 </p>
+                <Link href="/backend/jwt-oauth" className="mt-3 inline-block text-sm underline underline-offset-4">JWT · OAuth · OIDC의 차이 먼저 보기</Link>
               </div>
             </div>
           </section>

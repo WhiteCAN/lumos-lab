@@ -184,6 +184,10 @@ const data = {
           url: "/messaging/kafka",
         },
         {
+          title: "Kafka 아키텍처",
+          url: "/messaging/kafka-architecture",
+        },
+        {
           title: "Kafka 설정 옵션",
           url: "/messaging/kafka-config",
         },
@@ -216,6 +220,10 @@ const data = {
         {
           title: "Security / JWT / OAuth",
           url: "/backend/security-auth",
+        },
+        {
+          title: "JWT · OAuth · OIDC",
+          url: "/backend/jwt-oauth",
         },
       ],
     },
@@ -336,6 +344,14 @@ const data = {
         {
           title: "CI/CD",
           url: "/ci-cd",
+        },
+        {
+          title: "Docker 멀티스테이지 빌드",
+          url: "/docker-multi-stage",
+        },
+        {
+          title: "Docker 이미지 최적화",
+          url: "/docker-image-optimization",
         },
         {
           title: "HTTP 에러 처리",

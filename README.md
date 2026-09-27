@@ -138,14 +138,15 @@ Browser
 | Java 기초 | `/java/collections`, `/java/concurrency`, `/java/equality-exception`, `/java/io-string` |
 | Spring·Backend | `/sync-async`, `/transactional`, `/grpc`, `/circuit-breaker`, `/spring-bean-di`, `/http-errors` |
 | DB·성능 | `/backend/bulk-insert`, `/backend/db-index-transaction`, `/backend/redis-cache`, `/backend/sharding-replica`, `/backend/caching-strategies` |
-| 인증 | `/backend/security-auth` |
-| 메시징 | `/messaging/kafka`, `/messaging/kafka-config`, `/messaging/saga-outbox` |
+| 인증 | `/backend/security-auth`, `/backend/jwt-oauth` |
+| 메시징 | `/messaging/kafka`, `/messaging/kafka-architecture`, `/messaging/kafka-config`, `/messaging/saga-outbox` |
 | 디자인 패턴 | `/patterns`, `/patterns/strategy`, `/patterns/factory`, `/patterns/observer`, `/patterns/decorator`, `/patterns/command` |
 | RAG·AI | `/rag/concepts`, `/rag/architecture-comparison`, `/rag/documents`, `/rag/vector-search`, `/rag/ask`, `/ai-concepts`, `/llm-app-structure`, `/genai-project-structure`, `/ai-agent-patterns` |
 | Frontend | `/frontend-basics`, `/frontend/react`, `/frontend/nextjs` |
 | 설계·테스트 | `/architecture`, `/testing-basics`, `/tdd`, `/dto-entity-vo`, `/rest-api-design` |
 | 네트워크·API | `/api-vs-rest`, `/tcp-vs-udp` |
 | 프로젝트 참고 | `/project-structure` |
+| 빌드·배포 | `/ci-cd`, `/docker-multi-stage`, `/docker-image-optimization` |
 
 각 화면에는 개념 설명, 비교표, 요청 예시 또는 API 실행 UI가 포함되어 있습니다.
 

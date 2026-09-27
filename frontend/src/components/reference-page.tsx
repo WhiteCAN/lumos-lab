@@ -58,7 +58,7 @@ export function ReferencePage({
           <ThemeToggle />
         </header>
 
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-4 p-4">
           <section className={`rounded-lg border p-5 shadow-sm ${colorClass}`}>
             <div className="flex items-start gap-3">
               {brand ? <TechnologyIcon name={brand} /> : <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-background/70 text-sky-700 dark:text-sky-300"><Icon className="size-6" /></span>}
@@ -76,7 +76,7 @@ export function ReferencePage({
             </div>
           </section>
           {children}
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
@@ -171,7 +171,7 @@ export function ComparisonTable({
 
 export function CodeBlock({ title, code }: { title: string; code: string }) {
   return (
-    <section className="rounded-lg border bg-card p-4 shadow-sm">
+    <section className="min-w-0 rounded-lg border bg-card p-4 shadow-sm">
       <h2 className="text-lg font-semibold">{title}</h2>
       <pre className="mt-4 overflow-auto rounded-lg border bg-background p-4 text-xs leading-6">
         <code>{code}</code>
