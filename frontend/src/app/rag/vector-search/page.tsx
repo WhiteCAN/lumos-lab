@@ -1,5 +1,6 @@
 "use client";
 
+import { FlowSection } from "@/components/flow-section";
 import { FormEvent, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -10,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { API_BASE_URL } from "@/constants/api";
 import { requestJson } from "@/services/http";
-import { AlertTriangleIcon, ArrowRightIcon, BarChart3Icon, PlayIcon, SearchIcon } from "lucide-react";
+import { AlertTriangleIcon, BarChart3Icon, PlayIcon, SearchIcon } from "lucide-react";
 
 import { getStudyPage } from "@/lib/study-pages";
 
@@ -119,15 +120,7 @@ export default function RagVectorSearchPage() {
             </form>
 
             <section className="rounded-lg border border-emerald-200 bg-emerald-50/40 p-4 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
-              <h2 className="text-lg font-semibold">검색 파이프라인</h2>
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                {["질문", "keyword 추출", "chunk score 계산", "topK 선택", "context 후보"].map((step, index, steps) => (
-                  <div key={step} className="flex items-center gap-2">
-                    <span className="rounded-lg border bg-white/75 px-3 py-2 text-sm dark:bg-background/45">{step}</span>
-                    {index < steps.length - 1 ? <ArrowRightIcon className="size-4 text-muted-foreground" /> : null}
-                  </div>
-                ))}
-              </div>
+              <FlowSection title="검색 파이프라인" steps={["질문", "keyword 추출", "chunk score 계산", "topK 선택", "context 후보"]} />
               {result ? (
                 <div className="mt-4">
                   <p className="text-sm font-medium">query keywords</p>

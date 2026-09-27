@@ -1,3 +1,4 @@
+import { FlowSection } from "@/components/flow-section";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -31,7 +32,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
-  ArrowRightIcon,
   CheckCircle2Icon,
   LightbulbIcon,
   NetworkIcon,
@@ -234,26 +234,7 @@ function ProtocolIntroCard({ protocol }: { protocol: ProtocolIntro }) {
 }
 
 function FlowCard({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div className="rounded-lg border border-cyan-200 bg-cyan-50/40 p-4 shadow-sm dark:border-cyan-900/60 dark:bg-cyan-950/20">
-      <h2 className="text-lg font-semibold">{title}</h2>
-      <div className="mt-4 flex flex-wrap items-center gap-3">
-        {items.map((item, index) => (
-          <div key={item} className="flex items-center gap-3">
-            <div className="flex min-h-20 min-w-36 flex-col items-center justify-center gap-2 rounded-lg border bg-white/75 p-3 text-center dark:bg-background/45">
-              <span className="flex size-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-                {index + 1}
-              </span>
-              <span className="text-sm leading-5">{item}</span>
-            </div>
-            {index < items.length - 1 ? (
-              <ArrowRightIcon className="size-4 text-muted-foreground" />
-            ) : null}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <FlowSection title={title} steps={items} />;
 }
 
 function UseCaseCard({ useCase }: { useCase: ProtocolUseCase }) {

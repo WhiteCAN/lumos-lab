@@ -1,3 +1,5 @@
+import { referenceGraphs } from "@/components/learning-diagram-data";
+import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
 import Link from "next/link";
 import { CopyIcon, DatabaseIcon, GitBranchIcon } from "lucide-react";
 import { ConceptGrid, FlowSection, ReferencePage } from "@/components/reference-page";
@@ -42,22 +44,13 @@ export default function ShardingReplicaPage() {
         <article className="rounded-lg border bg-card p-4 shadow-sm">
           <h2 className="text-lg font-semibold">샤딩: 회원 100만 명 나누기</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">아래는 회원 ID 범위로 나눈 학습용 예시입니다. 실제 운영에서는 데이터 크기와 요청 분포를 함께 봅니다.</p>
-          <div className="mt-4 rounded-lg border bg-muted/40 p-3 text-center text-sm">애플리케이션 → 회원 ID로 샤드 선택</div>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-lg border border-sky-300 p-4 dark:border-sky-800"><h3 className="font-semibold">샤드 A</h3><p className="mt-2 text-sm">회원 1 ~ 500,000</p></div>
-            <div className="rounded-lg border border-violet-300 p-4 dark:border-violet-800"><h3 className="font-semibold">샤드 B</h3><p className="mt-2 text-sm">회원 500,001 ~ 1,000,000</p></div>
-          </div>
+          <LearningFlowCanvas title="회원 ID 범위 샤딩" graph={referenceGraphs.sharding} />
           <p className="mt-3 text-sm leading-6">회원 100,000번은 샤드 A로, 800,000번은 샤드 B로 요청합니다. 전체 회원 수는 두 샤드의 결과를 모아 계산합니다.</p>
         </article>
         <article className="rounded-lg border bg-card p-4 shadow-sm">
           <h2 className="text-lg font-semibold">레플리카: 회원 100만 명 복제하기</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">일반적인 단일 Primary와 읽기 가능한 Replica 구성의 예시입니다. 복제 방식과 읽기 지원은 제품마다 다릅니다.</p>
-          <div className="mt-4 rounded-lg border bg-muted/40 p-3 text-center text-sm">Primary · 전체 회원 100만 명 · 쓰기 처리</div>
-          <p className="my-2 text-center text-sm text-muted-foreground">↓ 변경 내용 복제 ↓</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="rounded-lg border border-emerald-300 p-4 dark:border-emerald-800"><h3 className="font-semibold">Replica A</h3><p className="mt-2 text-sm">전체 회원 사본 · 읽기</p></div>
-            <div className="rounded-lg border border-emerald-300 p-4 dark:border-emerald-800"><h3 className="font-semibold">Replica B</h3><p className="mt-2 text-sm">전체 회원 사본 · 읽기</p></div>
-          </div>
+          <LearningFlowCanvas title="Primary와 Replica" graph={referenceGraphs.replica} />
           <p className="mt-3 text-sm leading-6">세 노드가 같은 데이터 집합을 보관합니다. 비동기 복제 중에는 각 노드의 최신 반영 시점이 다를 수 있습니다.</p>
         </article>
       </section>

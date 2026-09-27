@@ -4,6 +4,7 @@ export type Lab = {
 };
 
 export const debugLabs: Record<string, Lab> = {
+  "/solid-principles": {title: "공통 계약으로 할인 전략 실행", endpoint: "/api/patterns/strategy/run", initial: {grade:"VIP",amount:10000}, breakpoint: "pattern/strategy/StrategyPatternService.java → run()·selectStrategy()·discount()", note: "실행 언어는 Java이며 아래 Java 예제는 설명용입니다. VIP·GOLD·BASIC을 비교합니다. 음수 금액은 0으로 보정하며 외부 결제·저장소를 호출하지 않습니다. 새 전략 선택 분기는 코드 수정이 필요합니다."},
   "/system-design-roadmap": { title: "캐시 용량과 재조회 비교", endpoint: "/api/labs/examples/cache", initial: {values:[1,2,1,3,1],parameter:2,fail:false}, breakpoint: "learning/ScenarioLabService.java → cache()", note: "parameter는 용량 1~10입니다. 요청 내부 LinkedHashMap 캐시 모형이며 Redis·TTL·분산 인프라를 실행하지 않습니다. 전체 로드맵 중 캐시 판단만 실습합니다." },
   "/architecture/microservices": { title: "Outbox 커밋·중복 처리 모형", endpoint: "/api/labs/examples/outbox", initial: {values:[1,2,2],parameter:1,fail:false}, breakpoint: "learning/ScenarioLabService.java → outbox()", note: "요청 내부 메모리 모형입니다. 중복 ID는 published에서 제거되지만 orders에는 남습니다. fail=true이면 임시 주문·이벤트를 함께 폐기합니다. 실제 DB·브로커·Saga·요청 간 영속 멱등성은 구현하지 않습니다." },
   "/java/stack-heap": { title: "Java 객체 변경·참조 재할당", endpoint: "/api/labs/stack-heap", initial: {initialAge:20,nextAge:30,reassign:false}, breakpoint: "stackheap/StackHeapService.java → run()·change()", note: "나이는 0~150입니다. reassign을 바꿔 공유 객체 수정과 지역 참조 재할당을 비교합니다. 실제 Java 객체를 실행하며 GC·물리 주소를 측정하지 않습니다." },

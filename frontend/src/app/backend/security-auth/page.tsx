@@ -1,5 +1,6 @@
 "use client";
 
+import { FlowSection } from "@/components/flow-section";
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -13,7 +14,6 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import {
   AlertTriangleIcon,
-  ArrowRightIcon,
   CheckCircle2Icon,
   KeyRoundIcon,
   LockKeyholeIcon,
@@ -309,23 +309,8 @@ export default function SecurityAuthPage() {
   );
 }
 
-function Flow({ title, icon: Icon, steps }: { title: string; icon: typeof LockKeyholeIcon; steps: string[] }) {
-  return (
-    <section className="rounded-lg border border-emerald-200 bg-emerald-50/40 p-4 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
-      <div className="mb-4 flex items-center gap-2">
-        <Icon className="size-4 text-muted-foreground" />
-        <h2 className="text-lg font-semibold">{title}</h2>
-      </div>
-      <div className="flex flex-wrap items-center gap-2">
-        {steps.map((step, index) => (
-          <div key={`${step}-${index}`} className="flex items-center gap-2">
-            <div className="rounded-lg border bg-white/75 px-3 py-2 text-sm dark:bg-background/45">{index + 1}. {step}</div>
-            {index < steps.length - 1 ? <ArrowRightIcon className="size-4 text-muted-foreground" /> : null}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+function Flow({ title, steps }: { title: string; icon: typeof LockKeyholeIcon; steps: string[] }) {
+  return <FlowSection title={title} steps={steps} orientation="vertical" />;
 }
 
 function Rule({ title, text }: { title: string; text: string }) {

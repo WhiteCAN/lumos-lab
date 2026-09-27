@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useId, useReducer, useRef, useState, useSyncExternalStore } from "react";
-import { ArrowDownIcon, CheckIcon, PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react";
-import { TechnologyIcon, type FlowIconName } from "@/components/technology-icon";
+import { PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react";
+import { type FlowIconName } from "@/components/technology-icon";
 import { initialPlayback, updatePlayback, type PlaybackAction } from "@/lib/flow-playback";
+import { LearningFlowCanvas, type LearningGraph } from "./learning-flow-canvas";
 import styles from "./flow-section.module.css";
 
 export type FlowStep = string | { label: string; icon?: FlowIconName; detail?: string };
@@ -24,6 +25,14 @@ function subscribeMotion(callback: () => void) {
 
 export function FlowSection({ title, steps, colorClass = "bg-card", paths = [], defaultPathLabel = "기본 경로", orientation = "horizontal" }: FlowProps) {
   const [selected, setSelected] = useState(0);
+  const [width, setWidth] = useState(0);
+  const pathsRoot = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!pathsRoot.current) return;
+    const observer = new ResizeObserver(entries => setWidth(entries[0].contentRect.width));
+    observer.observe(pathsRoot.current);
+    return () => observer.disconnect();
+  }, []);
   const id = useId();
   const choices = [{ label: defaultPathLabel, steps }, ...paths];
   return (
@@ -33,10 +42,10 @@ export function FlowSection({ title, steps, colorClass = "bg-card", paths = [], 
         {paths.length > 0 && choices.map((choice, index) => <button key={choice.label} type="button" aria-pressed={selected === index}
           onClick={() => setSelected(index)} className={styles.pathButton}>{choice.label}</button>)}
       </div>}
-      <div key={selected} className={styles.paths}>
+      <div ref={pathsRoot} className={styles.paths}>
         {choices.map((choice, index) => (
           <div key={choice.label} className={styles.path} data-selected={selected === index} aria-hidden={selected !== index} inert={selected !== index}>
-            <FlowPlayback steps={choice.steps} enabled={selected === index} />
+            <FlowPlayback key={selected} width={width} title={title} steps={choice.steps} enabled={selected === index} orientation={orientation} maxSteps={Math.max(...choices.map(c => c.steps.length))} />
           </div>
         ))}
       </div>
@@ -44,7 +53,7 @@ export function FlowSection({ title, steps, colorClass = "bg-card", paths = [], 
   );
 }
 
-function FlowPlayback({ steps, enabled }: { steps: FlowStep[]; enabled: boolean }) {
+function FlowPlayback({ width, title, steps, enabled, orientation, maxSteps }: { width: number; title: string; steps: FlowStep[]; enabled: boolean; orientation: "horizontal" | "vertical"; maxSteps: number }) {
   const reducedMotion = useSyncExternalStore(subscribeMotion, () => window.matchMedia("(prefers-reduced-motion: reduce)").matches, () => true);
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
@@ -74,6 +83,17 @@ function FlowPlayback({ steps, enabled }: { steps: FlowStep[]; enabled: boolean 
     return () => window.clearTimeout(timer);
   }, [running, state.index]);
 
+  const columns = orientation === "vertical" || width < 680 || maxSteps > 3 ? 1 : 3;
+  const canvasHeight = columns === 1 ? Math.max(340, maxSteps * 180) : Math.max(340, Math.ceil(maxSteps / 3) * 220);
+  const graph: LearningGraph = {
+    nodes: steps.map((item, index) => {
+      const step = typeof item === "string" ? {label:item} : item;
+      const row = Math.floor(index / columns);
+      const column = index % columns;
+      return {id:String(index),label:step.label,detail:step.detail,icon:step.icon ?? "step",x:column * 290,y:row * 240,active:!reducedMotion && state.started && !state.finished && index===state.index,completed:!reducedMotion && state.started && (state.finished || index<state.index)};
+    }),
+    edges: steps.slice(1).map((_,i)=>({source:String(i),target:String(i+1),label:String(i+1)})),
+  };
   const status = reducedMotion ? "동작 줄이기 · 전체 단계 표시" : state.finished ? "흐름 완료" : !state.started ? "개념 흐름 · 화면에 보이면 재생" : `${state.index + 1} / ${steps.length} 단계 · ${running ? "재생 중" : "일시정지"}`;
   return (
     <div ref={root} data-running={running} data-reduced-motion={reducedMotion} className={styles.player}>
@@ -86,21 +106,9 @@ function FlowPlayback({ steps, enabled }: { steps: FlowStep[]; enabled: boolean 
           <button type="button" className={styles.control} onClick={() => dispatch("restart")}><RotateCcwIcon />다시 보기</button>
         </div>}
       </div>
-      <ol className={styles.steps}>
-        {steps.map((item, index) => {
-          const step = typeof item === "string" ? { label: item } : item;
-          const active = !reducedMotion && state.started && !state.finished && index === state.index;
-          const completed = !reducedMotion && state.started && (state.finished || index < state.index);
-          return <li key={index} className={styles.item}>
-            <div className={styles.node} data-active={active} data-completed={completed} aria-current={active ? "step" : undefined}>
-              <TechnologyIcon name={step.icon ?? "step"} />
-              <div className="min-w-0 flex-1"><span className="mb-1 block text-[10px] font-semibold tracking-widest text-muted-foreground">STEP {String(index + 1).padStart(2, "0")}</span><p className="text-sm font-medium leading-6">{step.label}</p>{step.detail && <p className="mt-1 text-xs leading-5 text-muted-foreground">{step.detail}</p>}</div>
-              {completed && <CheckIcon aria-label="완료" className="size-4 shrink-0 text-emerald-600 dark:text-emerald-300" />}
-            </div>
-            {index < steps.length - 1 && <div aria-hidden="true" className={styles.connector} data-active={active}><span className={styles.track} /><span className={styles.packet} /><ArrowDownIcon /></div>}
-          </li>;
-        })}
-      </ol>
+      <div style={{minHeight: canvasHeight + 34}}>
+        {enabled && <LearningFlowCanvas title={title} graph={graph} height={canvasHeight} />}
+      </div>
     </div>
   );
 }

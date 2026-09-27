@@ -1,3 +1,5 @@
+import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
+import { referenceGraphs } from "@/components/learning-diagram-data";
 import { LayersIcon } from "lucide-react";
 import { CodeBlock, ComparisonTable, ReferencePage } from "@/components/reference-page";
 import { getStudyMetadata } from "@/lib/study-pages";
@@ -12,10 +14,8 @@ export default function StackHeapPage() {
       <section className="rounded-lg border bg-card p-5">
         <h2 className="text-xl font-semibold">p와 new Person()은 같은 것이 아닙니다</h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground">지역 변수 p는 객체를 가리키는 참조 값을 담습니다. Person 객체에는 age 같은 필드가 있습니다. 다른 메서드에 p를 전달하면 참조 값이 복사됩니다. 복사된 참조로 객체를 수정하는 것과, 그 지역 참조에 새 객체를 대입하는 것은 결과가 다릅니다.</p>
-        <div className="mt-4 grid gap-4 md:grid-cols-2" aria-label="지역 참조와 객체의 개념도">
-          <article className="rounded-lg border bg-muted/40 p-4"><h3 className="font-semibold">스레드의 프레임 · 메서드 실행 중</h3><p className="mt-3 font-mono text-sm">run: p → 객체 A</p><p className="mt-2 font-mono text-sm">change: local → 객체 A</p><p className="mt-3 text-sm text-muted-foreground">별개의 지역 참조가 같은 객체를 가리킬 수 있습니다.</p></article>
-          <article className="rounded-lg border bg-muted/40 p-4"><h3 className="font-semibold">힙 · 객체와 배열</h3><p className="mt-3 font-mono text-sm">객체 A: Person(age = 20)</p><p className="mt-2 font-mono text-sm">local.age = 30 → 객체 A 변경</p><p className="mt-3 text-sm text-muted-foreground">위 그림은 개념도이며 실제 JVM 메모리 배치를 측정한 그림이 아닙니다.</p></article>
-        </div>
+        <div className="mt-4"><LearningFlowCanvas title="지역 참조와 힙 객체" graph={referenceGraphs["stack-heap"]} /></div>
+
       </section>
       <ComparisonTable columns={["JVM 스택", "힙"]} rows={[
         { topic: "주요 역할", values: ["스레드별 호출 프레임: 지역 변수 배열·피연산자 스택 등", "클래스 인스턴스와 배열을 위한 런타임 영역"] },

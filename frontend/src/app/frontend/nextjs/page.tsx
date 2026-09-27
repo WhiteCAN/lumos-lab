@@ -1,10 +1,11 @@
+import { FlowSection } from "@/components/flow-section";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { ArrowRightIcon, CheckCircle2Icon, Code2Icon, FileCode2Icon, FolderTreeIcon, RouteIcon, ServerIcon } from "lucide-react";
+import { CheckCircle2Icon, Code2Icon, FileCode2Icon, FolderTreeIcon, RouteIcon, ServerIcon } from "lucide-react";
 
 import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
 
@@ -65,7 +66,7 @@ export default function NextJsBasicsPage() {
           </div>
           <ThemeToggle />
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 [overflow-wrap:anywhere] [&_.grid>*]:min-w-0">
           <PageDebugLab href="/frontend/nextjs" />
           <section className="rounded-lg border border-blue-200 bg-blue-50/50 p-5 shadow-sm dark:border-blue-900/60 dark:bg-blue-950/20">
             <h1 className="text-3xl font-bold tracking-tight">{studyPage.title}</h1>
@@ -80,7 +81,7 @@ export default function NextJsBasicsPage() {
               <h2 className="text-lg font-semibold">파일이 URL이 되는 방식</h2>
               <div className="mt-4 overflow-hidden rounded-lg border bg-white/75 dark:bg-background/45">
                 {routes.map(([file, url]) => (
-                  <div key={file} className="grid grid-cols-[1fr_180px] border-b text-sm last:border-b-0">
+                  <div key={file} className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_180px] border-b text-sm last:border-b-0">
                     <div className="border-r p-3 font-mono text-xs">{file}</div>
                     <div className="p-3">{url}</div>
                   </div>
@@ -104,17 +105,7 @@ export default function NextJsBasicsPage() {
             </div>
           </section>
 
-          <section className="rounded-lg border border-emerald-200 bg-emerald-50/40 p-4 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
-            <h2 className="text-lg font-semibold">언제 `use client`를 붙일까?</h2>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {whenClient.map((item, index) => (
-                <div key={item} className="flex items-center gap-2 rounded-lg border bg-white/75 px-3 py-2 text-sm dark:bg-background/45">
-                  <span>{index + 1}. {item}</span>
-                  {index < whenClient.length - 1 ? <ArrowRightIcon className="size-4 text-muted-foreground" /> : null}
-                </div>
-              ))}
-            </div>
-          </section>
+          <FlowSection title="언제 use client를 붙일까?" steps={whenClient} />
 
           <section className="rounded-lg border border-amber-200 bg-amber-50/45 p-4 text-sm leading-6 shadow-sm dark:border-amber-900/60 dark:bg-amber-950/20">
             <div className="flex gap-2">

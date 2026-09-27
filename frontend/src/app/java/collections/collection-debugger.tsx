@@ -1,5 +1,7 @@
 "use client";
 
+import { referenceGraphs } from "@/components/learning-diagram-data";
+import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
 import { useState } from "react";
 import { ArrowDownIcon, BugIcon, ChevronLeftIcon, ChevronRightIcon, DownloadIcon, RotateCcwIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -40,7 +42,7 @@ export function CollectionDebugger() {
     <section className="min-w-0 rounded-lg border bg-card p-4 shadow-sm" aria-labelledby="hierarchy-title">
       <h2 id="hierarchy-title" className="text-xl font-semibold">컬렉션 계층도</h2>
       <p className="mt-2 text-sm text-muted-foreground">원본의 분류를 Java 21 기준으로 보완했습니다. 구현체를 누르면 아래 디버깅 예제가 바뀝니다.</p>
-      <div className="my-5 flex flex-col items-center gap-2 text-sm"><span className="rounded-lg border bg-muted px-6 py-2 font-mono">Iterable&lt;E&gt;</span><ArrowDownIcon className="size-4" /><span className="rounded-lg border bg-muted px-6 py-2 font-mono">Collection&lt;E&gt;</span></div>
+      <LearningFlowCanvas title="Java 21 컬렉션 계층" graph={referenceGraphs.collections} height={620} />
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {groups.map(group => <article key={group.title} className={`min-w-0 rounded-xl border p-4 ${group.color}`}>
           <div className="text-xs text-muted-foreground [overflow-wrap:anywhere]">{group.path}</div>

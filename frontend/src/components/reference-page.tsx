@@ -138,7 +138,7 @@ export function ComparisonTable({
   const template = `150px repeat(${columns.length}, minmax(180px, 1fr))`;
 
   return (
-    <section className="rounded-lg border bg-card p-4 shadow-sm">
+    <section className="min-w-0 rounded-lg border bg-card p-4 shadow-sm">
       <h2 className="text-lg font-semibold">한눈에 비교</h2>
       <div className="mt-4 overflow-auto rounded-lg border">
         <div

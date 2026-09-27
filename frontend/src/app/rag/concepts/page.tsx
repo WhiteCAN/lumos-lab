@@ -1,3 +1,5 @@
+import { ArrowRightIcon } from "lucide-react";
+import { FlowSection } from "@/components/flow-section";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -15,7 +17,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
-  ArrowRightIcon,
   BrainCircuitIcon,
   CheckCircle2Icon,
   ClockIcon,
@@ -203,7 +204,7 @@ export default function RagConceptsPage() {
           <ThemeToggle />
         </header>
 
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 [overflow-wrap:anywhere] [&_.grid>*]:min-w-0">
           <PageDebugLab href="/rag/concepts" />
           <section className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
             <div className="flex items-start gap-3">
@@ -391,20 +392,7 @@ export default function RagConceptsPage() {
 }
 
 function Flow({ values }: { values: string[] }) {
-  return (
-    <div className="mt-4 flex flex-wrap items-center gap-2">
-      {values.map((value, index) => (
-        <div key={`${value}-${index}`} className="flex items-center gap-2">
-          <span className="rounded-md border bg-white/75 px-2 py-1 text-xs dark:bg-background/45">
-            {value}
-          </span>
-          {index < values.length - 1 ? (
-            <ArrowRightIcon className="size-3 text-muted-foreground" />
-          ) : null}
-        </div>
-      ))}
-    </div>
-  );
+  return <FlowSection title="처리 흐름" steps={values} orientation="vertical" />;
 }
 
 export const metadata = getStudyMetadata("/rag/concepts");

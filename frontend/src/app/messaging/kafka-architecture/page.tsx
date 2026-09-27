@@ -1,3 +1,4 @@
+import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
 import { SystemDiagram } from "@/components/system-diagram";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -99,21 +100,11 @@ export default function KafkaArchitecturePage() {
         <h2 className="text-xl font-semibold">02 · Topic은 분류, Partition은 로그, Broker는 서버</h2>
         <p className="mt-2 text-sm leading-7 text-muted-foreground">Topic → Partition → Broker를 서로 다른 서버를 거치는 순서로 외우지 마세요. 아래는 orders 토픽의 파티션 3개를 브로커 3대에 배치하고, 각 파티션을 3개씩 복제한 예시입니다.</p>
         <figure className="mt-5">
-          <div className="grid gap-3 lg:grid-cols-3">
-            {[0, 1, 2].map((broker) => (
-              <div key={broker} className="rounded-xl border bg-muted/30 p-4">
-                <h3 className="font-semibold">Broker {broker + 1}</h3>
-                <p className="mt-1 text-xs text-muted-foreground">orders 토픽의 파티션 복제본</p>
-                <ul className="mt-3 space-y-2">
-                  {[0, 1, 2].map((partition) => (
-                    <li key={partition} className={`flex flex-wrap items-center justify-between gap-2 rounded-lg border p-3 text-sm ${broker === partition ? "border-sky-300 bg-sky-50 dark:border-sky-800 dark:bg-sky-950/40" : "bg-background"}`}>
-                      <span>Partition {partition}</span>
-                      <strong>{broker === partition ? "Leader · 쓰기 담당" : "Follower · 복제"}</strong>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="grid gap-4 lg:grid-cols-3">
+            {[0, 1, 2].map(partition => <LearningFlowCanvas key={partition} title={`Partition ${partition} 복제 배치`} height={490} graph={{
+              nodes:[0,1,2].map((offset) => ({id:String(offset),label:`Broker ${(partition + offset) % 3 + 1}`,detail:`P${partition} · ${offset === 0 ? "Leader · 쓰기 담당" : "Follower · 복제"}`,icon:"apachekafka",x:offset === 0 ? 0 : offset === 1 ? -130 : 130,y:offset === 0 ? 0 : 250})),
+              edges:[{source:"0",target:"1",label:"복제"},{source:"0",target:"2",label:"복제"}],
+            }} />)}
           </div>
           <figcaption className="mt-3 text-sm leading-7 text-muted-foreground">논리적 파티션은 3개, 저장되는 복제본은 총 9개입니다. 리더 장애 시 적격 복제본으로 리더를 바꿉니다. 데이터 손실 위험은 복제 수뿐 아니라 acks, min.insync.replicas와 리더 선출 설정에도 영향을 받습니다.</figcaption>
         </figure>

@@ -1,3 +1,4 @@
+import { FlowSection } from "@/components/flow-section";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -35,7 +36,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
-  ArrowRightIcon,
   CheckCircle2Icon,
   LightbulbIcon,
   RocketIcon,
@@ -68,7 +68,7 @@ export default function ApiVsRestPage() {
           <ThemeToggle />
         </header>
 
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <main className="flex min-w-0 flex-1 flex-col gap-4 p-4 [overflow-wrap:anywhere] [&_.grid>*]:min-w-0">
           <PageDebugLab href="/api-vs-rest" />
           <section className="overflow-hidden rounded-lg border border-blue-200 bg-card text-card-foreground shadow-sm dark:border-blue-900/60">
             <div className="border-b border-blue-200 bg-blue-50/70 p-5 dark:border-blue-900/60 dark:bg-blue-950/25">
@@ -186,25 +186,7 @@ export default function ApiVsRestPage() {
           </section>
 
           <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-lg border border-sky-200 bg-sky-50/40 p-4 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
-              <h2 className="text-lg font-semibold">REST API 동작 흐름</h2>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                {restFlow.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.label} className="flex items-center gap-3">
-                      <div className="flex min-w-32 flex-col items-center gap-2 rounded-lg border bg-white/75 p-3 text-center dark:bg-background/45">
-                        <Icon className="size-5 text-sky-700 dark:text-sky-300" />
-                        <span className="text-sm font-medium">{item.label}</span>
-                      </div>
-                      {index < restFlow.length - 1 ? (
-                        <ArrowRightIcon className="size-4 text-muted-foreground" />
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <FlowSection title="REST API 동작 흐름" steps={restFlow.map(item => item.label)} orientation="vertical" />
 
             <div className="rounded-lg border border-amber-200 bg-amber-50/40 p-4 shadow-sm dark:border-amber-900/60 dark:bg-amber-950/20">
               <h2 className="text-lg font-semibold">주요 HTTP 메서드</h2>

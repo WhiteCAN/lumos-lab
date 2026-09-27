@@ -42,7 +42,7 @@ npm run dev
 | 루트 레이아웃 | `src/app/layout.tsx`: 한국어 문서, 폰트, ThemeProvider, TooltipProvider. 사이드바는 여기서 제공하지 않음 |
 | 정적 학습 페이지 틀 | `src/components/reference-page.tsx`의 `ReferencePage`: `pageHref`로 공통 목록의 제목·breadcrumb 사용, 사이드바, 헤더, breadcrumb, 테마 토글, 소개 영역 제공. `SidebarInset`이 main을 제공하므로 콘텐츠에 main을 중첩하지 않음 |
 | 학습 콘텐츠 블록 | 같은 파일의 `ConceptGrid`, `ComparisonTable`, `FlowSection`, `CodeBlock`. 필요한 블록만 재사용 |
-| 순차 흐름·경로 선택 | `src/components/flow-section.tsx`: 화면 진입 시 한 번 재생, 일시정지·다시 보기, 동작 줄이기 대응. 문자열 또는 `{ label, icon, detail }` 사용. `reference-page.tsx`에서 재내보냄 |
+| 순차 흐름·경로 선택 | `src/components/flow-section.tsx`: React Flow 순차 흐름, 화면 진입 시 한 번 재생, 일시정지·다시 보기, 동작 줄이기 대응. 문자열 또는 `{ label, icon, detail }` 사용. `reference-page.tsx`에서 재내보냄 |
 | 제품·역할 아이콘 | `src/components/technology-icon.tsx`: 브랜드는 Devicon 등의 원본 SVG를 `public/brands/`에 수정 없이 저장하며 임의로 재색칠하지 않음. 일반 역할은 Lucide. 사용법은 `../docs/flow-animation.md` |
 | 정적 페이지 참고 예시 | `src/app/backend/sharding-replica/page.tsx`: 한국어 설명, 비교표, 데이터 배치 그림, 관련 페이지 링크, metadata |
 | API 실행형 참고 예시 | `src/app/backend/bulk-insert/page.tsx`: 요청과 결과 표시. 실행형 페이지를 만들 때만 확인 |
@@ -107,6 +107,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## 시스템 구성도
 
-분기·연결 구조는 `src/components/system-diagram.tsx`의 `SystemDiagram`을 사용합니다. 데이터는 `system-diagram-data.ts`에서 관리하고 아이콘은 기존 `TechnologyIcon`을 재사용합니다. 순차 재생은 기존 `FlowSection`을 유지합니다. 모바일 연결 목록, 키보드 선택, 테마, 학습용 모형 고지를 함께 확인합니다.
+분기·연결 구조는 `src/components/system-diagram.tsx`의 `SystemDiagram`을 사용합니다. 데이터는 `system-diagram-data.ts`에서 관리하고 아이콘은 기존 `TechnologyIcon`을 재사용합니다. 순차 재생은 `FlowSection`을 사용하며 내부 렌더러도 React Flow입니다. 별도 구성도는 `learning-flow-canvas.tsx`의 `LearningFlowCanvas`와 `learning-diagram-data.ts`를 사용합니다. 모바일 연결 목록, 키보드 선택, 테마, 학습용 모형 고지를 함께 확인합니다.
 
 상세 데이터 계약과 왕복 Handle 배치·확장 제약은 [React Flow 시스템 다이어그램 가이드](../docs/react-flow-diagrams.md)를 기준으로 확인합니다.

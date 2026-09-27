@@ -1,8 +1,9 @@
+import { referenceGraphs } from "@/components/learning-diagram-data";
+import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { FlowSection } from "@/components/flow-section";
 import { ThemeToggle } from "@/components/theme-toggle";
-import type { ReactNode } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,15 +18,10 @@ import {
 } from "@/components/ui/sidebar";
 import {
   AlertTriangleIcon,
-  ArrowRightIcon,
   CheckCircle2Icon,
   ClipboardListIcon,
-  DatabaseIcon,
-  NetworkIcon,
   RefreshCwIcon,
   RotateCcwIcon,
-  SendIcon,
-  ServerIcon,
   ShieldCheckIcon,
   SirenIcon,
   WorkflowIcon,
@@ -270,210 +266,14 @@ export default function SagaOutboxPage() {
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-lg border bg-white/85 p-4 dark:bg-background/45">
-              <div className="min-w-[1040px]">
-                <div className="grid grid-cols-[1fr_1fr_1.05fr_1fr] gap-4">
-                  <BlueprintZone
-                    title="요청 진입"
-                    colorClass="border-sky-200 bg-sky-50/70 dark:border-sky-900/60 dark:bg-sky-950/30"
-                  >
-                    <BlueprintNode
-                      icon={ServerIcon}
-                      title="Client / API"
-                      detail="POST /orders"
-                      tone="sky"
-                    />
-                    <BlueprintArrow label="HTTP 요청" />
-                    <BlueprintNode
-                      icon={ServerIcon}
-                      title="Order Service"
-                      detail="주문 PENDING 저장"
-                      tone="sky"
-                    />
-                    <BlueprintNote>
-                      주문 저장과 이벤트 기록은 같은 DB 트랜잭션으로 묶습니다.
-                    </BlueprintNote>
-                  </BlueprintZone>
-
-                  <BlueprintZone
-                    title="로컬 트랜잭션"
-                    colorClass="border-emerald-200 bg-emerald-50/70 dark:border-emerald-900/60 dark:bg-emerald-950/30"
-                  >
-                    <BlueprintNode
-                      icon={DatabaseIcon}
-                      title="orders"
-                      detail="업무 데이터"
-                      tone="emerald"
-                    />
-                    <BlueprintArrow label="같이 commit" />
-                    <BlueprintNode
-                      icon={ClipboardListIcon}
-                      title="outbox_events"
-                      detail="eventId, payload, status"
-                      tone="emerald"
-                    />
-                    <BlueprintNote>
-                      DB commit 성공 시에만 발행할 이벤트가 남습니다.
-                    </BlueprintNote>
-                  </BlueprintZone>
-
-                  <BlueprintZone
-                    title="메시지 발행"
-                    colorClass="border-violet-200 bg-violet-50/70 dark:border-violet-900/60 dark:bg-violet-950/30"
-                  >
-                    <BlueprintNode
-                      icon={SendIcon}
-                      title="Outbox Relay"
-                      detail="미발행 row 조회"
-                      tone="violet"
-                    />
-                    <BlueprintArrow label="publish" />
-                    <BlueprintNode
-                      icon={NetworkIcon}
-                      title="Kafka Topic"
-                      detail="order-events"
-                      tone="violet"
-                    />
-                    <BlueprintNote>
-                      relay 장애 시 같은 이벤트가 다시 발행될 수 있습니다.
-                    </BlueprintNote>
-                  </BlueprintZone>
-
-                  <BlueprintZone
-                    title="컨슈머 처리"
-                    colorClass="border-amber-200 bg-amber-50/80 dark:border-amber-900/60 dark:bg-amber-950/30"
-                  >
-                    <BlueprintNode
-                      icon={ServerIcon}
-                      title="Payment Consumer"
-                      detail="결제 승인 / 실패"
-                      tone="amber"
-                    />
-                    <BlueprintNode
-                      icon={ServerIcon}
-                      title="Stock Consumer"
-                      detail="재고 차감 / 복구"
-                      tone="amber"
-                    />
-                    <BlueprintNode
-                      icon={CheckCircle2Icon}
-                      title="processed_message"
-                      detail="messageId 중복 방지"
-                      tone="amber"
-                    />
-                  </BlueprintZone>
-                </div>
-
-                <div className="mt-4 grid grid-cols-[1.05fr_0.95fr_1fr] gap-4">
-                  <BlueprintZone
-                    title="실패 격리"
-                    colorClass="border-rose-200 bg-rose-50/70 dark:border-rose-900/60 dark:bg-rose-950/30"
-                  >
-                    <BlueprintNode
-                      icon={RefreshCwIcon}
-                      title="Retry + Backoff"
-                      detail="일시 오류 재시도"
-                      tone="rose"
-                    />
-                    <BlueprintArrow label="반복 실패" dotted />
-                    <BlueprintNode
-                      icon={SirenIcon}
-                      title="DLQ"
-                      detail="원본 payload + 실패 이유"
-                      tone="rose"
-                    />
-                  </BlueprintZone>
-
-                  <BlueprintZone
-                    title="Saga 상태"
-                    colorClass="border-cyan-200 bg-cyan-50/70 dark:border-cyan-900/60 dark:bg-cyan-950/30"
-                  >
-                    <BlueprintNode
-                      icon={WorkflowIcon}
-                      title="Saga State"
-                      detail="PENDING -> APPROVED / CANCELED"
-                      tone="cyan"
-                    />
-                    <BlueprintArrow label="실패 이벤트" dotted />
-                    <BlueprintNode
-                      icon={RotateCcwIcon}
-                      title="Compensation"
-                      detail="환불, 재고 복구, 주문 취소"
-                      tone="cyan"
-                    />
-                  </BlueprintZone>
-
-                  <BlueprintZone
-                    title="관측과 운영"
-                    colorClass="border-slate-200 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-950/30"
-                  >
-                    <BlueprintNode
-                      icon={ClipboardListIcon}
-                      title="Logs / Metrics"
-                      detail="consumer lag, 실패율"
-                      tone="slate"
-                    />
-                    <BlueprintNode
-                      icon={AlertTriangleIcon}
-                      title="Alert"
-                      detail="DLQ 증가, relay 지연"
-                      tone="slate"
-                    />
-                    <BlueprintNote>
-                      장애를 없애기보다 빠르게 발견하고 재처리 가능하게 만듭니다.
-                    </BlueprintNote>
-                  </BlueprintZone>
-                </div>
-              </div>
-            </div>
+            <LearningFlowCanvas title="Kafka + Saga + Outbox" graph={referenceGraphs["saga-outbox"]} height={640} />
+            <p className="mt-3 text-sm text-muted-foreground">주문과 이벤트는 같은 DB 트랜잭션으로 저장합니다. Relay는 중복 발행할 수 있으므로 각 소비자는 업무 변경과 처리 기록을 원자적으로 저장합니다. DLQ에는 원본 payload와 실패 이유를 남기고, lag·실패율·relay 지연을 관측합니다.</p>
           </section>
 
-          <section className="rounded-lg border border-sky-200 bg-sky-50/40 p-4 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
-            <div className="mb-4 flex items-center gap-2">
-              <NetworkIcon className="size-4 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">Saga 흐름 예시</h2>
-            </div>
-            <div className="grid gap-3 xl:grid-cols-4">
-              {sagaSteps.map((step, index) => (
-                <div key={step.service} className="flex gap-3 xl:block">
-                  <article className="h-full rounded-lg border bg-white/75 p-4 dark:bg-background/45">
-                    <span className="mb-3 flex size-7 items-center justify-center rounded-md bg-sky-600 text-xs font-semibold text-white dark:bg-sky-400 dark:text-sky-950">
-                      {index + 1}
-                    </span>
-                    <h3 className="font-semibold">{step.service}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      {step.action}
-                    </p>
-                    <div className="mt-3 rounded-md border bg-background/75 px-3 py-2 text-xs">
-                      {step.event}
-                    </div>
-                  </article>
-                  {index < sagaSteps.length - 1 ? (
-                    <ArrowRightIcon className="mt-8 hidden size-5 text-muted-foreground xl:block" />
-                  ) : null}
-                </div>
-              ))}
-            </div>
-          </section>
+          <FlowSection title="Saga 흐름 예시" steps={sagaSteps.map(step => ({label:step.service, detail:`${step.action} · ${step.event}`, icon:"server"}))} />
 
           <section className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50/40 p-4 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
-              <div className="mb-4 flex items-center gap-2">
-                <DatabaseIcon className="size-4 text-muted-foreground" />
-                <h2 className="text-lg font-semibold">Outbox 패턴 그림</h2>
-              </div>
-              <div className="grid gap-3">
-                <FlowBox icon={ServerIcon} title="Service" text="업무 데이터 저장 요청" />
-                <FlowArrow />
-                <FlowBox icon={DatabaseIcon} title="DB Transaction" text="order 테이블 + outbox 테이블 같이 저장" />
-                <FlowArrow />
-                <FlowBox icon={ClipboardListIcon} title="Outbox Table" text="아직 발행되지 않은 이벤트 대기" />
-                <FlowArrow />
-                <FlowBox icon={SendIcon} title="Message Relay" text="outbox 이벤트를 Kafka로 발행" />
-                <FlowArrow />
-                <FlowBox icon={NetworkIcon} title="Kafka" text="다른 서비스가 이벤트 소비" />
-              </div>
-            </div>
+            <FlowSection title="Outbox 패턴 그림" orientation="vertical" steps={[{label:"Service",detail:"업무 데이터 저장 요청",icon:"server"},{label:"DB Transaction",detail:"order + outbox 테이블 같이 저장",icon:"database"},{label:"Outbox Table",detail:"미발행 이벤트 대기",icon:"database"},{label:"Message Relay",detail:"이벤트를 Kafka로 발행",icon:"server"},{label:"Kafka",detail:"다른 서비스가 이벤트 소비",icon:"apachekafka"}]} />
 
             <div className="rounded-lg border border-amber-200 bg-amber-50/45 p-4 shadow-sm dark:border-amber-900/60 dark:bg-amber-950/20">
               <div className="mb-4 flex items-center gap-2">
@@ -636,118 +436,11 @@ export default function SagaOutboxPage() {
   );
 }
 
-function FlowBox({
-  icon: Icon,
-  title,
-  text,
-}: {
-  icon: typeof ServerIcon;
-  title: string;
-  text: string;
-}) {
-  return (
-    <div className="rounded-lg border bg-white/75 p-4 dark:bg-background/45">
-      <div className="flex items-center gap-2">
-        <Icon className="size-4 text-emerald-700 dark:text-emerald-300" />
-        <h3 className="font-semibold">{title}</h3>
-      </div>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
-    </div>
-  );
-}
-
-function FlowArrow() {
-  return (
-    <div className="flex justify-center">
-      <ArrowRightIcon className="size-5 rotate-90 text-muted-foreground" />
-    </div>
-  );
-}
-
 function FailureLine({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-md border bg-white/75 p-3 dark:bg-background/45">
       <p className="mb-1 text-xs font-semibold text-muted-foreground">{label}</p>
       <p>{value}</p>
-    </div>
-  );
-}
-
-function BlueprintZone({
-  title,
-  colorClass,
-  children,
-}: {
-  title: string;
-  colorClass: string;
-  children: ReactNode;
-}) {
-  return (
-    <div className={`rounded-lg border p-4 ${colorClass}`}>
-      <h3 className="mb-3 text-sm font-semibold">{title}</h3>
-      <div className="grid gap-3">{children}</div>
-    </div>
-  );
-}
-
-function BlueprintNode({
-  icon: Icon,
-  title,
-  detail,
-  tone,
-}: {
-  icon: typeof ServerIcon;
-  title: string;
-  detail: string;
-  tone: "sky" | "emerald" | "violet" | "amber" | "rose" | "cyan" | "slate";
-}) {
-  const toneClass = {
-    sky: "text-sky-700 dark:text-sky-300",
-    emerald: "text-emerald-700 dark:text-emerald-300",
-    violet: "text-violet-700 dark:text-violet-300",
-    amber: "text-amber-700 dark:text-amber-300",
-    rose: "text-rose-700 dark:text-rose-300",
-    cyan: "text-cyan-700 dark:text-cyan-300",
-    slate: "text-slate-700 dark:text-slate-300",
-  }[tone];
-
-  return (
-    <div className="rounded-lg border bg-white/85 p-3 shadow-sm dark:bg-background/55">
-      <div className="flex items-center gap-2">
-        <Icon className={`size-4 ${toneClass}`} />
-        <p className="text-sm font-semibold">{title}</p>
-      </div>
-      <p className="mt-2 rounded-md border bg-background/70 px-2 py-1.5 font-mono text-xs text-muted-foreground">
-        {detail}
-      </p>
-    </div>
-  );
-}
-
-function BlueprintArrow({
-  label,
-  dotted = false,
-}: {
-  label: string;
-  dotted?: boolean;
-}) {
-  return (
-    <div className="flex items-center gap-2 px-1 text-xs text-muted-foreground">
-      <div
-        className={`h-px flex-1 border-t ${dotted ? "border-dashed" : "border-solid"}`}
-      />
-      <span className="shrink-0 rounded-md border bg-white px-2 py-1 dark:bg-background/60">
-        {label}
-      </span>
-      <ArrowRightIcon className="size-4 shrink-0" />
-    </div>
-  );
-}
-
-function BlueprintNote({ children }: { children: ReactNode }) {
-  return (
-    <div className="rounded-md border border-yellow-200 bg-yellow-50/90 p-3 text-xs leading-5 text-yellow-900 dark:border-yellow-900/60 dark:bg-yellow-950/30 dark:text-yellow-100">
-      {children}
     </div>
   );
 }

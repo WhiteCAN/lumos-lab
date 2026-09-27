@@ -1,3 +1,4 @@
+import { FlowSection } from "@/components/flow-section";
 import { PageDebugLab } from "@/components/debug-lab";
 import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -15,7 +16,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
-  ArrowRightIcon,
   BoxesIcon,
   CheckCircle2Icon,
   CompassIcon,
@@ -405,25 +405,8 @@ export default function ArchitecturePage() {
             </div>
           </section>
 
-          <section className="grid gap-4 xl:grid-cols-[1fr_430px]">
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50/40 p-4 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
-              <div className="mb-4 flex items-center gap-2">
-                <ArrowRightIcon className="size-4 text-muted-foreground" />
-                <h2 className="text-lg font-semibold">요청 처리 흐름 예시</h2>
-              </div>
-              <div className="grid gap-3">
-                {flowSteps.map((step, index) => (
-                  <div key={step} className="flex items-center gap-3">
-                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-xs font-semibold text-white dark:bg-emerald-400 dark:text-emerald-950">
-                      {index + 1}
-                    </span>
-                    <div className="flex-1 rounded-lg border bg-white/75 p-3 text-sm leading-6 dark:bg-background/45">
-                      {step}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <section className="grid min-w-0 gap-4 [&>*]:min-w-0 xl:grid-cols-[1fr_430px]">
+            <FlowSection title="요청 처리 흐름 예시" steps={flowSteps} orientation="vertical" />
 
             <div className="rounded-lg border border-rose-200 bg-rose-50/40 p-4 shadow-sm dark:border-rose-900/60 dark:bg-rose-950/20">
               <div className="mb-4 flex items-center gap-2">
@@ -470,7 +453,7 @@ export default function ArchitecturePage() {
             </div>
           </section>
 
-          <section className="grid gap-4 xl:grid-cols-[520px_1fr]">
+          <section className="grid min-w-0 gap-4 [&>*]:min-w-0 xl:grid-cols-[520px_1fr]">
             <div className="rounded-lg border border-slate-200 bg-slate-50/70 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950/30">
               <div className="mb-4 flex items-center gap-2">
                 <FolderTreeIcon className="size-4 text-muted-foreground" />
@@ -535,7 +518,7 @@ function ArchitectureCard({
   const Icon = card.icon;
 
   return (
-    <article className={`rounded-lg border p-4 shadow-sm ${card.colorClass}`}>
+    <article className={`min-w-0 rounded-lg border p-4 shadow-sm ${card.colorClass}`}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-sm font-medium text-muted-foreground">
@@ -572,7 +555,7 @@ function FolderStructureCard({
   structure: (typeof separateFolderStructures)[number];
 }) {
   return (
-    <article className={`rounded-lg border p-4 shadow-sm ${structure.colorClass}`}>
+    <article className={`min-w-0 rounded-lg border p-4 shadow-sm ${structure.colorClass}`}>
       <h3 className="text-lg font-semibold">{structure.title}</h3>
       <p className="mt-2 text-sm leading-6 text-muted-foreground">
         {structure.point}

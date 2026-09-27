@@ -23,3 +23,7 @@
 ## 검증 방법
 
 프론트엔드에서 `npm run test:study`, `npm run test:labs`, `npm run lint`, `npm run build`를 실행합니다. 백엔드에서는 `gradlew.bat test`를 실행합니다. 각 페이지에서 정상 입력과 오류 입력을 보내고, 모바일·데스크톱의 내용과 가로 넘침을 확인합니다. 페이지별 공식 참고 링크는 각 페이지의 출처 절에서 유지합니다.
+
+## 추가 자료: SOLID
+
+[Db3_szLzmve 원문](https://www.instagram.com/reels/Db3_szLzmve/)은 `/solid-principles`에 정리했습니다. 캡션과 화면에 표시된 5행 3열 구성을 확인했으며, 원칙 설명·구조 그림·새로 작성한 Java 예제를 비교합니다. 좁은 화면에서는 한 열로 표시합니다. LSP의 새 예시는 비행 가능한 계약과 그렇지 않은 타입을 분리해 보완했습니다. 기존 Java 전략 API를 대표 실습으로 연결하며 페이지 예제 코드를 직접 실행한다고 표현하지 않습니다.

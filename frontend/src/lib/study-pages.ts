@@ -21,6 +21,7 @@ export const studyCategories = [
 ] as const;
 
 export const studyPages: readonly StudyPage[] = [
+{href: "/solid-principles", title: "SOLID 원칙 · 설명·구조·코드", category: "Java·객체지향", description: "5가지 설계 원칙을 3열로 비교하고 Java 예제와 Java 전략 API로 이해합니다.", keywords: ["SOLID", "SRP", "OCP", "LSP", "ISP", "DIP", "Java", "객체지향"], aliases: []},
 {"href":"/system-design-roadmap","title":"시스템 설계 학습 지도","category":"설계·테스트·배포","description":"요구사항부터 데이터·확장·보안·AI까지 설계 질문과 심화 학습 연결","keywords":["시스템 설계","로드맵","분산 시스템"],"aliases":[]},
 {"href":"/architecture/microservices","title":"마이크로서비스 · 경계와 분산 시스템","category":"설계·테스트·배포","description":"서비스 경계와 Gateway·Discovery, 데이터 소유권과 장애 대응","keywords":["Microservices","마이크로서비스","Gateway","Discovery"],"aliases":[]},
 {"href":"/java/stack-heap","title":"스택·힙과 Java 참조","category":"Java·객체지향","description":"메서드 프레임·객체·참조와 실제 Java 객체 변경 실습","keywords":["Stack","Heap","JVM","스택","힙","참조"],"aliases":[]},

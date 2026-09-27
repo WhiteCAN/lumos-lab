@@ -63,6 +63,7 @@ export default function OopConceptsPage() {
       <li><a className="underline" href="https://docs.python.org/3/library/typing.html#typing.overload">Python · overload의 의미</a></li>
       <li><a className="underline" href="https://docs.python.org/3/library/abc.html">Python · 추상 기반 클래스</a></li>
       <li><Link className="underline" href="/patterns/strategy">전략 패턴</Link></li>
+      <li><Link className="underline" href="/solid-principles">SOLID 5원칙 · 설명·구조·C# 코드 3열 비교</Link></li>
       <li><Link className="underline" href="/spring-bean-di">Spring Bean·DI·IoC</Link></li>
     </ul></section>
   </ReferencePage>;

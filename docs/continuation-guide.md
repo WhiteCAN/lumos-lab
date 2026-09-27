@@ -259,3 +259,14 @@ Redis·Spring 시스템 설계·Kafka에 `SystemDiagram`을 적용했습니다. 
 - `/messaging/kafka-architecture`: 기존 구성도와 파티션·오프셋 실습 보완
 
 원문 확인 범위와 실행 모형의 제한은 [자료별 반영 기록](instagram-learning-pages.md)을 참고합니다.
+
+
+## SOLID 3열 비교 학습
+
+- `/solid-principles`: 원칙마다 설명·구조·Java 예제를 1행 3열로 비교합니다. 1024px 이상에서 3열, 좁은 화면에서는 세로 순서로 표시하며 코드 스크롤은 코드 영역 안에 한정합니다.
+- 원문: https://www.instagram.com/reels/Db3_szLzmve/ — 캡션과 화면에 표시된 5행 3열 자료 확인. LSP의 비행 계약을 보완하고, 기존 `/oop-concepts`에서 연결합니다.
+- 실행은 기존 Java `/api/patterns/strategy/run`을 재사용합니다. Java 예제 실행이나 SOLID 전체 검증은 아니며, 음수 보정·등급 선택 방식·입력 오류와 브레이크포인트를 안내합니다.
+
+### 기존 구성도·흐름도 React Flow 통합
+
+2026-09-28: 공통 FlowSection과 페이지별 HTML 흐름을 React Flow로 전환했습니다. SOLID·Saga/Outbox·샤딩/복제·Java 참조/컬렉션·Kafka 복제 배치도도 같은 카드/아이콘을 사용합니다. 재생·경로 선택·API 실습을 유지하고 텍스트 대체 목록을 제공합니다. 상세 계약은 [구성도 가이드](react-flow-diagrams.md)를 참고하세요.

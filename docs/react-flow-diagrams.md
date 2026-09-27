@@ -1,8 +1,26 @@
 # React Flow 시스템 다이어그램 구현 가이드
 
+## 기존 구성도·단계 흐름 전환 (2026-09-28)
+
+- `LearningFlowCanvas`: 공통 카드·방향별 Handle·연결선·확대/축소·테마·텍스트 대체 목록. 모바일에도 캔버스를 표시하며 긴 설명은 펼침 목록에서 전부 읽습니다.
+- `learning-diagram-data.ts`: SOLID 다섯 원칙, Java 참조·컬렉션 계층, 샤딩·복제, Saga/Outbox 데이터. SOLID는 설명·구조·Java 코드의 3열을 유지합니다.
+- `FlowSection`: 기존 `steps`, `paths`, `orientation` 계약을 유지합니다. 재생은 노드 상태만 바꾸고 카메라는 변경하지 않습니다. 경로 선택 시 재생을 초기화하며 비활성 경로에는 캔버스를 만들지 않습니다.
+- TCP/UDP·REST·Next.js·인증·RAG·아키텍처·AI 패턴·Saga의 개별 HTML 흐름도 교체했습니다. Kafka 복제본은 P0/P1/P2별 리더와 두 팔로워로 표시합니다.
+- 비교표, 원본 코드, API 응답·실행 로그, 컬렉션 변수 전후 값은 텍스트 표현을 유지합니다.
+
+### 범용 구성도 데이터 계약
+
+`LearningGraph`는 `nodes`와 `edges`를 받습니다. 노드는 고유 `id`, `label`, `x/y`, 선택적 `detail/icon`을 갖습니다. 간선은 `source/target`, 선택적 `label/dashed`를 사용하며 실제 노드 ID를 가리켜야 합니다.
+
+카드는 200×144이며 좌표 간격은 카드보다 넓게 둡니다. 방향에 맞는 연결점을 선택하지만 장애물을 자동 회피하지는 않습니다. 분기를 추가하면 다른 카드를 가로지르지 않는지 실제 화면에서 확인합니다. 왕복·다중 연결은 요청/응답 Handle을 분리한 기존 `SystemDiagram`을 사용합니다.
+
+### 전환 검증
+
+`npm run lint`, `npm run build`, `npm run test:study`, `npm run test:labs`, `node --experimental-strip-types --test tests/flow-playback.test.mjs tests/learning-diagrams.test.mjs`를 실행합니다. 브라우저에서는 데스크톱/320px, 재생·정지·재시작, 경로 전환 높이, 화살표와 노드 겹침, 텍스트 목록 펼침을 확인합니다.
+
 ## 목적과 적용 범위
 
-시스템 구성 요소의 연결·분기·복제 관계를 React Flow 카드와 화살표로 보여 줍니다. 기존 `FlowSection`의 순차 재생과 API 실습은 유지하고, 관계를 탐색할 수 있는 구성도를 추가했습니다.
+시스템 구성 요소의 연결·분기·복제 관계를 React Flow 카드와 화살표로 보여 줍니다. 구성도와 단계별 흐름도를 모두 React Flow로 표시합니다. 순차 재생·경로 선택·API 실습은 유지합니다.
 
 일반 역할에는 Lucide 아이콘을, 실제 기술에는 기존 원본 SVG 로고를 사용합니다. `@xyflow/react` 본체로 구현했으며 유료 Pro 예제나 템플릿은 포함하지 않았습니다. 현재 `frontend/package.json`의 의존성 범위는 `^12.12.0`이고 실제 설치 버전은 잠금 파일로 관리합니다.
 
@@ -12,7 +30,7 @@
 | `/spring-system-design` | `spring` | 전체 구성·캐시 조회·외부 호출 | 사용자 → Gateway → Spring 서비스 → Redis·DB·외부 서비스 |
 | `/messaging/kafka-architecture` | `kafka` | 이벤트 발행·배송 그룹·분석 그룹·P0 복제 | 파티션 리더, 그룹별 소비, P0 Follower 두 개의 복제 관계 |
 
-화면은 실제 Redis·Kafka·Spring 인프라의 상태를 조회하지 않는 **학습용 모형**입니다. 경로 선택은 설명할 연결을 바꾸는 동작이며 API 실행이나 시간순 재생이 아닙니다. Kafka의 전체 복제본 9개 배치표와 상세 설명은 기존 본문에 남아 있습니다.
+화면은 실제 Redis·Kafka·Spring 인프라의 상태를 조회하지 않는 **학습용 모형**입니다. 경로 선택은 설명할 연결을 바꾸는 동작이며 API 실행이나 시간순 재생이 아닙니다. Kafka의 전체 복제본 9개를 파티션별로 나눈 복제 구성도와 상세 설명은 기존 본문에 남아 있습니다.
 
 ## 파일과 역할
 
@@ -124,3 +142,9 @@ npm run test:labs
 이번 적용에서는 린트·빌드·학습 페이지 및 실습 연결 검사를 통과했고, 세 페이지의 4개 너비와 경로 전환을 확인했습니다. 왕복 연결선 수정 후 Redis 세 경로와 실제 화면을 다시 확인하고 린트·빌드를 통과했습니다. 자동 접근성 감사나 모든 배치에서의 연결선 충돌 방지를 보장한 것은 아닙니다.
 
 이 기록은 로컬 구현·검증 결과이며 배포 완료를 의미하지 않습니다. 문서만 수정할 때는 경로·내용·diff를 확인하고 빌드와 실행 테스트를 반복하지 않습니다.
+
+## 읽는 방향과 SOLID Java 예제
+
+순차 FlowSection은 넓은 영역의 3단계 이하만 좌→우로, 나머지는 위→아래로 연결합니다. SOLID는 호출자·구현체를 위에, 인터페이스를 아래에 두어 관계 화살표가 아래로 향합니다. 점선 implements는 실행 순서가 아니라 구현 관계입니다. 기존 시스템 구성도의 응답·복제·보상 화살표는 각 라벨의 의미를 따릅니다.
+
+SOLID의 화면 코드는 `frontend/src/lib/solid-examples.ts`에서 관리합니다. `node --experimental-strip-types --test tests/solid-examples.test.mjs`는 화면의 다섯 Java 코드를 직접 컴파일하고 정상·오류·대체 구현 계약을 실행합니다. frontend에서 실행하며 PATH에 JDK 21 이상의 javac/java가 필요합니다.
