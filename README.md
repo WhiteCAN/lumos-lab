@@ -10,11 +10,14 @@ Spring Boot와 Next.js를 함께 실행하며 Java, 웹 개발, 데이터베이�
 
 ## 기술 스택
 
+프로젝트 범위·디자인·구조·보안·코드·DB·API 기준과 상세 가이드는 [프로젝트 문서 지도](docs/README.md)에서 찾습니다. 에이전트 작업 규칙은 [AGENTS.md](AGENTS.md)에 유지합니다.
+
 | 영역 | 기술 |
 | --- | --- |
 | Backend | Java 21, Spring Boot 4, Spring Data JPA, REST, gRPC |
 | Frontend | Node.js 22, Next.js 16, React 19, TypeScript, Tailwind CSS |
 | Local DB | H2 인메모리 데이터베이스 |
+| Development DB | MariaDB / `LUMOS_LAB` |
 | Optional DB | Supabase PostgreSQL |
 | CI/CD | GitHub Actions, GHCR, Kubernetes, Argo CD |
 
@@ -146,7 +149,7 @@ Browser
 
 사이드바 상단 **페이지 검색** 또는 **Ctrl/Cmd+K**로 제목·이전 제목·설명·키워드를 검색합니다. 방향키로 선택하고 Enter로 이동하며 Esc로 닫습니다. 본문 전체·초성·오타 보정 검색은 제공하지 않습니다. `/search`는 검색 알고리즘 학습 페이지입니다.
 
-81개 학습 페이지의 메뉴·검색·화면 제목·breadcrumb·브라우저 탭 제목은 공통 페이지 목록을 기준으로 표시합니다. RAG 문서·벡터 검색·질문 실습에는 **모의 실습** 상태를 표시합니다. `/dashboard`는 템플릿 화면으로 학습 메뉴와 검색에서 제외합니다.
+학습 페이지의 메뉴·검색·화면 제목·breadcrumb·브라우저 탭 제목은 공통 페이지 목록을 기준으로 표시합니다. RAG 문서·벡터 검색·질문 실습에는 **모의 실습** 상태를 표시합니다. `/dashboard`는 템플릿 화면으로 학습 메뉴와 검색에서 제외합니다.
 
 
 공통 학습 흐름은 단계별 강조와 재생 제어, 제품별 컬러 아이콘을 제공합니다. 캐시·샤딩·AI 에이전트에서는 경로를 바꿔 볼 수 있습니다. [흐름 애니메이션 가이드](docs/flow-animation.md)
@@ -296,3 +299,18 @@ Spring 핵심 학습은 Spring·백엔드의 `/spring-bean-di`에 모았습니�
 - `/messaging/kafka-architecture`: Kafka 아키텍처 — 브로커·파티션·복제·소비자 그룹과 오프셋
 - `/docker-multi-stage`: Docker 멀티스테이지 빌드 — 빌드 도구와 실행 환경 분리 및 Java 예시
 - `/docker-image-optimization`: Docker 이미지 최적화 — 이미지 최적화 10가지와 레이어·캐시·측정
+
+## 시스템 다이어그램
+
+Redis 캐시(`/backend/redis-cache`), Spring 시스템 설계(`/spring-system-design`), Kafka 아키텍처(`/messaging/kafka-architecture`)는 React Flow와 기존 Lucide·기술 로고로 구성도를 제공합니다. 경로 선택, 구성 요소 설명, 확대·축소와 연결 목록을 지원합니다. 모바일은 연결 목록을 기본으로 보여 줍니다. 실제 인프라 실행과 구분되는 학습용 모형이며 기존 API 실습은 유지합니다. 구현 지도, 데이터 작성법과 왕복 연결선 처리 방법은 [React Flow 시스템 다이어그램 가이드](docs/react-flow-diagrams.md)를 참고하세요.
+
+
+## Instagram 자료별 학습 페이지 확장
+
+- `/system-design-roadmap`: 시스템 설계 학습 지도와 보안 개념, 기존 심화 페이지 연결
+- `/architecture/microservices`: 서비스 경계·Gateway·Discovery·데이터 소유권·Outbox 모형
+- `/java/stack-heap`: 스택·힙·참조와 실제 Java 객체 수정 및 재할당 실습
+- `/devops-toolchain`: Linux·Docker·Kubernetes·Terraform·Jenkins·GitHub Actions 역할 비교
+- `/messaging/kafka-architecture`: 기존 구성도와 파티션·오프셋 실습 보완
+
+원문 확인 범위와 실행 모형의 제한은 [자료별 반영 기록](docs/instagram-learning-pages.md)을 참고합니다.

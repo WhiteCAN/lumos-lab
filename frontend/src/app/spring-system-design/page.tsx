@@ -1,3 +1,4 @@
+import { SystemDiagram } from "@/components/system-diagram";
 import Link from "next/link";
 import { NetworkIcon } from "lucide-react";
 import { ReferencePage, FlowSection, ComparisonTable } from "@/components/reference-page";
@@ -34,6 +35,7 @@ const sources = [
 export default function SpringSystemDesignPage() {
   return <ReferencePage pageHref="/spring-system-design" label="기능 10개 · 설계 개념 · 적용 조건" description="익숙한 애너테이션과 도구를 캐싱·일관성·장애 대응·서비스 연결이라는 설계 문제와 함께 읽어 봅니다." icon={NetworkIcon} brand="spring" colorClass="border-emerald-200 bg-emerald-50/50 dark:border-emerald-900/60 dark:bg-emerald-950/20">
     <section className="rounded-xl border bg-card p-5"><h2 className="text-lg font-semibold">핵심 · 기능 이름 다음에는 정책이 필요합니다</h2><p className="mt-2 text-sm leading-6">원문은 Spring 생태계의 기능 10개를 시스템 설계 개념에 연결합니다. 모두 Spring Boot 자체 기능은 아니며, 도구를 도입한 뒤에도 저장 범위·장애 처리·운영 정책을 정해야 합니다. 아래 주의점은 원문의 단순한 연결을 보완한 설명입니다.</p></section>
+    <SystemDiagram kind="spring" />
     <section className="grid gap-4 lg:grid-cols-2" aria-label="시스템 설계와 연결되는 기능 10개">{features.map((f,i)=><article key={f.name} className="rounded-xl border bg-card p-5"><p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">{String(i+1).padStart(2,"0")} · {f.owner}</p><h2 className="mt-2 text-lg font-semibold">{f.name}</h2><p className="mt-1 font-medium">{f.concept}</p><p className="mt-3 text-sm leading-6">{f.body}</p><p className="mt-3 border-t pt-3 text-sm leading-6 text-muted-foreground"><strong>설계할 점 · </strong>{f.caution}</p><Link href={f.link} className="mt-3 inline-block text-sm underline underline-offset-4">관련 개념 더 보기</Link></article>)}</section>
     <section><h2 className="mb-3 text-xl font-semibold">@Async와 메시지 큐의 경계</h2><div className="grid gap-4 xl:grid-cols-2">
       <FlowSection orientation="vertical" title="@Async · 프로세스 내부 실행" steps={[{label:"호출자",icon:"user"},{label:"Spring 프록시",icon:"spring"},{label:"실행기에 작업 위임",icon:"branch"},{label:"같은 앱에서 작업 수행",icon:"server"},{label:"결과·실패 처리",icon:"verify"}]} />

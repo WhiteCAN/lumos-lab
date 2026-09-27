@@ -50,3 +50,9 @@ npm run build
 비교 페이지에서는 `FlowSection orientation="vertical"`을 사용해 각 흐름을 위에서 아래로 표시합니다. `/rag/architecture-comparison`은 넓은 화면에서 세 흐름을 3열로 비교하고 모바일에서는 한 열로 배치합니다.
 
 경로 전환이 있는 흐름은 모든 경로의 실제 콘텐츠 높이를 CSS grid로 확보하고 선택된 경로만 노출합니다. 비활성 경로는 접근성 트리·키보드 탐색·자동 재생에서 제외합니다. 비교 열은 같은 높이로 늘리고, 경로 전환 및 재생 완료 전후에 박스 높이와 아래 콘텐츠 위치가 유지되는지 확인합니다.
+
+## React Flow 시스템 구성도
+
+Redis·Spring 시스템 설계·Kafka 페이지는 별도의 `SystemDiagram`으로 연결·분기·복제 관계를 보여 줍니다. 기존 `FlowSection`의 순차 재생과 API 실습은 유지합니다.
+
+적용 페이지, 데이터 작성 예제, 왕복 연결선 수정, 모바일·테마 동작과 확장 절차는 [React Flow 시스템 다이어그램 구현 가이드](react-flow-diagrams.md)를 참고하세요.

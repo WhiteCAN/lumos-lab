@@ -2,6 +2,8 @@
 
 Next.js, React, TypeScript, Tailwind CSS, shadcn/ui를 공부하기 위한 프론트엔드입니다.
 
+프로젝트 전체 문서는 [문서 지도](../docs/README.md), 화면 기준은 [디자인 시스템](../docs/DESIGN_SYSTEM.md), 작성·검증 규칙은 [코드 스타일](../docs/CODE_STYLE.md), 통신 계약은 [API 가이드](../docs/API.md)를 참고합니다. 페이지 구현 위치는 [AGENTS.md](AGENTS.md)가 안내합니다.
+
 ## 의존성 보안 점검
 
 2026-09-24에 Next.js와 eslint-config-next를 16.3.6으로 맞추고, 취약점이 보고된 하위 의존성을 갱신했습니다. `npm ci` 후 `npm audit`, `npm run test:team-navigation`, `npm run lint`, `npm run build`로 점검합니다. 취약점 데이터는 바뀔 수 있으므로 배포 전 다시 검사합니다.
@@ -33,7 +35,7 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
 
 사이드바 상단 **페이지 검색** 또는 **Ctrl/Cmd+K**로 제목·이전 제목·설명·키워드를 검색합니다. 방향키로 선택하고 Enter로 이동하며 Esc로 닫습니다. 본문 전체·초성·오타 보정 검색은 제공하지 않습니다. `/search`는 검색 알고리즘 학습 페이지입니다.
 
-81개 학습 페이지의 메뉴·검색·화면 제목·breadcrumb·브라우저 탭 제목은 공통 페이지 목록을 기준으로 표시합니다. RAG 문서·벡터 검색·질문 실습에는 **모의 실습** 상태를 표시합니다. `/dashboard`는 템플릿 화면으로 학습 메뉴와 검색에서 제외합니다.
+학습 페이지의 메뉴·검색·화면 제목·breadcrumb·브라우저 탭 제목은 공통 페이지 목록을 기준으로 표시합니다. RAG 문서·벡터 검색·질문 실습에는 **모의 실습** 상태를 표시합니다. `/dashboard`는 템플릿 화면으로 학습 메뉴와 검색에서 제외합니다.
 
 ## 화면 목록
 
@@ -245,3 +247,18 @@ RAG 아키텍처 비교의 데이터 흐름은 데스크톱에서 세로 흐름 
 - `/messaging/kafka-architecture`: Kafka 아키텍처 — 브로커·파티션·복제·소비자 그룹과 오프셋
 - `/docker-multi-stage`: Docker 멀티스테이지 빌드 — 빌드 도구와 실행 환경 분리 및 Java 예시
 - `/docker-image-optimization`: Docker 이미지 최적화 — 이미지 최적화 10가지와 레이어·캐시·측정
+
+## 시스템 다이어그램
+
+Redis 캐시(`/backend/redis-cache`), Spring 시스템 설계(`/spring-system-design`), Kafka 아키텍처(`/messaging/kafka-architecture`)는 React Flow와 기존 Lucide·기술 로고로 구성도를 제공합니다. 경로 선택, 구성 요소 설명, 확대·축소와 연결 목록을 지원합니다. 모바일은 연결 목록을 기본으로 보여 줍니다. 실제 인프라 실행과 구분되는 학습용 모형이며 기존 API 실습은 유지합니다. 구현 지도, 데이터 작성법과 왕복 연결선 처리 방법은 [React Flow 시스템 다이어그램 가이드](../docs/react-flow-diagrams.md)를 참고하세요.
+
+
+## Instagram 자료별 학습 페이지 확장
+
+- `/system-design-roadmap`: 시스템 설계 학습 지도와 보안 개념, 기존 심화 페이지 연결
+- `/architecture/microservices`: 서비스 경계·Gateway·Discovery·데이터 소유권·Outbox 모형
+- `/java/stack-heap`: 스택·힙·참조와 실제 Java 객체 수정 및 재할당 실습
+- `/devops-toolchain`: Linux·Docker·Kubernetes·Terraform·Jenkins·GitHub Actions 역할 비교
+- `/messaging/kafka-architecture`: 기존 구성도와 파티션·오프셋 실습 보완
+
+원문 확인 범위와 실행 모형의 제한은 [자료별 반영 기록](../docs/instagram-learning-pages.md)을 참고합니다.

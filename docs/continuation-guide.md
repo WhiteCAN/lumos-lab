@@ -2,6 +2,8 @@
 
 이 문서는 다음에 프로젝트를 다시 열었을 때 어디까지 되어 있는지 빠르게 확인하기 위한 메모입니다.
 
+제품·디자인·구조·보안·코드·DB·API의 현재 기준은 [프로젝트 문서 지도](README.md)에서 찾습니다. 이 문서의 과거 작업 내역과 후속 계획은 시점별 맥락이며, 실제 구현 상태와 충돌하면 기준 문서와 소스를 함께 확인합니다.
+
 ## 현재 목표
 
 Spring Boot API와 Next.js 화면을 함께 실행하면서 Java 자료구조, 알고리즘, 디자인 패턴, Spring 개념, React/Next.js 라우팅을 디버깅으로 공부합니다.
@@ -51,7 +53,7 @@ Get-NetTCPConnection -LocalPort 3000,8080,9090 -ErrorAction SilentlyContinue |
 
 사이드바 상단 **페이지 검색** 또는 **Ctrl/Cmd+K**로 제목·이전 제목·설명·키워드를 검색합니다. 방향키로 선택하고 Enter로 이동하며 Esc로 닫습니다. 본문 전체·초성·오타 보정 검색은 제공하지 않습니다. `/search`는 검색 알고리즘 학습 페이지입니다.
 
-81개 학습 페이지의 메뉴·검색·화면 제목·breadcrumb·브라우저 탭 제목은 공통 페이지 목록을 기준으로 표시합니다. RAG 문서·벡터 검색·질문 실습에는 **모의 실습** 상태를 표시합니다. `/dashboard`는 템플릿 화면으로 학습 메뉴와 검색에서 제외합니다.
+학습 페이지의 메뉴·검색·화면 제목·breadcrumb·브라우저 탭 제목은 공통 페이지 목록을 기준으로 표시합니다. RAG 문서·벡터 검색·질문 실습에는 **모의 실습** 상태를 표시합니다. `/dashboard`는 템플릿 화면으로 학습 메뉴와 검색에서 제외합니다.
 
 등록 기준은 `frontend/src/lib/study-pages.ts`입니다. 제목 변경은 공통 목록에서 처리하고, 페이지의 `getStudyPage` 또는 `ReferencePage pageHref`와 서버 metadata를 연결합니다. 페이지를 추가하면 `npm run test:study`로 검색·라우트 등록을 검증합니다.
 
@@ -242,3 +244,18 @@ POST   http://localhost:8080/api/rag/ask
 - `/messaging/kafka-architecture`: Kafka 아키텍처 — 브로커·파티션·복제·소비자 그룹과 오프셋
 - `/docker-multi-stage`: Docker 멀티스테이지 빌드 — 빌드 도구와 실행 환경 분리 및 Java 예시
 - `/docker-image-optimization`: Docker 이미지 최적화 — 이미지 최적화 10가지와 레이어·캐시·측정
+
+## React Flow 시스템 다이어그램 인계
+
+Redis·Spring 시스템 설계·Kafka에 `SystemDiagram`을 적용했습니다. 구현 파일, 데이터 구조, 요청·응답 연결점 분리, 현재 배치 제약과 검증 방법은 [React Flow 시스템 다이어그램 가이드](react-flow-diagrams.md)를 참고합니다. 순차 재생은 기존 `FlowSection`을 유지하며 구성도는 실제 서버 상태를 나타내지 않습니다.
+
+
+## Instagram 자료별 학습 페이지 확장
+
+- `/system-design-roadmap`: 시스템 설계 학습 지도와 보안 개념, 기존 심화 페이지 연결
+- `/architecture/microservices`: 서비스 경계·Gateway·Discovery·데이터 소유권·Outbox 모형
+- `/java/stack-heap`: 스택·힙·참조와 실제 Java 객체 수정 및 재할당 실습
+- `/devops-toolchain`: Linux·Docker·Kubernetes·Terraform·Jenkins·GitHub Actions 역할 비교
+- `/messaging/kafka-architecture`: 기존 구성도와 파티션·오프셋 실습 보완
+
+원문 확인 범위와 실행 모형의 제한은 [자료별 반영 기록](instagram-learning-pages.md)을 참고합니다.

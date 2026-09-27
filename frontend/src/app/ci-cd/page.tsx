@@ -58,11 +58,12 @@ export default function CiCdPage() {
         <ul className="mt-3 grid gap-3 text-sm leading-6 text-muted-foreground">
           <li><code>.github/workflows/ci.yml</code>: PR 및 main/development push에서 백엔드 테스트와 프론트엔드 npm ci·lint·build를 별도 job으로 실행합니다.</li>
           <li><code>.github/workflows/publish-images.yml</code>: 해당 경로의 development 변경 또는 수동 실행으로 두 이미지를 SHA·development 태그로 GHCR에 발행합니다.</li>
-          <li>두 workflow 사이에는 CI 성공을 기다리는 연결이 명시되어 있지 않습니다. 이미지 발행을 CI 통과 증거로 간주하면 안 됩니다.</li>
+          <li>이미지 발행 workflow는 verify에서 ci.yml을 재사용하고 두 publish job은 needs: verify로 검증 성공을 기다립니다. 이미지 발행 후 실제 배포 반영과 사용자 경로 검증은 별도로 확인합니다.</li>
           <li><code>backend/k8s/dev</code>와 <code>frontend/k8s/dev</code>, 각 <code>argocd/dev</code>에 개발 배포 설정이 있습니다. 설정 파일의 존재는 실제 서버 배포 완료를 뜻하지 않습니다.</li>
           <li>이 학습 정리에서는 보안 게이트·운영 승인·자동 롤백을 구현하거나 원격 배포 상태를 확인하지 않았습니다.</li>
         </ul>
         <div className="mt-4 flex flex-wrap gap-4 text-sm underline underline-offset-4">
+          <Link href="/devops-toolchain">DevOps 도구별 역할 비교</Link>
           <Link href="/testing-basics">테스트 기초: 단위·통합 테스트</Link><Link href="/tdd">테스트 주도 개발: TDD</Link><Link href="/project-structure">프론트엔드·백엔드 프로젝트 구조</Link>
         </div>
       </section>

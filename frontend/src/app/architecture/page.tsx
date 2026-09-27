@@ -1,4 +1,5 @@
 import { PageDebugLab } from "@/components/debug-lab";
+import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
@@ -337,8 +338,13 @@ export default function ArchitecturePage() {
           <ThemeToggle />
         </header>
 
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-4 p-4">
           <PageDebugLab href="/architecture" />
+          <section className="rounded-lg border bg-card p-4 text-sm leading-6">
+            <h2 className="text-lg font-semibold">서비스 내부 설계 다음에는 배포 경계를 결정합니다</h2>
+            <p className="mt-2 text-muted-foreground">DDD·클린·헥사고날은 서비스 안의 모델과 의존성을 정리합니다. 모놀리스와 마이크로서비스는 배포·데이터 소유권·장애 경계에 관한 별도 선택입니다. 하나의 모놀리스 안에서도 DDD와 헥사고날을 적용할 수 있습니다.</p>
+            <Link href="/architecture/microservices" className="mt-3 inline-block font-medium text-sky-700 underline underline-offset-4 dark:text-sky-300">마이크로서비스: 경계·통신·분산 트랜잭션 학습하기 →</Link>
+          </section>
           <section className="overflow-hidden rounded-lg border border-indigo-200 bg-card shadow-sm dark:border-indigo-900/60">
             <div className="border-b border-indigo-200 bg-indigo-50/70 p-5 dark:border-indigo-900/60 dark:bg-indigo-950/25">
               <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
@@ -515,7 +521,7 @@ export default function ArchitecturePage() {
               ))}
             </div>
           </section>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

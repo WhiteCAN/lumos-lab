@@ -28,6 +28,24 @@
 
 ## 변경 위치 빠른 안내
 
+### 기준 문서 선택
+
+[프로젝트 문서 지도](docs/README.md)에서 현재 기준·상세 구현·후속 계획·시점별 기록을 구분합니다. 모든 문서를 매번 읽지 않고 요청에 해당하는 기준 문서만 먼저 확인합니다. 문서는 실제 소스 확인을 대신하지 않습니다.
+
+| 변경 성격 | 관련 기준 문서 |
+| --- | --- |
+| 제품 범위·학습 완료 기준 | [PRD](docs/PRD.md) |
+| 화면·컴포넌트·아이콘·반응형 | [DESIGN_SYSTEM](docs/DESIGN_SYSTEM.md), `frontend/AGENTS.md` |
+| 코드 관례·검증 명령 | [CODE_STYLE](docs/CODE_STYLE.md) |
+| 시스템 구성·연동·배포 구조 | [ARCHITECTURE](docs/ARCHITECTURE.md) |
+| 인증·권한·민감 입력·공개 범위 | [SECURITY](docs/SECURITY.md) |
+| DB 모델·스키마·접속 프로필 | [DATABASE](docs/DATABASE.md), [SECURITY](docs/SECURITY.md) |
+| API 추가·수정·통신 오류 | [API](docs/API.md), [SECURITY](docs/SECURITY.md) |
+
+가이드의 템플릿 예시를 실제 기능으로 간주하지 않습니다. 구현·요구사항이 바뀌면 담당 기준 문서와 관련 상세 가이드를 갱신하고, 과거 배포 기록·미완료 계획은 현재 상태와 구분해 보존합니다.
+
+### 구현 위치
+
 | 작업 | 먼저 확인할 위치 |
 | --- | --- |
 | 학습 페이지·메뉴·스타일 | `frontend/AGENTS.md` → 해당 `frontend/src/app/**/page.tsx` |

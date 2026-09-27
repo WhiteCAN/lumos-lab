@@ -4,6 +4,8 @@
 
 ## 프로젝트 정보
 
+프로젝트 전체 기준은 [문서 지도](../docs/README.md)를 사용합니다. 화면 변경은 [디자인 시스템](../docs/DESIGN_SYSTEM.md), 코드 관례는 [코드 스타일](../docs/CODE_STYLE.md), 통신 변경은 [API 계약](../docs/API.md)을 필요한 범위만 읽습니다. 이 파일은 프론트 탐색 지도와 작업 절차를 담당합니다.
+
 - 프레임워크: Next.js App Router
 - 언어: TypeScript
 - 스타일링: Tailwind CSS v4
@@ -71,7 +73,7 @@ npm run dev
 
 알고리즘·자료구조 → Java·객체지향 → 디자인 패턴 → Spring·백엔드 → 데이터·메시징 → 네트워크·API → 프론트엔드 → 설계·테스트·배포 → AI·RAG
 
-페이지당 대표 분류는 하나입니다. 트랜잭션·샤딩은 데이터·메시징에, RAG는 AI·RAG에 등록합니다. 학습 페이지 81개를 메뉴와 검색에 제공하며 `/dashboard`는 제외합니다. 상세 목록은 `study-pages.ts`를 기준으로 확인합니다.
+페이지당 대표 분류는 하나입니다. 트랜잭션·샤딩은 데이터·메시징에, RAG는 AI·RAG에 등록합니다. 등록된 학습 페이지를 메뉴와 검색에 제공하며 `/dashboard`는 제외합니다. 상세 목록은 `study-pages.ts`를 기준으로 확인합니다.
 
 ## 이어서 볼 문서
 
@@ -102,3 +104,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 `components/study-progress.tsx`와 `lib/study-progress.ts`가 localStorage 완료 기록을 관리합니다. 공통 `SidebarInset`에서 페이지 완료 체크를 표시하고 `nav-main.tsx`에서 메뉴별 진도를 표시합니다. `study-pages.ts` 등록 URL만 집계하며 새 페이지에 별도 저장 코드를 추가하지 않습니다.
 
 디자인 패턴 상세 제목은 `한글 이름 · 영문 패턴명` 형식으로 통일합니다. `study-pages.ts`와 `book-chapters-*.json`의 제목을 함께 맞춰 메뉴·검색·페이지·책 목차에 같은 이름을 표시합니다. 역할 설명은 제목 대신 소개 문장에 둡니다.
+
+## 시스템 구성도
+
+분기·연결 구조는 `src/components/system-diagram.tsx`의 `SystemDiagram`을 사용합니다. 데이터는 `system-diagram-data.ts`에서 관리하고 아이콘은 기존 `TechnologyIcon`을 재사용합니다. 순차 재생은 기존 `FlowSection`을 유지합니다. 모바일 연결 목록, 키보드 선택, 테마, 학습용 모형 고지를 함께 확인합니다.
+
+상세 데이터 계약과 왕복 Handle 배치·확장 제약은 [React Flow 시스템 다이어그램 가이드](../docs/react-flow-diagrams.md)를 기준으로 확인합니다.

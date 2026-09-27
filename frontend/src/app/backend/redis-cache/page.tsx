@@ -1,3 +1,4 @@
+import { SystemDiagram } from "@/components/system-diagram";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { FlowSection } from "@/components/flow-section";
@@ -39,7 +40,7 @@ export default function RedisCachePage() {
           </div>
           <ThemeToggle />
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-4 p-4">
           <PageDebugLab href="/backend/redis-cache" />
           <section className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-5 shadow-sm dark:border-emerald-900/60 dark:bg-emerald-950/20">
             <div className="flex items-start gap-3">
@@ -54,6 +55,7 @@ export default function RedisCachePage() {
             </div>
           </section>
 
+          <SystemDiagram kind="redis" />
           <section className="grid gap-4 xl:grid-cols-4">
             {concepts.map(([title, desc, use]) => (
               <article key={title} className="rounded-lg border border-sky-200 bg-sky-50/45 p-4 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
@@ -82,7 +84,7 @@ export default function RedisCachePage() {
             <InfoCard icon={LockKeyholeIcon} title="분산락 주의" text="락 만료 시간, 락 소유자 확인, finally 해제를 같이 설계합니다. 락만 믿고 DB 제약을 빼면 위험합니다." />
             <InfoCard icon={AlertTriangleIcon} title="캐시 스탬피드" text="캐시가 동시에 만료되면 요청이 DB로 몰릴 수 있습니다. TTL jitter, mutex, background refresh를 검토합니다." />
           </section>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
