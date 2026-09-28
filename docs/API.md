@@ -1,5 +1,7 @@
 # API 계약과 통신 기준
 
+접속 대기열 모형은 `POST /api/labs/waiting-room`입니다. 요청별 이력과 가상 시계로 실행하며 입력 범위·응답·실패 처리·운영 경계는 [가상 대기실 API 계약](waiting-room.md)에 명시합니다.
+
 ## 기본 주소와 구현 위치
 
 프론트는 [API_BASE_URL](../frontend/src/constants/api.ts)의 `NEXT_PUBLIC_API_BASE_URL`을 사용하며 미설정 시 `http://localhost:8080`입니다. 기존 경로는 `/api/...`이고 공통 `/api/v1` 접두사를 새로 도입하지 않습니다. 공개 개발계 주소와 주입 방법은 [환경 가이드](database-environments.md)에 있습니다.

@@ -2,6 +2,8 @@
 
 ## 현재 구현과 미구현 구분
 
+`POST /api/labs/waiting-room`의 입장 권한 확인은 요청 내부 모형입니다. 방문자 ID·동작 이력·가상 시계를 클라이언트가 제공하며 실제 인증이나 다른 API 접근을 보호하지 않습니다. 실제 운영 게이트로 재사용하지 않습니다. [실습 경계](waiting-room.md)를 참고하세요.
+
 Lumos Lab은 공개 학습용 사이트입니다. `backend/build.gradle`에는 Spring Security starter가 없고, 보안 학습용 Controller의 토큰·역할 실습이 제품 전체의 접근 제어를 제공하지는 않습니다. 실제 회원 로그인과 리프레시 토큰 정책은 [후속 JWT 과제](future-jwt-auth.md)입니다. UI에서 메뉴를 숨기는 것은 서버 인가가 아닙니다.
 
 `/api/backend/security-auth/login`, `/protected`, `/oauth/callback`은 학습용 계약입니다. `/protected`라는 이름이나 Authorization 헤더 사용만으로 다른 API가 보호된다고 판단하지 않습니다. 문서 정리로 인증이나 요청 제한을 새로 구현한 것은 아닙니다.

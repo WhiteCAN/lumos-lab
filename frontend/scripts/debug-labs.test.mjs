@@ -29,5 +29,9 @@ test('모든 학습 페이지에 기존 API 실행 또는 새 실습 연결이 �
     const source = readFileSync(file, 'utf8');
     assert.ok(debugLabs[page.href] || source.includes('import { requestJson }') || /await fetch\s*\(/.test(source), `${page.href}: 실행 연결 누락`);
     if (debugLabs[page.href]) assert.ok(source.includes('<ReferencePage') || source.includes('<PageDebugLab') || source.includes('<BookPatternPage'), page.href);
+    if (debugLabs[page.href]?.interactive === 'waiting-room') {
+      const lab = readFileSync(new URL('../src/components/waiting-room-lab.tsx', import.meta.url), 'utf8');
+      assert.ok(lab.includes('requestJson<Result>') && lab.includes(debugLabs[page.href].endpoint), `${page.href}: 전용 실습의 API 연결 누락`);
+    }
   }
 });

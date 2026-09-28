@@ -1,5 +1,7 @@
 # 에이전트 작업 메모
 
+접속 대기열 전용 실습: `src/app/backend/waiting-room/page.tsx` → `src/components/waiting-room-lab.tsx`. `debug-lab-catalog.ts`의 `interactive` 설정으로 `PageDebugLab`에서 지연 로드합니다. 계약은 [가상 대기실](../docs/waiting-room.md)을 참고합니다.
+
 이 프론트엔드는 최신 Next.js와 shadcn/ui 코드를 사용합니다. 프레임워크 동작을 크게 바꾸기 전에는 현재 문서와 로컬 패키지 버전을 확인하세요.
 
 ## 프로젝트 정보

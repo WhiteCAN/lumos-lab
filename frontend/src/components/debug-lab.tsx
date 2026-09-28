@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { API_BASE_URL } from "@/constants/api";
 import { runEventLoop, runPromisePair } from "@/lib/browser-debug-labs";
 
 import { debugLabs, type Lab } from "@/lib/debug-lab-catalog";
+
+const WaitingRoomLab = dynamic(() => import("@/components/waiting-room-lab").then(module => module.WaitingRoomLab));
 
 export function DebugLab({ lab }: { lab: Lab }) {
   const [input, setInput] = useState(JSON.stringify(lab.initial, null, 2));
@@ -70,5 +73,6 @@ export function DebugLab({ lab }: { lab: Lab }) {
 
 export function PageDebugLab({ href }: { href: string }) {
   const lab = debugLabs[href];
+  if (lab?.interactive === "waiting-room") return <WaitingRoomLab />;
   return lab ? <DebugLab key={href} lab={lab} /> : null;
 }

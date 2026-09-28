@@ -21,6 +21,7 @@ export const studyCategories = [
 ] as const;
 
 export const studyPages: readonly StudyPage[] = [
+{ href: "/backend/waiting-room", title: "접속 대기열 · 가상 대기실", category: "Spring·백엔드", description: "FIFO 순번·동시 입장·만료·재요청을 Java API와 가상 시계로 직접 실험합니다.", keywords: ["접속 대기열", "가상 대기실", "Waiting Room", "FIFO", "입장", "트래픽", "Redis"], aliases: ["Virtual Waiting Room"], simulated: true },
 {href: "/solid-principles", title: "SOLID 원칙 · 설명·구조·코드", category: "Java·객체지향", description: "5가지 설계 원칙을 3열로 비교하고 Java 예제와 Java 전략 API로 이해합니다.", keywords: ["SOLID", "SRP", "OCP", "LSP", "ISP", "DIP", "Java", "객체지향"], aliases: []},
 {"href":"/system-design-roadmap","title":"시스템 설계 학습 지도","category":"설계·테스트·배포","description":"요구사항부터 데이터·확장·보안·AI까지 설계 질문과 심화 학습 연결","keywords":["시스템 설계","로드맵","분산 시스템"],"aliases":[]},
 {"href":"/architecture/microservices","title":"마이크로서비스 · 경계와 분산 시스템","category":"설계·테스트·배포","description":"서비스 경계와 Gateway·Discovery, 데이터 소유권과 장애 대응","keywords":["Microservices","마이크로서비스","Gateway","Discovery"],"aliases":[]},

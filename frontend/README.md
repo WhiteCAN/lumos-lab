@@ -2,6 +2,8 @@
 
 Next.js, React, TypeScript, Tailwind CSS, shadcn/ui를 공부하기 위한 프론트엔드입니다.
 
+`/backend/waiting-room`은 접속 대기열 전용 실습입니다. 3열 상태판(모바일 1열), React Flow, Java 예제와 실제 API 호출을 제공합니다. [실습 계약과 재현 순서](../docs/waiting-room.md)를 참고하세요.
+
 프로젝트 전체 문서는 [문서 지도](../docs/README.md), 화면 기준은 [디자인 시스템](../docs/DESIGN_SYSTEM.md), 작성·검증 규칙은 [코드 스타일](../docs/CODE_STYLE.md), 통신 계약은 [API 가이드](../docs/API.md)를 참고합니다. 페이지 구현 위치는 [AGENTS.md](AGENTS.md)가 안내합니다.
 
 ## 의존성 보안 점검
