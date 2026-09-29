@@ -60,3 +60,19 @@ REST API는 Spring MVC Controller와 요청·응답 record가 계약 원본입�
 ## Java 참조 실습
 
 `POST /api/labs/stack-heap`은 `{"initialAge":20,"nextAge":30,"reassign":false}` 형태의 JSON 요청을 받습니다. 두 나이는 필수 정수 0~150이며 누락·null·범위 밖 값은 HTTP 400입니다. reassign 생략 시 false입니다. 응답 data에는 callerAgeAfter, calleeAgeBeforeReturn, sameReferenceBeforeReturn, steps, scope가 있습니다. 실제 Java 참조를 비교하며 메모리 주소나 GC를 측정하지 않습니다. 구현: [StackHeapController](../backend/src/main/java/com/lumos/lab/stackheap/StackHeapController.java), [StackHeapService](../backend/src/main/java/com/lumos/lab/stackheap/StackHeapService.java).
+
+## 2026-09-30 상세 학습 API
+
+모두 POST JSON이며 `ApiResponse`로 응답합니다. 상태는 요청 내부에만 있고 외부 인프라를 호출하지 않습니다. 숫자·문자열·목록 제한 위반은 Bean Validation으로 HTTP 400을 반환합니다. boolean 생략 시 false입니다. 계약 원본은 `backend/src/main/java/com/lumos/lab/learning/`의 아래 Controller입니다.
+
+| 경로 | 입력 제한 | 주요 data·실행 범위 | Controller |
+| --- | --- | --- | --- |
+| `/api/labs/reconcile` | desired/current/slots 필수 0~10, imageAvailable/readinessPass | create/delete/pending/running/ready/steps/scope. 전체 Pod에 동일 실행 조건을 적용하는 계산 | ReconcileLabController |
+| `/api/labs/kubernetes-route` | host 1~50자, selector/podLabel 1~30자, ready/controllerPresent | outcome/routable/scope. lab.example host와 label·Ready 조건 비교 | ReconcileLabController |
+| `/api/labs/records` | name 1~30자, tags 필수 최대 10개·각 1~20자, append 1~20자, defensiveCopy | 값 동등성·변경 전후 목록. 실제 record 실행 | RecordLabController |
+| `/api/labs/consumer-groups` | partitions 1~10, groupIds 1~10개·각 1~30자 | assignments/groups/idleConsumers/scope. 그룹별 독립 순환 배정 | ConsumerGroupLabController |
+| `/api/labs/load-balance` | strategy round-robin 또는 least-connections, connections 1~10개·각 0~100, requests 1~30 | assignments/connectionsAfter/scope. 새 연결은 종료되지 않으며 동률은 낮은 인덱스 우선 | LoadBalanceLabController |
+| `/api/labs/token-probabilities` | logits 1~10개·각 -20~20, temperature 0.1~2, 유한 숫자 | probabilities/scope. 안정화 softmax, 실제 LLM 추론 아님 | TokenProbabilityLabController |
+| `/api/labs/latency` | samplesMs 1~100개·각 0~60000, thresholdMs 0~60000 | count/meanMs/p50Ms/p95Ms/p99Ms/overThreshold/overThresholdRate/scope. nearest-rank, 임계값 엄격 초과, 비율 0~1 | LatencyLabController |
+
+React Hooks는 기존 `/api/labs/task`, 캐싱은 `/api/labs/examples/cache`, 인증은 `/api/backend/security-auth/login`과 `/protected`를 재사용합니다. 인증 모형의 실패는 HTTP 400이며 운영 Spring Security의 401/403 처리 구현이 아닙니다. 입력 예시·실행 패널·브레이크포인트는 `debug-lab-catalog.ts`와 해당 페이지가 연결합니다.

@@ -1,5 +1,6 @@
 import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
 import { SystemDiagram } from "@/components/system-diagram";
+import { DebugLab } from "@/components/debug-lab";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { NetworkIcon } from "lucide-react";
@@ -29,6 +30,7 @@ const questions = [
 ];
 
 const sources = [
+  ["6번 원문 · Consumer Groups", "https://www.instagram.com/reels/Dd0mLLphExt/"],
   ["원본 릴스 · HTTP.CODE.404", "https://www.instagram.com/reels/DdwlpNOOqiP/"],
   ["Apache Kafka · 기본 개념", "https://kafka.apache.org/intro/"],
   ["Apache Kafka · Consumer API", "https://kafka.apache.org/40/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html"],
@@ -133,6 +135,8 @@ export default function KafkaArchitecturePage() {
         </div>
       </section>
 
+      <DebugLab lab={{title:"소비자 그룹 직접 배정하기",endpoint:"/api/labs/consumer-groups",initial:{partitions:3,groupIds:["shipping","shipping","analytics"]},breakpoint:"learning/ConsumerGroupLabController.java → run()",note:"배열의 각 항목은 소비자 한 개의 group.id입니다. 같은 그룹은 3개 파티션을 나눠 맡고 analytics는 3개 모두 담당합니다. shipping 소비자를 4개로 늘리면 하나가 유휴 상태가 됩니다. partitions=0이나 빈 그룹 이름은 400입니다. 순환 배정 Java 모형이며 실제 Kafka에 연결하지 않습니다."}} />
+      <p className="text-sm leading-7">6번 자료의 ‘그룹별 메시지 사본’은 그룹별 소비 위치가 독립적이라는 뜻입니다. 그룹을 만들 때마다 토픽 로그가 물리적으로 복제되는 것은 아닙니다. 재처리 가능 범위는 보존된 데이터와 시작 offset 설정에 달려 있습니다. 여기서는 일반 Consumer Group만 다루며 Share Group과 구분합니다. <a className="underline" href="https://kafka.apache.org/41/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html">공식 Consumer API</a></p>
       <section id="offsets" className="scroll-mt-4 rounded-xl border bg-card p-5">
         <h2 className="text-xl font-semibold">04 · Offset은 위치, 커밋은 재시작 지점</h2>
         <div className="mt-4 grid gap-4 lg:grid-cols-2">

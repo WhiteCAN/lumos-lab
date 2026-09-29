@@ -148,6 +148,19 @@ export default function KafkaConfigPage() {
               </p>
             </div>
           </section>
+          <section id="handbook" className="space-y-4">
+            <h2 className="text-2xl font-semibold">Kafka 운영 핸드북 · 보장 범위부터 확인</h2>
+            <div className="grid gap-4 lg:grid-cols-3">{[
+              ["ACK와 복제", "acks=all은 현재 ISR의 확인을 기다리는 설정입니다. 복제 수·min.insync.replicas·리더 선출 정책과 함께 봐야 하며 어떤 장애에서도 무손실이라는 뜻이 아닙니다."],
+              ["전달과 업무 처리", "Producer 멱등성은 재전송 중복을 다룹니다. Kafka 트랜잭션으로 읽기·쓰기·offset을 묶어도 외부 결제나 DB 쓰기까지 자동으로 exactly-once가 되지는 않습니다."],
+              ["커밋과 재시작", "커밋 위치는 다음 읽기 지점입니다. auto.offset.reset은 유효한 커밋 위치가 없을 때 적용되며 매 재시작마다 earliest로 돌아가는 설정이 아닙니다."],
+              ["보존과 압축", "retention은 시간·크기 정책, compaction은 같은 키의 과거 값을 정리하는 방식입니다. 압축은 비동기이며 최신 값만 즉시 한 개 남는다고 가정하지 않습니다. tombstone과 삭제 보존도 확인합니다."],
+              ["리밸런스와 처리량", "가입·이탈·구독 변화에 따라 배정이 바뀝니다. 중단 범위는 프로토콜과 assignor에 따라 다릅니다. 파티션 수·키 편향·처리 시간·lag를 함께 관찰합니다."],
+              ["Streams와 DLQ", "Streams는 처리 라이브러리이고 DLQ는 실패 이벤트를 격리하는 설계입니다. 원인·원래 위치·재시도 이력을 기록하고 재처리의 멱등성·순서 정책을 정합니다. DLQ 발행 실패도 처리해야 합니다."],
+            ].map(([title,text])=><article key={title} className="rounded-xl border bg-card p-5"><h3 className="font-semibold">{title}</h3><p className="mt-3 text-sm leading-7">{text}</p></article>)}</div>
+            <p className="text-sm leading-7">11번 자료의 15개 도표를 기존 구조·설정 페이지로 나눠 보완했습니다. 위 키 배정 API와 <a className="underline" href="/messaging/kafka-architecture#groups">그룹별 배정 실습</a>으로 파티션·소비자 수를 비교하세요. ACK·트랜잭션·DLQ·실제 Streams는 이 로컬 모형에서 실행하지 않습니다. 무키 파티션 선택도 무조건 라운드 로빈으로 단정하지 않고 클라이언트 설정·버전을 확인합니다.</p>
+            <div className="flex flex-wrap gap-4 text-sm underline"><a href="https://www.instagram.com/p/DdG-bsDFvUU/">11번 원문</a><a href="https://kafka.apache.org/41/configuration/producer-configs/">Kafka 4.1 Producer 설정</a><a href="https://kafka.apache.org/41/design/design/">Kafka 설계·보장 범위</a></div>
+          </section>
         </main>
       </SidebarInset>
     </SidebarProvider>

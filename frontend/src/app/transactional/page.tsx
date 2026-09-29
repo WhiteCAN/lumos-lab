@@ -367,6 +367,19 @@ export default function TransactionalPage() {
               </section>
             </section>
           </section>
+          <section id="traps" className="space-y-4">
+            <h2 className="text-2xl font-semibold">트랜잭션이 기대대로 롤백되지 않는 이유</h2>
+            <div className="grid gap-4 lg:grid-cols-3">{[
+              ["Checked exception", "기본 규칙에서는 RuntimeException·Error가 롤백 대상입니다. 필요한 checked 예외는 rollbackFor로 지정합니다. 전역 기본 규칙을 바꾼 프로젝트라면 그 설정도 확인합니다."],
+              ["예외를 잡은 경우", "catch 후 정상 반환하면 프록시가 실패를 알지 못할 수 있습니다. 이미 참여 트랜잭션이 rollback-only라면 catch해도 커밋되지 않고 UnexpectedRollbackException이 발생할 수 있습니다."],
+              ["같은 객체 내부 호출", "일반 프록시 모드의 this 호출은 프록시를 거치지 않습니다. 별도 Spring 빈의 메서드로 경계를 분리하거나 TransactionTemplate으로 명시합니다."],
+              ["외부 부작용", "DB 롤백은 전송한 메일·HTTP 결제를 취소하지 않습니다. 멱등성·보상과 Outbox를 검토합니다. Outbox 재발행 중복은 소비자도 처리해야 합니다."],
+              ["REQUIRES_NEW", "외부 트랜잭션과 독립적으로 커밋할 수 있습니다. 감사 기록 정책에 유용하지만 추가 커넥션과 풀 고갈을 고려해야 합니다."],
+              ["스레드·readOnly", "일반적인 스레드 바인딩 트랜잭션은 새 비동기 스레드로 자동 전파되지 않습니다. readOnly는 모든 DB의 쓰기 금지를 보장하는 보안 장치가 아닙니다."],
+            ].map(([title,text])=><article key={title} className="rounded-xl border bg-card p-5"><h3 className="font-semibold">{title}</h3><p className="mt-3 text-sm leading-7">{text}</p></article>)}</div>
+            <p className="text-sm leading-7">위 실습에서 RuntimeException, Checked 기본, Checked rollbackFor를 차례로 실행하고 DB 로그의 잔존 여부를 비교하세요. concept/transactional/TransactionalWorker.java의 runtimeRollback()·checkedDefaultCommit()·checkedRollbackFor()에서 멈추면 실제 Spring 트랜잭션을 확인할 수 있습니다. 나머지 함정은 설명 범위이며 현재 버튼이 모두 재현하는 것은 아닙니다.</p>
+            <div className="flex flex-wrap gap-4 text-sm underline"><a href="https://www.instagram.com/p/Dc_GpBoDYjZ/">12번 원문 · 캡션·checked 예외 도표 확인</a><a href="https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/rolling-back.html">Spring 롤백 규칙</a><a href="/messaging/saga-outbox">Saga·Outbox</a></div>
+          </section>
         </main>
       </SidebarInset>
     </SidebarProvider>

@@ -31,3 +31,5 @@ CORS는 [CorsConfig](../backend/src/main/java/com/lumos/lab/config/CorsConfig.ja
 실습에는 실제 사용자·업무 데이터를 넣지 않습니다. `bulk_insert_lab`은 실행 시 기존 실습 데이터를 지울 수 있고, RAG 문서 삭제 API는 메모리 자료를 지웁니다. 공유 개발계 작업은 대상 데이터와 영향 범위를 먼저 확인합니다. 자세한 DB 경계는 [DATABASE](DATABASE.md)를 따릅니다.
 
 의존성은 package/lockfile과 Gradle 설정으로 관리합니다. 필요 없는 도구를 템플릿에 맞추려고 추가하지 않습니다. 취약점 점검 결과는 검사 시점과 범위를 함께 기록하며, 과거 `npm audit` 통과를 현재의 보안 보장으로 재사용하지 않습니다.
+
+2026-09-30 추가 학습 API는 제한된 입력의 요청별 계산입니다. 외부 Kubernetes·Kafka·Redis·LLM·모니터링 수집기와 연결하지 않습니다. Spring Security 상세 페이지의 Java 설정은 설명용이며 프로젝트 인증 체계를 변경하지 않습니다. 기존 HMAC 실습에는 실제 자격증명을 넣지 않습니다.

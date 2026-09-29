@@ -99,7 +99,8 @@ export default function DtoEntityVoPage() {
         })}
       </section>
       <CodeBlock title="간단한 예시" code={code} />
-    </ReferencePage>
+    <p className="text-sm"><a className="underline" href="/java/records">Java record의 얕은 불변성과 방어적 복사 실습</a></p>
+</ReferencePage>
   );
 }
 

@@ -108,5 +108,20 @@ export default function MicroservicesPage() {
         <li><Link className="underline" href="/architecture">DDD·클린·헥사고날로 서비스 내부 경계 정하기</Link> · <Link className="underline" href="/messaging/kafka-architecture">Kafka 메시지 처리 구조</Link></li>
       </ul>
     </section>
-  </ReferencePage>;
+    <section id="handbook" className="space-y-4">
+      <h2 className="text-2xl font-semibold">마이크로서비스 핸드북 · 설계를 검토하는 순서</h2>
+      <div className="grid gap-4 lg:grid-cols-3">{[
+        ["경계와 전환", "업무 능력·변경 빈도·트랜잭션 경계를 먼저 봅니다. 모놀리스 일부를 Strangler 방식으로 옮길 때 요청 경로와 데이터 소유권을 단계별로 전환합니다. 처음부터 서비스 수를 목표로 삼지 않습니다.", "/architecture"],
+        ["진입과 통신", "Gateway는 인증·라우팅 같은 공통 책임, Discovery는 인스턴스 위치, Load Balancer는 대상 선택을 맡습니다. 서비스 내부 리소스 권한 검사를 Gateway 인증만으로 대체하지 않습니다.", "/load-balancing"],
+        ["데이터와 이벤트", "DB-per-service는 데이터 소유권 분리가 핵심이며 반드시 서비스마다 물리 DB 서버 한 대가 필요하다는 뜻은 아닙니다. 다른 서비스의 테이블 직접 수정 대신 계약을 둡니다.", "/messaging/saga-outbox"],
+        ["장애와 일관성", "Timeout 뒤에도 원격 처리가 성공했을 수 있습니다. CAP는 네트워크 분할 상황의 일관성과 가용성 선택이지 언제나 세 항목 중 둘을 고르는 표가 아닙니다. 재시도에는 멱등성과 한도가 필요합니다.", "/circuit-breaker"],
+        ["보안과 관측", "서비스 신원·최소 권한·비밀 회전을 정합니다. trace 문맥을 경계마다 전달하고 지연·오류 지표에서 trace와 로그로 좁힙니다. 로그에 토큰을 남기지 않습니다.", "/backend/jwt-oauth"],
+        ["배포와 운영", "호환 가능한 API·이벤트·DB 스키마 변경 후 점진 배포합니다. Ready와 프로세스 생존을 구분하고 실패 시 되돌릴 기준을 둡니다. 자동 확장만으로 느린 DB나 핫키가 해결되지 않습니다.", "/kubernetes-deployment"],
+      ].map(([title,text,href])=><article key={title} className="rounded-xl border bg-card p-5"><h3 className="font-semibold">{title}</h3><p className="mt-3 text-sm leading-7">{text}</p><Link className="mt-3 inline-block text-sm underline" href={href}>상세 학습</Link></article>)}</div>
+      <p className="text-sm leading-7">전자상거래라면 주문·결제·재고의 상태와 보상을, 배달·차량 호출이라면 위치 갱신·배차 경쟁을, 동영상이라면 업로드·변환·CDN을, 알림이라면 중복·선호 채널·재시도를 질문하세요. 특정 회사의 실제 내부 구조로 단정하지 않고 요구사항에 맞춘 설계 예시로 다룹니다.</p>
+      <p className="text-sm leading-7">대표 실행은 상단 Outbox 모형과 연결된 그룹 배정·로드밸런싱·배포 조건 API입니다. 실제 분산 트랜잭션·mTLS·OpenTelemetry 수집기를 구동하는 실습은 아닙니다.</p>
+      <a className="text-sm underline" href="https://www.instagram.com/p/DdxNedqkhO7/">13번 원문 · 표지와 15개 주제 카드 확인</a>
+    </section>
+  <p className="text-sm"><a className="underline" href="/observability">로그·메트릭·트레이스와 지연 통계 실습</a></p>
+</ReferencePage>;
 }

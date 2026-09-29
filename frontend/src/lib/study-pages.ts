@@ -21,6 +21,13 @@ export const studyCategories = [
 ] as const;
 
 export const studyPages: readonly StudyPage[] = [
+{href:"/backend/spring-security",title:"Spring Security · JWT 인증과 권한",category:"Spring·백엔드",description:"필터 체인·검증·권한·갱신·보안 테스트와 기존 토큰 실습을 연결합니다.",keywords:["SecurityFilterChain","JWT","CSRF","인증","인가"],aliases:[],simulated:true},
+{href:"/observability",title:"로깅·모니터링 · 지연과 장애 분석",category:"설계·테스트·배포",description:"Logs·Metrics·Traces를 연결하고 평균·p95·p99를 실제 Java로 계산합니다.",keywords:["관측","모니터링","Logging","Actuator","Micrometer","Prometheus","Grafana","p99"],aliases:[]},
+{href:"/llm-handbook",title:"LLM 핸드북 · 기초부터 평가·운영까지",category:"AI·RAG",description:"Transformer·튜닝·RAG·Agent·평가·운영 학습 지도와 확률 계산 실습",keywords:["LLM","RLHF","DPO","LoRA","temperature","softmax"],aliases:[]},
+{href:"/load-balancing",title:"로드밸런싱 · 요청 분산과 알고리즘",category:"네트워크·API",description:"L4·L7과 분산 알고리즘을 비교하고 Java 배정 모형을 실행합니다.",keywords:["Load Balancer","부하 분산","라운드 로빈","least connections"],aliases:[],simulated:true},
+{ href: "/java/records", title: "Java record · 값 비교와 불변성", category: "Java·객체지향", description: "record의 자동 멤버와 얕은 불변성을 실제 Java 목록 변경·방어적 복사로 비교합니다.", keywords: ["record", "레코드", "DTO", "불변", "방어적 복사"], aliases: [] },
+{ href: "/kubernetes-deployment", title: "Kubernetes 배포 · apply 이후의 흐름", category: "설계·테스트·배포", description: "API Server부터 Controller·Scheduler·Kubelet·Ready까지 추적하고 복제 수 모형을 실행합니다.", keywords: ["Kubernetes", "kubectl", "Deployment", "ReplicaSet", "Pod", "Ready", "쿠버네티스"], aliases: [], simulated: true },
+{ href: "/frontend/react-hooks", title: "React Hooks · 상태·동기화·참조", category: "프론트엔드", description: "7가지 Hooks의 용도와 실제 카운터·Java API 요청·취소 실습", keywords: ["useState", "useEffect", "useRef", "useContext", "useReducer", "useMemo", "useCallback", "Hooks"], aliases: ["리액트 훅"] },
 { href: "/backend/waiting-room", title: "접속 대기열 · 가상 대기실", category: "Spring·백엔드", description: "FIFO 순번·동시 입장·만료·재요청을 Java API와 가상 시계로 직접 실험합니다.", keywords: ["접속 대기열", "가상 대기실", "Waiting Room", "FIFO", "입장", "트래픽", "Redis"], aliases: ["Virtual Waiting Room"], simulated: true },
 {href: "/solid-principles", title: "SOLID 원칙 · 설명·구조·코드", category: "Java·객체지향", description: "5가지 설계 원칙을 3열로 비교하고 Java 예제와 Java 전략 API로 이해합니다.", keywords: ["SOLID", "SRP", "OCP", "LSP", "ISP", "DIP", "Java", "객체지향"], aliases: []},
 {"href":"/system-design-roadmap","title":"시스템 설계 학습 지도","category":"설계·테스트·배포","description":"요구사항부터 데이터·확장·보안·AI까지 설계 질문과 심화 학습 연결","keywords":["시스템 설계","로드맵","분산 시스템"],"aliases":[]},

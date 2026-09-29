@@ -1,4 +1,5 @@
 import { PageDebugLab } from "@/components/debug-lab";
+import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
 import { TechnologyIcon } from "@/components/technology-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -73,6 +74,7 @@ export default function ReactBasicsPage() {
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
           <PageDebugLab href="/frontend/react" />
+          <Link href="/frontend/react-hooks" className="rounded-lg border bg-card p-4 text-sm font-semibold underline underline-offset-4">Hooks 7가지 상세 · 상태·참조·API 요청 취소 직접 실습 →</Link>
           <section className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
             <h1 className="flex items-center gap-3 text-3xl font-bold tracking-tight"><TechnologyIcon name="react" />{studyPage.title}</h1>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">

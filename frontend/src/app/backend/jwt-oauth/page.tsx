@@ -49,5 +49,19 @@ export default function JwtOauthPage() {
       <p className="mt-2">원본의 JWT·OAuth 비교를 바탕으로 OIDC와 검증 조건을 보완한 개념 가이드입니다. <Link className="underline" href="/backend/security-auth">기존 인증 mock 실습</Link>에서 발급·만료·변조 흐름을 확인할 수 있습니다.</p>
       <ul className="mt-3 space-y-1">{[["원본 릴스", "https://www.instagram.com/reels/DdtgewXpPr7/"], ["JWT · RFC 7519", "https://www.rfc-editor.org/rfc/rfc7519"], ["OAuth 2.0 · RFC 6749", "https://www.rfc-editor.org/rfc/rfc6749"], ["OpenID Connect Core", "https://openid.net/specs/openid-connect-core-1_0.html"]].map(([label, href]) => <li key={href}><a className="underline underline-offset-4" href={href} target="_blank" rel="noreferrer">{label}</a></li>)}</ul>
     </section>
-  </ReferencePage>;
+    <section id="handbook" className="space-y-4">
+      <h2 className="text-2xl font-semibold">인증·인가 핸드북 보완</h2>
+      <div className="grid gap-4 lg:grid-cols-3">{[
+        ["인증과 인가", "인증은 신원 확인, 인가는 작업 허용 판단입니다. 로그인했더라도 다른 사용자의 리소스를 읽을 수 없어야 합니다. RBAC의 역할 검사와 ABAC의 소유자·조직·환경 조건을 구분합니다."],
+        ["비밀번호와 세션", "비밀번호는 전용 적응형 해시로 저장하고 솔트를 사용합니다. 쿠키는 전달 수단, 세션은 서버 상태입니다. 세션 방식도 API와 수평 확장에 사용할 수 있으며 공유 저장소·만료·회전을 설계합니다."],
+        ["Access와 Refresh", "Access Token은 대상 API 접근용, Refresh Token은 재발급용입니다. 수명은 고정 정답이 없으며 회전·재사용 탐지·폐기 정책을 정합니다. 토큰과 세션 ID를 URL이나 로그에 넣지 않습니다."],
+        ["Grant 선택", "사용자 위임에는 Authorization Code와 PKCE, 서버 간 권한에는 Client Credentials를 검토합니다. Password Grant는 사용하지 않으며 Implicit 방식은 신규 권장 흐름이 아닙니다. 서버 간 토큰을 사용자 신원으로 오해하지 않습니다."],
+        ["브라우저 저장", "HttpOnly는 JavaScript의 쿠키 읽기를 막지만 모든 XSS 동작을 막지는 않습니다. 쿠키 자동 전송에는 CSRF 방어가 필요합니다. 메모리·쿠키·서버 세션은 배포 구조와 위협 모델에 맞춰 선택합니다."],
+        ["검증과 상태 코드", "신뢰 키·알고리즘·발급자·대상·시간을 확인한 뒤 리소스 권한을 검사합니다. 일반적으로 인증 정보 문제는 401, 유효한 신원에 권한이 없으면 403입니다. 보안상 리소스를 숨기는 404 정책도 별개입니다."],
+      ].map(([title,text])=><article key={title} className="rounded-xl border bg-card p-5"><h3 className="font-semibold">{title}</h3><p className="mt-3 text-sm leading-7">{text}</p></article>)}</div>
+      <p className="text-sm leading-7"><Link className="underline" href="/backend/security-auth">인증 실습</Link>에서 USER 토큰 발급 → USER 요구 호출 → ADMIN 요구 호출 → 토큰 변조 → 만료를 순서대로 비교하세요. concept/securityauth/SecurityAuthService.java의 login()·accessProtected()에 브레이크포인트를 둡니다. 역할을 직접 입력하는 것은 교육용 모형이며 실제 서비스의 권한 부여 방식이 아닙니다. 이 모형의 인증 실패는 HTTP 400이며 운영 401/403 계약과 다릅니다. 필터 체인은 /backend/spring-security 상세 페이지에서 확인합니다. 이 실습은 비밀번호 해시 저장·실제 OAuth·Refresh Token 회전을 구현하지 않습니다.</p>
+      <div className="flex flex-wrap gap-4 text-sm underline"><a href="https://www.instagram.com/p/DdwbAWOGkDT/">10번 원문 · 15장 확인</a><a href="https://www.rfc-editor.org/rfc/rfc9700.html">OAuth 보안 권고 · RFC 9700</a></div>
+    </section>
+  <p className="text-sm"><a className="underline" href="/backend/spring-security">Spring Security 필터 체인·권한 상세</a></p>
+</ReferencePage>;
 }

@@ -112,3 +112,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 분기·연결 구조는 `src/components/system-diagram.tsx`의 `SystemDiagram`을 사용합니다. 데이터는 `system-diagram-data.ts`에서 관리하고 아이콘은 기존 `TechnologyIcon`을 재사용합니다. 순차 재생은 `FlowSection`을 사용하며 내부 렌더러도 React Flow입니다. 별도 구성도는 `learning-flow-canvas.tsx`의 `LearningFlowCanvas`와 `learning-diagram-data.ts`를 사용합니다. 모바일 연결 목록, 키보드 선택, 테마, 학습용 모형 고지를 함께 확인합니다.
 
 상세 데이터 계약과 왕복 Handle 배치·확장 제약은 [React Flow 시스템 다이어그램 가이드](../docs/react-flow-diagrams.md)를 기준으로 확인합니다.
+
+React Hooks 전용 실습은 src/app/frontend/react-hooks/hooks-lab.tsx에 있으며 카운터·API 요청 취소·effect 타이머를 브라우저에서 실행합니다.

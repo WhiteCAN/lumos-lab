@@ -48,5 +48,6 @@ export default function DevopsToolchainPage() {
       <p className="mt-3"><a className="underline" href="https://www.instagram.com/reels/DdwqRFhN3pr/" target="_blank" rel="noreferrer">learndevopstogether 원문 릴스</a>의 캡션에 있는 여섯 도구와 역할을 확인해 재구성했습니다. 영상 전체 전사나 명령 실행 결과의 재현은 아닙니다. 도구의 연결 관계는 아래 공식 문서로 보완했습니다.</p>
       <div className="mt-3 flex flex-wrap gap-4 underline"><a href="https://docs.docker.com/get-started/docker-overview/">Docker 개요</a><a href="https://kubernetes.io/docs/concepts/overview/">Kubernetes 개요</a><a href="https://kubernetes.io/docs/setup/production-environment/container-runtimes/">컨테이너 런타임</a><a href="https://developer.hashicorp.com/terraform/intro">Terraform 소개</a><a href="https://www.jenkins.io/doc/book/pipeline/">Jenkins Pipeline</a><a href="https://docs.github.com/en/actions/get-started/understand-github-actions">GitHub Actions</a></div>
     </section>
-  </ReferencePage>;
+  <p className="text-sm"><a className="underline" href="/kubernetes-deployment">Kubernetes apply 이후 흐름과 Service·Ingress 실습</a></p>
+</ReferencePage>;
 }

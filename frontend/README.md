@@ -1,5 +1,7 @@
 # Lumos Lab 프론트엔드
 
+React Hooks 상세는 `/frontend/react-hooks`이며 React 기초에서 연결됩니다. 카운터·Context·메모화·DOM 참조·Java API 요청과 취소를 실제 실행합니다. [15개 원문 순차 반영 현황](../docs/instagram-learning-2026-09-30.md)을 참고하세요.
+
 Next.js, React, TypeScript, Tailwind CSS, shadcn/ui를 공부하기 위한 프론트엔드입니다.
 
 `/backend/waiting-room`은 접속 대기열 전용 실습입니다. 3열 상태판(모바일 1열), React Flow, Java 예제와 실제 API 호출을 제공합니다. [실습 계약과 재현 순서](../docs/waiting-room.md)를 참고하세요.
@@ -275,3 +277,19 @@ Redis 캐시(`/backend/redis-cache`), Spring 시스템 설계(`/spring-system-de
 ### 기존 구성도·흐름도 React Flow 통합
 
 2026-09-28: 공통 FlowSection과 페이지별 HTML 흐름을 React Flow로 전환했습니다. SOLID·Saga/Outbox·샤딩/복제·Java 참조/컬렉션·Kafka 복제 배치도도 같은 카드/아이콘을 사용합니다. 재생·경로 선택·API 실습을 유지하고 텍스트 대체 목록을 제공합니다. 상세 계약은 [구성도 가이드](../docs/react-flow-diagrams.md)를 참고하세요.
+
+## 2026-09-30 자료 정리
+
+15개 원문의 반영 내역과 확인 범위는 [순차 정리 기록](../docs/instagram-learning-2026-09-30.md)을 참고합니다.
+
+| 새 상세 페이지 | 경로 | 실행 범위 |
+| --- | --- | --- |
+| React Hooks | `/frontend/react-hooks` | 실제 Hooks·타이머·Java API 요청/취소 |
+| Kubernetes 배포 | `/kubernetes-deployment` | 복제 수·Ready·라우팅 조건 모형 |
+| Java record | `/java/records` | 실제 record 값 비교·방어적 복사 |
+| 로드밸런싱 | `/load-balancing` | Round Robin·Least Connections 배정 모형 |
+| LLM 핸드북 | `/llm-handbook` | softmax·temperature 확률 계산 |
+| 로깅·모니터링 | `/observability` | 평균·nearest-rank percentile 계산 |
+| Spring Security | `/backend/spring-security` | 기존 HMAC 토큰 실습 연결 |
+
+Kafka 구조·설정, 캐싱, JWT·OAuth, 트랜잭션, 마이크로서비스 페이지는 기존 내용을 보존하면서 보완했습니다. 다이어그램은 React Flow, 예제는 Java를 기본으로 사용합니다. React 자체 실행은 TypeScript입니다.

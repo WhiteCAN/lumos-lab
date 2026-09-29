@@ -48,6 +48,17 @@ export default function CachingStrategiesPage() {
         </ul>
       </section>
       <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">출처와 함께 읽기</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">원문 캡션과 화면 도표를 바탕으로 한국어로 재구성했습니다. 실패 상황과 정합성 설명은 학습용 보완입니다.</p><ul className="mt-3 grid gap-2 text-sm"><li><a className="underline underline-offset-4" href="https://www.instagram.com/reels/DdYIumfpPYp/">원문 · careerwithcodedev의 Redis 캐시 전략</a></li><li><a className="underline underline-offset-4" href="https://redis.io/docs/latest/develop/use-cases/cache-aside/">Redis 공식 문서 · Cache-Aside</a></li><li><a className="underline underline-offset-4" href="https://redis.io/blog/cache-layer-architecture-guide/">Redis · 캐시 계층과 쓰기 패턴</a></li><li><Link className="underline underline-offset-4" href="/backend/redis-cache">Redis 캐시·세션·분산 락</Link></li></ul></section>
+      <section id="technology" className="space-y-4">
+        <h2 className="text-2xl font-semibold">캐시 위치와 기술 선택</h2>
+        <div className="grid gap-4 lg:grid-cols-3">{[
+          ["로컬 · Caffeine", "JVM 안에서 조회해 네트워크 왕복을 줄입니다. 인스턴스마다 캐시가 독립적이라 서로 다른 값을 가질 수 있고 재시작하면 사라집니다. 최대 크기·만료·갱신 정책을 함께 설정합니다."],
+          ["공유 · Redis·Memcached", "여러 애플리케이션이 네트워크로 접근하는 캐시입니다. 공유의 이점과 네트워크 지연·장애·메모리 비용을 함께 봅니다. Redis의 영속성 여부는 설정에 따라 달라집니다."],
+          ["분산·엣지 · Hazelcast·CDN", "클러스터 캐시와 HTTP 엣지 캐시는 해결하는 문제가 다릅니다. 객체·세션 공유가 필요한지, 정적 파일·공개 HTTP 응답을 가까이 제공할지 먼저 정합니다. 관리형 서비스는 운영 책임의 분담 방식입니다."],
+        ].map(([title,text])=><article key={title} className="rounded-xl border bg-card p-5"><h3 className="font-semibold">{title}</h3><p className="mt-3 text-sm leading-7">{text}</p></article>)}</div>
+        <p className="text-sm leading-7">캐시할 대상은 읽기 빈도뿐 아니라 허용 가능한 오래된 시간, 민감도, 무효화 범위로 고릅니다. 사용자별 응답은 사용자·권한을 캐시 키에 반영하고 공개 CDN 캐시와 섞지 않습니다. TTL은 만료 기준이고 LRU는 용량 부족 때 퇴출 기준입니다.</p>
+        <p className="text-sm leading-7">위 API에 values=[1,2,1,3,2], parameter=2를 입력하면 접근 순서를 반영한 퇴출을 관찰합니다. parameter=3과 비교하고 0으로 실패를 확인하세요. 이 LinkedHashMap 실습은 제품별 성능 비교나 TTL·분산 정합성 검증이 아닙니다.</p>
+        <div className="flex flex-wrap gap-4 text-sm underline"><a href="https://www.instagram.com/p/DdKCmAWj38e/?img_index=2">8번 원문 · 캐싱 도표·캡션</a><a href="https://github.com/ben-manes/caffeine/wiki">Caffeine 공식 문서</a></div>
+      </section>
     </ReferencePage>
   );
 }
