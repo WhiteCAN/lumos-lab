@@ -2,6 +2,7 @@
 
 import * as React from "react"
 
+import { LumosAdminMark, LumosLabMark, LumosPhotoMark } from "@/components/brand/lumos-mark"
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
@@ -20,7 +21,7 @@ import {
 import {
   BrainCircuitIcon, BracketsIcon, ChartNoAxesColumnIncreasingIcon,
   Code2Icon, DatabaseIcon, FolderTreeIcon, GalleryVerticalEndIcon,
-  BookOpenCheckIcon, ShieldCheckIcon, KeyRoundIcon, NetworkIcon, RouteIcon, ScrollTextIcon, SearchIcon,
+  KeyRoundIcon, NetworkIcon, RouteIcon, ScrollTextIcon, SearchIcon,
 } from "lucide-react"
 import { studyCategories, studyPages } from "@/lib/study-pages"
 
@@ -44,15 +45,15 @@ const data = {
   teams: [
     {
       ...TEAM_LINKS.lumosGraphy,
-      logo: <GalleryVerticalEndIcon />,
+      logo: <LumosPhotoMark className="size-full!" />,
     },
     {
       ...TEAM_LINKS.lumosLab,
-      logo: <BookOpenCheckIcon />,
+      logo: <LumosLabMark className="size-full!" />,
     },
     {
       ...TEAM_LINKS.lumosAdmin,
-      logo: <ShieldCheckIcon />,
+      logo: <LumosAdminMark className="size-full!" />,
     },
   ],
   projects: [

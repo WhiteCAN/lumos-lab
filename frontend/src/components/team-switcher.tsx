@@ -56,7 +56,7 @@ export function TeamSwitcher({
               />
             }
           >
-            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+            <div className="flex aspect-square size-8 shrink-0 items-center justify-center">
               {activeTeam.logo}
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight">
@@ -83,7 +83,7 @@ export function TeamSwitcher({
                   aria-keyshortcuts={`Alt+${index + 1}`}
                   className="gap-2 p-2"
                 >
-                  <div className="flex size-6 items-center justify-center rounded-md border">
+                  <div className="flex size-6 shrink-0 items-center justify-center">
                     {team.logo}
                   </div>
                   {team.name}

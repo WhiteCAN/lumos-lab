@@ -356,3 +356,7 @@ Redis 캐시(`/backend/redis-cache`), Spring 시스템 설계(`/spring-system-de
 | Spring Security | `/backend/spring-security` | 기존 HMAC 토큰 실습 연결 |
 
 Kafka 구조·설정, 캐싱, JWT·OAuth, 트랜잭션, 마이크로서비스 페이지는 기존 내용을 보존하면서 보완했습니다. 다이어그램은 React Flow, 예제는 Java를 기본으로 사용합니다. React 자체 실행은 TypeScript입니다.
+
+## 브랜드 CI
+
+사이드바와 공간 선택 메뉴, 브라우저 아이콘에 Lumos 공통 CI를 사용합니다. 형태·색상·자산 위치는 [브랜드 아이콘 가이드](docs/brand-identity.md)를 참고하세요.

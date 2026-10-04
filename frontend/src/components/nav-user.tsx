@@ -1,5 +1,6 @@
 "use client"
 
+import { LumosLabMark } from "@/components/brand/lumos-mark"
 import {
   Avatar,
   AvatarFallback,
@@ -41,9 +42,9 @@ export function NavUser({
               <SidebarMenuButton size="lg" className="aria-expanded:bg-muted" />
             }
           >
-            <Avatar>
+            <Avatar className="rounded-lg after:rounded-lg">
               <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback>SL</AvatarFallback>
+              <AvatarFallback className="rounded-lg"><LumosLabMark className="size-full!" /></AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">{user.name}</span>
@@ -60,9 +61,9 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                  <Avatar>
+                  <Avatar className="rounded-lg after:rounded-lg">
                     <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback>SL</AvatarFallback>
+                    <AvatarFallback className="rounded-lg"><LumosLabMark className="size-full!" /></AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-medium">{user.name}</span>
