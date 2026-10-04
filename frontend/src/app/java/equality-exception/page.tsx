@@ -1,5 +1,8 @@
 "use client";
 
+import { SyntaxCode } from "@/components/syntax-code";
+
+
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -103,7 +106,7 @@ export default function EqualityExceptionPage() {
                     </div>
                   ))}
                   <p className="rounded-md border bg-amber-50/70 p-3 text-sm dark:bg-amber-950/20">{equality.warning}</p>
-                  <pre className="overflow-auto rounded-lg border bg-zinc-950 p-4 text-xs leading-6 text-zinc-100"><code>{equality.codeExample.trim()}</code></pre>
+                  <SyntaxCode code={equality.codeExample.trim()} language="java" />
                 </div>
               ) : null}
             </article>
@@ -122,7 +125,7 @@ export default function EqualityExceptionPage() {
                 <div className="mt-4 grid gap-3">
                   {exceptionResult.steps.map((step) => <p key={step} className="rounded-lg border bg-white/75 p-3 text-sm dark:bg-background/45">{step}</p>)}
                   <p className="rounded-md border bg-emerald-50/70 p-3 text-sm dark:bg-emerald-950/20">{exceptionResult.whenToUse}</p>
-                  <pre className="overflow-auto rounded-lg border bg-zinc-950 p-4 text-xs leading-6 text-zinc-100"><code>{exceptionResult.codeExample.trim()}</code></pre>
+                  <SyntaxCode code={exceptionResult.codeExample.trim()} language="java" />
                 </div>
               ) : null}
             </article>

@@ -1,5 +1,8 @@
 "use client";
 
+import { SyntaxCode } from "@/components/syntax-code";
+
+
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
@@ -66,7 +69,7 @@ export function DebugLab({ lab }: { lab: Lab }) {
     <Button className="mt-3" onClick={execute} disabled={busy}>{busy ? "실행 중…" : "API 실행"}</Button>
     <div className="mt-3 text-sm" role="status" aria-live="polite">{busy ? "응답을 기다립니다. 디버거에서 멈췄다면 실행을 재개하세요." : output ? "실행 완료" : "입력값을 바꿔 실행하세요."}</div>
     {error && <p role="alert" className="mt-3 break-words text-sm text-red-600 dark:text-red-400">{error} · 연결 실패라면 백엔드 실행과 CORS 허용 출처를 확인하세요.</p>}
-    {output !== null && <pre className="mt-3 max-h-96 overflow-auto rounded-md bg-muted p-3 text-xs" aria-label="실행 결과">{JSON.stringify(output, null, 2)}</pre>}
+    {output !== null && <SyntaxCode className="mt-3 [&>pre]:max-h-96" code={JSON.stringify(output, null, 2)} language="json" label="실행 결과" />}
     <details className="mt-4 text-sm"><summary className="cursor-pointer font-semibold">디버깅 위치와 실행 방법</summary><p className="mt-2 break-words leading-7">{lab.breakpoint}</p><p className="mt-2 leading-7">IntelliJ에서 BackendApplication을 Debug로 실행하고 위 메서드에 브레이크포인트를 설정한 뒤 API 실행을 누르세요. Java 파일 경로는 backend/src/main/java/com/lumos/lab/ 기준입니다. 브라우저 코드는 개발 서버의 DevTools → Sources에서 확인합니다. 전체 시간은 디버거 정지 시간을 포함하므로 성능 비교 때는 브레이크포인트를 해제하세요.</p></details>
   </section>;
 }

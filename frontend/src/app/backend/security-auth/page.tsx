@@ -1,5 +1,8 @@
 "use client";
 
+import { SyntaxCode } from "@/components/syntax-code";
+
+
 import { FlowSection } from "@/components/flow-section";
 import { FormEvent, useState } from "react";
 import Link from "next/link";
@@ -330,9 +333,7 @@ function ResultCard({ title, result }: { title: string; result: unknown }) {
     <section className="rounded-lg border bg-card p-4 shadow-sm">
       <h2 className="font-semibold">{title}</h2>
       {result ? (
-        <pre className="mt-3 max-h-96 overflow-auto rounded-md border bg-background p-3 text-xs leading-5">
-          <code>{JSON.stringify(result, null, 2)}</code>
-        </pre>
+        <SyntaxCode className="mt-3 [&>pre]:max-h-96" code={JSON.stringify(result, null, 2)} language="json" />
       ) : (
         <p className="mt-3 text-sm text-muted-foreground">아직 결과가 없습니다.</p>
       )}

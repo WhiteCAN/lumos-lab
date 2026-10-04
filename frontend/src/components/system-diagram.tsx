@@ -26,6 +26,11 @@ function ServiceCard({ data }: NodeProps<ServiceNode>) {
 }
 const nodeTypes = { service: ServiceCard };
 const subscribe = () => () => {};
+function subscribeMotion(onChange: () => void) {
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
 
 export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
   const diagram = systemDiagrams[kind];
@@ -35,6 +40,8 @@ export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(diagram.nodes[0].id);
   const [view, setView] = useState<"diagram" | "list">("diagram");
+  const [motionPlaying, setMotionPlaying] = useState(true);
+  const reducedMotion = useSyncExternalStore(subscribeMotion, () => window.matchMedia("(prefers-reduced-motion: reduce)").matches, () => true);
   const scene = diagram.scenes[sceneIndex];
   const selected = diagram.nodes.find((node) => node.id === selectedId)!;
   const active = new Set(scene.links.flatMap((edge) => [edge.source, edge.target]));
@@ -48,6 +55,7 @@ export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
     const backwards = diagram.nodes.find((node) => node.id === edge.source)!.x > diagram.nodes.find((node) => node.id === edge.target)!.x;
     return ({
     ...edge, id: `${sceneIndex}-${i}`, type: "default", label: edge.label,
+    animated: motionPlaying && !reducedMotion && view === "diagram",
     sourceHandle: paired ? (backwards ? "response-out" : "request-out") : "out",
     targetHandle: paired ? (backwards ? "response-in" : "request-in") : "in",
     markerEnd: { type: MarkerType.ArrowClosed, color: "#0284c7" },
@@ -67,6 +75,7 @@ export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
       </div>
       <p aria-live="polite" className="min-h-16 text-sm leading-6 text-muted-foreground">{scene.summary}</p>
       <div className="hidden gap-2 md:flex">{(["diagram", "list"] as const).map((mode) => <button type="button" key={mode} aria-pressed={view === mode} onClick={() => setView(mode)} className="rounded border px-3 py-2 text-sm aria-pressed:bg-muted">{mode === "diagram" ? "구성도" : "연결 목록"}</button>)}</div>
+      {view === "diagram" && !reducedMotion && <button type="button" onClick={() => setMotionPlaying(playing => !playing)} className="hidden rounded border px-3 py-2 text-sm md:inline-flex">{motionPlaying ? "연결선 애니메이션 정지" : "연결선 애니메이션 재생"}</button>}
     </div>
     {view === "diagram" && <div className="hidden h-[460px] bg-muted/20 md:block" aria-label={`${diagram.title} 구성도`}>
       <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={{ padding: 0.15 }} minZoom={0.35} maxZoom={1.5}

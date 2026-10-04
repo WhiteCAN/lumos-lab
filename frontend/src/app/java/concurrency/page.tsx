@@ -1,5 +1,8 @@
 "use client";
 
+import { SyntaxCode } from "@/components/syntax-code";
+
+
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -95,7 +98,7 @@ export default function JavaConcurrencyPage() {
                   <p className="rounded-md border border-amber-200 bg-amber-50/70 p-3 text-sm dark:border-amber-900/60 dark:bg-amber-950/20">
                     <LockIcon className="mr-2 inline size-4" />{result.caution}
                   </p>
-                  <pre className="overflow-auto rounded-lg border bg-zinc-950 p-4 text-xs leading-6 text-zinc-100"><code>{result.codeExample.trim()}</code></pre>
+                  <SyntaxCode code={result.codeExample.trim()} language="java" />
                 </div>
               ) : <p className="mt-4 text-sm text-muted-foreground">아직 실행 결과가 없습니다.</p>}
             </section>

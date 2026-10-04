@@ -1,5 +1,8 @@
 "use client";
 
+import { SyntaxCode } from "@/components/syntax-code";
+
+
 import { useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -156,7 +159,7 @@ function ResultCard({ title, result }: { title: string; result: SimulationRespon
           {"transactionCount" in result ? <Metric label="transactionCount" value={result.transactionCount} /> : null}
           {result.steps.map((step) => <p key={step} className="rounded-md border bg-white/75 p-3 text-sm dark:bg-background/45">{step}</p>)}
           {"recommendation" in result ? <p className="rounded-md border bg-amber-50/70 p-3 text-sm dark:bg-amber-950/20">{result.recommendation}</p> : null}
-          <pre className="overflow-auto rounded-lg border bg-zinc-950 p-4 text-xs leading-6 text-zinc-100"><code>{result.codeExample.trim()}</code></pre>
+          <SyntaxCode code={result.codeExample.trim()} language="java" />
         </div>
       ) : <p className="mt-4 text-sm text-muted-foreground">아직 실행 결과가 없습니다.</p>}
     </article>

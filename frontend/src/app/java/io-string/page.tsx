@@ -1,5 +1,8 @@
 "use client";
 
+import { SyntaxCode } from "@/components/syntax-code";
+
+
 import { FormEvent, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -170,5 +173,5 @@ function ResultPanel({ title, children }: { title: string; children: React.React
 }
 
 function CodeBlock({ code }: { code: string }) {
-  return <pre className="overflow-auto rounded-lg border bg-zinc-950 p-4 text-xs leading-6 text-zinc-100"><code>{code.trim()}</code></pre>;
+  return <SyntaxCode code={code.trim()} language="java" />;
 }

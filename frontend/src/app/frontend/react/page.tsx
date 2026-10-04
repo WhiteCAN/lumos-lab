@@ -1,3 +1,4 @@
+import { SyntaxCode } from "@/components/syntax-code";
 import { PageDebugLab } from "@/components/debug-lab";
 import Link from "next/link";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -93,7 +94,7 @@ export default function ReactBasicsPage() {
                     <h2 className="font-semibold">{concept.title}</h2>
                   </div>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{concept.text}</p>
-                  <pre className="mt-3 overflow-x-auto rounded-md border bg-white/75 p-3 text-xs dark:bg-background/45"><code>{concept.code}</code></pre>
+                  <SyntaxCode className="mt-3" code={concept.code} language="javascript" />
                 </article>
               );
             })}

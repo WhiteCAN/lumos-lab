@@ -1,4 +1,6 @@
 import { getStudyPage } from "@/lib/study-pages";
+import { SyntaxCode } from "@/components/syntax-code";
+import type { CodeLanguage } from "@/lib/syntax-highlight";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -171,13 +173,11 @@ export function ComparisonTable({
   );
 }
 
-export function CodeBlock({ title, code }: { title: string; code: string }) {
+export function CodeBlock({ title, code, language }: { title: string; code: string; language?: CodeLanguage }) {
   return (
     <section className="min-w-0 rounded-lg border bg-card p-4 shadow-sm">
       <h2 className="text-lg font-semibold">{title}</h2>
-      <pre className="mt-4 overflow-auto rounded-lg border bg-background p-4 text-xs leading-6">
-        <code>{code}</code>
-      </pre>
+      <SyntaxCode className="mt-4" code={code} language={language} label={title} />
     </section>
   );
 }

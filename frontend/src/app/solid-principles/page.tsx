@@ -1,4 +1,5 @@
 import { solidExamples } from "@/lib/solid-examples";
+import { SyntaxCode } from "@/components/syntax-code";
 import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
 import { solidGraphs } from "@/components/learning-diagram-data";
 import Link from "next/link";
@@ -84,7 +85,7 @@ export default function SolidPrinciplesPage() {
           </div>
           <div className="min-w-0 p-4 xl:p-5">
             <h3 className="flex items-center gap-2 text-sm font-semibold text-indigo-700 dark:text-indigo-300"><Code2Icon className="size-4" aria-hidden="true" />03 · Java 코드 예제</h3>
-            <pre tabIndex={0} aria-label={`${p.name} Java 예제`} className="mt-4 max-w-full overflow-x-auto rounded-lg border bg-background p-3 text-xs leading-6 focus-visible:outline-2 focus-visible:outline-ring"><code>{p.code}</code></pre>
+            <SyntaxCode className="mt-4" code={p.code} language="java" label={`${p.name} Java 예제`} />
             <p className="mt-3 text-xs leading-6 text-muted-foreground">{p.codeNote}</p>
           </div>
         </div>

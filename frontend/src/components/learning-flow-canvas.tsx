@@ -7,7 +7,7 @@ import { TechnologyIcon, type FlowIconName } from "./technology-icon";
 import { useTheme } from "./theme-provider";
 
 export type LearningNode = { id: string; label: string; detail?: string; icon?: FlowIconName; x: number; y: number; active?: boolean; completed?: boolean };
-export type LearningEdge = { source: string; target: string; label?: string; dashed?: boolean };
+export type LearningEdge = { source: string; target: string; label?: string; dashed?: boolean; animated?: boolean };
 export type LearningGraph = { nodes: LearningNode[]; edges: LearningEdge[] };
 type CardNode = Node<LearningNode, "learning">;
 const subscribe = () => () => {};

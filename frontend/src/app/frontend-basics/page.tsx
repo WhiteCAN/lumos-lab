@@ -1,3 +1,4 @@
+import { SyntaxCode } from "@/components/syntax-code";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -269,9 +270,7 @@ export default function FrontendBasicsPage() {
                       <p className="mt-2 text-sm leading-6 text-muted-foreground">
                         {item.description}
                       </p>
-                      <pre className="mt-3 overflow-x-auto rounded-md border bg-background/80 p-3 text-xs">
-                        <code>{item.example}</code>
-                      </pre>
+                      <SyntaxCode className="mt-3" code={item.example} />
                     </article>
                   );
                 })}
@@ -367,7 +366,7 @@ function CodeBlock({ label, value }: { label: string; value: string }) {
       <p className="mb-1 text-[11px] font-medium text-muted-foreground">
         {label}
       </p>
-      <code className="font-mono text-xs">{value}</code>
+      <SyntaxCode code={value} />
     </div>
   );
 }

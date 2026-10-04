@@ -1,8 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "../components/syntax-code.css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* React Flow의 점선은 source → target 방향으로 이동합니다. */
+@media (prefers-reduced-motion: reduce) {
+  .react-flow__edge.animated .react-flow__edge-path {
+    animation: none !important;
+  }
+}
 
 @theme inline {
   --color-background: var(--background);

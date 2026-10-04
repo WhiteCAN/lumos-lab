@@ -1,4 +1,5 @@
 "use client";
+import { SyntaxTokens } from "@/components/syntax-code";
 
 import { referenceGraphs } from "@/components/learning-diagram-data";
 import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
@@ -48,7 +49,7 @@ export function CollectionDebugger() {
           <div className="text-xs text-muted-foreground [overflow-wrap:anywhere]">{group.path}</div>
           <h3 className="mt-2 text-lg font-semibold">{group.title}</h3>
           <p className="mt-1 min-h-12 text-sm">{group.note}</p>
-          <div className="mt-3 grid gap-2">{group.names.map(name => <button key={name} type="button" aria-pressed={selected === name} onClick={() => select(name)} className={`rounded-lg border px-3 py-2 text-left font-mono text-sm transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-ring ${selected === name ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:bg-muted"}`}>{name}{name === "Stack" ? " ← Vector" : ""}</button>)}</div>
+          <div className="mt-3 grid gap-2">{group.names.map(name => <button key={name} type="button" aria-pressed={selected === name} onClick={() => select(name)} className={`rounded-lg border px-3 py-2 text-left font-mono text-sm transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-ring ${selected === name ? "border-primary bg-amber-100 ring-1 ring-inset ring-amber-500 dark:bg-amber-950" : "bg-background hover:bg-muted"}`}>{name}{name === "Stack" ? " ← Vector" : ""}</button>)}</div>
         </article>)}
       </div>
       <p className="mt-4 text-sm leading-6 text-muted-foreground">분류 지도이며 모든 상속선을 표시한 UML은 아닙니다. extends 화살표는 하위 타입에서 상위 타입을 가리키므로 시간순 처리 흐름과 방향이 다릅니다. Deque는 Queue와 SequencedCollection을 확장합니다. LinkedList는 List·Deque 양쪽에 속합니다. TreeSet은 NavigableSet → SortedSet → SequencedSet → Set 계층이며, LinkedHashSet도 SequencedSet을 구현합니다. TreeMap은 NavigableMap → SortedMap → SequencedMap → Map 계층, LinkedHashMap은 SequencedMap 구현체입니다. PriorityQueue는 Deque가 아닙니다.</p>
@@ -69,7 +70,7 @@ export function CollectionDebugger() {
       <div className="grid min-w-0 gap-4 xl:grid-cols-2">
         <div className="min-w-0 rounded-lg border bg-background p-3">
           <h3 className="mb-3 font-semibold">실행 코드 · 강조된 호출까지 실행 완료</h3>
-          <pre className="min-h-80 overflow-auto text-xs leading-7"><code><span className={`block rounded px-2 ${cursor === 0 ? "bg-primary/10 font-bold" : ""}`}>{scenario.setup}</span>{scenario.steps.map((step, i) => <span key={i} aria-current={cursor === i + 1 ? "step" : undefined} className={`block rounded px-2 transition-colors motion-reduce:transition-none ${cursor === i + 1 ? "bg-primary text-primary-foreground" : ""}`}>{i + 1}. {step.code};</span>)}</code></pre>
+          <div className="syntax-highlight min-w-0"><pre className="min-h-80 overflow-auto rounded-lg text-[13px] leading-7"><code className="hljs"><span className={`block rounded px-2 ${cursor === 0 ? "bg-primary/10 font-bold" : ""}`}><SyntaxTokens code={scenario.setup} language="java" /></span>{scenario.steps.map((step, i) => <span key={i} aria-current={cursor === i + 1 ? "step" : undefined} className={`block rounded px-2 transition-colors motion-reduce:transition-none ${cursor === i + 1 ? "bg-amber-100 ring-1 ring-inset ring-amber-500 dark:bg-amber-950" : ""}`}>{i + 1}. <SyntaxTokens code={step.code + ";"} language="java" /></span>)}</code></pre></div>
         </div>
         <div className="min-w-0 rounded-lg border bg-background p-4" aria-live="polite" aria-atomic="true">
           <h3 className="font-semibold">변수와 반환값</h3>

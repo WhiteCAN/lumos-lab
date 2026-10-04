@@ -1,5 +1,8 @@
 "use client";
 
+import { SyntaxCode } from "@/components/syntax-code";
+
+
 import { useEffect, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -151,7 +154,7 @@ export default function JavaCollectionsPage() {
                 <div className="mt-4 grid gap-3">
                   <div className="flex flex-wrap gap-2">{demo.finalState.map((value, index) => <span key={`${value}-${index}`} className="rounded-md border bg-background px-2 py-1 font-mono text-xs">{value}</span>)}</div>
                   {demo.steps.map((step) => <p key={step} className="rounded-md border bg-white/75 p-3 text-sm dark:bg-background/45">{step}</p>)}
-                  <pre className="overflow-auto rounded-lg border bg-zinc-950 p-4 text-xs leading-6 text-zinc-100"><code>{demo.codeExample}</code></pre>
+                  <SyntaxCode code={demo.codeExample} language="java" />
                 </div>
               ) : <p className="mt-4 text-sm text-muted-foreground">아직 실행 결과가 없습니다.</p>}
             </section>

@@ -1,5 +1,9 @@
 # Lumos Lab 프론트엔드
 
+코드 예제는 highlight.js의 GitHub Light/Dark 테마로 문법을 강조합니다. [공통 코드 블록과 언어 지정](../docs/code-highlighting.md)을 참고하세요.
+
+React Flow 순차 재생은 현재 단계의 연결선을 따라 점선이 이동합니다. 시스템 구성도는 선택한 경로의 연결선을 움직이며 정지/재생 버튼과 동작 줄이기 설정을 지원합니다.
+
 ## 2026-10-04 추가 화면
 
 - `/messaging/kafka-acks`: Kafka ACK · 복제 확인과 손실 경계

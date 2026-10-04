@@ -1,3 +1,4 @@
+import { SyntaxCode } from "@/components/syntax-code";
 import Link from "next/link";
 import { DebugLab } from "@/components/debug-lab";
 import { FlowSection } from "@/components/flow-section";
@@ -22,7 +23,7 @@ export function BookPatternContent({ slug, withLab = true }: { slug: string; wit
       <dl className="mt-3 grid gap-3 md:grid-cols-2">{chapter.roles.map(item => <div key={item.name} className="min-w-0 rounded-lg border p-3"><dt className="font-mono text-sm font-semibold">{item.name}</dt><dd className="mt-2 text-sm leading-6 text-muted-foreground">{item.role}</dd></div>)}</dl>
     </section>
     <FlowSection title="객체가 협력하는 순서" orientation="vertical" steps={chapter.flow} />
-    <section className="min-w-0 rounded-xl border bg-card p-5"><h3 className="text-lg font-semibold">원본 Main 진입점 읽기</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">아래 코드는 원본 기본 예제입니다. 위 API는 웹에서 디버깅할 수 있게 별도로 각색한 구현을 실행합니다.</p>{sources.map(source => <details key={source.path} className="mt-3 min-w-0 rounded-lg border p-3"><summary className="cursor-pointer break-all font-mono text-xs">{source.path}</summary><pre className="mt-3 max-h-96 overflow-auto rounded bg-muted p-3 text-xs"><code>{source.code}</code></pre></details>)}</section>
+    <section className="min-w-0 rounded-xl border bg-card p-5"><h3 className="text-lg font-semibold">원본 Main 진입점 읽기</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">아래 코드는 원본 기본 예제입니다. 위 API는 웹에서 디버깅할 수 있게 별도로 각색한 구현을 실행합니다.</p>{sources.map(source => <details key={source.path} className="mt-3 min-w-0 rounded-lg border p-3"><summary className="cursor-pointer break-all font-mono text-xs">{source.path}</summary><SyntaxCode className="mt-3 [&>pre]:max-h-96" code={source.code} language="java" label={source.path} /></details>)}</section>
     <div className="grid min-w-0 gap-4 lg:grid-cols-2">
       <section className="min-w-0 rounded-xl border bg-card p-5"><h3 className="text-lg font-semibold">연습문제·해답에서 비교할 점</h3><ul className="mt-3 list-disc space-y-3 pl-5 text-sm leading-7">{chapter.exerciseNotes.map(note => <li key={note}>{note}</li>)}</ul></section>
       <section className="min-w-0 rounded-xl border bg-card p-5"><h3 className="text-lg font-semibold">적용할 때 주의할 점</h3><ul className="mt-3 list-disc space-y-3 pl-5 text-sm leading-7">{chapter.pitfalls.map(note => <li key={note}>{note}</li>)}</ul></section>

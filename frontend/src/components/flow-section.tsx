@@ -92,7 +92,7 @@ function FlowPlayback({ width, title, steps, enabled, orientation, maxSteps }: {
       const column = index % columns;
       return {id:String(index),label:step.label,detail:step.detail,icon:step.icon ?? "step",x:column * columnGap,y:row * 240,active:!reducedMotion && state.started && !state.finished && index===state.index,completed:!reducedMotion && state.started && (state.finished || index<state.index)};
     }),
-    edges: steps.slice(1).map((_,i)=>({source:String(i),target:String(i+1),label:String(i+1)})),
+    edges: steps.slice(1).map((_,i)=>({source:String(i),target:String(i+1),label:String(i+1),animated:running && !state.finished && state.index===i})),
   };
   const status = reducedMotion ? "동작 줄이기 · 전체 단계 표시" : state.finished ? "흐름 완료" : !state.started ? "개념 흐름 · 화면에 보이면 재생" : `${state.index + 1} / ${steps.length} 단계 · ${running ? "재생 중" : "일시정지"}`;
   return (
