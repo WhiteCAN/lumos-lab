@@ -24,6 +24,7 @@ Kafka 설명은 [4.1 Producer 설정](https://kafka.apache.org/41/configuration/
 - 백엔드 테스트 109건 중 108건 통과, 1건 건너뜀. 신규 API 정상·범위·타입·실패 분기는 OctoberLearningLabsTest로 검증.
 - 프론트 study 테스트 17건, labs 검사 4건, 팀 내비게이션 검사 4건 통과. lint와 production build 실행.
 - FastAPI 다운로드 예제는 실제 Python TestClient 정상·범위·타입 오류 확인. 웹의 가격 계산 실습은 기존 Java API이며 Python 상시 서비스 배포가 아님.
+- 첫 CI에서 npm 10이 요구하는 선택 의존성 잠금 항목 누락을 발견했습니다. node_modules가 없는 임시 디렉터리에서 npm 10으로 잠금 파일을 보완하고 npm ci dry-run을 확인했습니다. 로컬 npm 11 빌드 성공만으로 Linux 설치 재현성을 판단하지 않습니다.
 
 ## 남은 제약과 위험
 
