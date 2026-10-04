@@ -103,7 +103,7 @@ export default function KafkaArchitecturePage() {
         <p className="mt-2 text-sm leading-7 text-muted-foreground">Topic → Partition → Broker를 서로 다른 서버를 거치는 순서로 외우지 마세요. 아래는 orders 토픽의 파티션 3개를 브로커 3대에 배치하고, 각 파티션을 3개씩 복제한 예시입니다.</p>
         <figure className="mt-5">
           <div className="grid gap-4 lg:grid-cols-3">
-            {[0, 1, 2].map(partition => <LearningFlowCanvas key={partition} title={`Partition ${partition} 복제 배치`} height={490} graph={{
+            {[0, 1, 2].map(partition => <LearningFlowCanvas motion="flow" key={partition} title={`Partition ${partition} 복제 배치`} height={490} graph={{
               nodes:[0,1,2].map((offset) => ({id:String(offset),label:`Broker ${(partition + offset) % 3 + 1}`,detail:`P${partition} · ${offset === 0 ? "Leader · 쓰기 담당" : "Follower · 복제"}`,icon:"apachekafka",x:offset === 0 ? 0 : offset === 1 ? -130 : 130,y:offset === 0 ? 0 : 250})),
               edges:[{source:"0",target:"1",label:"복제"},{source:"0",target:"2",label:"복제"}],
             }} />)}

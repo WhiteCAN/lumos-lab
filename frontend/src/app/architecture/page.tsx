@@ -406,7 +406,7 @@ export default function ArchitecturePage() {
           </section>
 
           <section className="grid min-w-0 gap-4 [&>*]:min-w-0 xl:grid-cols-[1fr_430px]">
-            <FlowSection title="요청 처리 흐름 예시" steps={flowSteps} orientation="vertical" />
+            <FlowSection title="요청 처리 흐름 예시" steps={flowSteps} />
 
             <div className="rounded-lg border border-rose-200 bg-rose-50/40 p-4 shadow-sm dark:border-rose-900/60 dark:bg-rose-950/20">
               <div className="mb-4 flex items-center gap-2">

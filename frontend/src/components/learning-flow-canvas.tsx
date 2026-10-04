@@ -5,6 +5,7 @@ import { Background, Controls, Handle, MarkerType, Position, ReactFlow, useReact
 import "@xyflow/react/dist/style.css";
 import { TechnologyIcon, type FlowIconName } from "./technology-icon";
 import { useTheme } from "./theme-provider";
+import { useDiagramMotion } from "@/hooks/use-diagram-motion";
 
 export type LearningNode = { id: string; label: string; detail?: string; icon?: FlowIconName; x: number; y: number; active?: boolean; completed?: boolean };
 export type LearningEdge = { source: string; target: string; label?: string; dashed?: boolean; animated?: boolean };
@@ -26,8 +27,9 @@ function FitOnResize({ width, layout, padding }: { width: number; layout: string
   return null;
 }
 
-export function LearningFlowCanvas({ title, graph, height = 440, fitPadding = 0.16 }: { title: string; graph: LearningGraph; height?: number; fitPadding?: number }) {
+export function LearningFlowCanvas({ title, graph, height = 440, fitPadding = 0.16, motion = "static" }: { title: string; graph: LearningGraph; height?: number; fitPadding?: number; motion?: "flow" | "static" }) {
   const root = useRef<HTMLDivElement>(null);
+  const { playing, setPlaying, reducedMotion, canAnimate } = useDiagramMotion(root);
   const [width, setWidth] = useState(0);
   const hydrated = useSyncExternalStore(subscribe, () => true, () => false);
   const { theme } = useTheme();
@@ -45,9 +47,10 @@ export function LearningFlowCanvas({ title, graph, height = 440, fitPadding = 0.
     const horizontal = Math.abs(b.x - a.x) > Math.abs(b.y - a.y);
     const from = horizontal ? (b.x > a.x ? Position.Right : Position.Left) : (b.y > a.y ? Position.Bottom : Position.Top);
     const to = horizontal ? (b.x > a.x ? Position.Left : Position.Right) : (b.y > a.y ? Position.Top : Position.Bottom);
-    return { ...edge, id: `${edge.source}-${edge.target}-${index}`, sourceHandle: `out-${from}`, targetHandle: `in-${to}`, type: "smoothstep", markerEnd: {type: MarkerType.ArrowClosed, color:"#0284c7"}, style: {stroke:"#0284c7",strokeWidth:2,strokeDasharray:edge.dashed ? "6 4" : undefined}, labelStyle: {fill:"#0c4a6e",fontSize:11}, labelBgStyle:{fill:"#f0f9ff"}, labelBgPadding:[5,3] as [number,number] };
+    return { ...edge, animated: canAnimate && (motion === "flow" || edge.animated === true), id: `${edge.source}-${edge.target}-${index}`, sourceHandle: `out-${from}`, targetHandle: `in-${to}`, type: "smoothstep", markerEnd: {type: MarkerType.ArrowClosed, color:"#0284c7"}, style: {stroke:"#0284c7",strokeWidth:2,strokeDasharray:edge.dashed ? "6 4" : undefined}, labelStyle: {fill:"#0c4a6e",fontSize:11}, labelBgStyle:{fill:"#f0f9ff"}, labelBgPadding:[5,3] as [number,number] };
   });
   return <div ref={root} className="min-w-0 max-w-full" data-learning-flow>
+    {motion === "flow" && <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground"><p>연결 방향 안내 · 실제 트래픽이나 실행 순서가 아닙니다.</p>{!reducedMotion && <button type="button" className="rounded border bg-background px-3 py-2 text-foreground" onClick={() => setPlaying(value => !value)}>{playing ? "연결선 애니메이션 정지" : "연결선 애니메이션 재생"}</button>}</div>}
     <div role="group" aria-label={`${title} React Flow 구성도`} className="overflow-hidden rounded-lg border bg-muted/20" style={{height}}>
       {width > 0 && <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={{padding:fitPadding}} minZoom={0.2} maxZoom={1.5} nodesDraggable={false} nodesConnectable={false} elementsSelectable={false} nodesFocusable={false} edgesFocusable={false} zoomOnScroll={false} zoomOnDoubleClick={false} preventScrolling={false} deleteKeyCode={null} colorMode={hydrated ? theme : "light"}>
         <Background gap={20} /><Controls showInteractive={false} aria-label={`${title} 확대·축소·전체 보기`} /><FitOnResize width={width} layout={layout} padding={fitPadding} />

@@ -79,7 +79,7 @@ export default function SolidPrinciplesPage() {
           </div>
           <div className="min-w-0 p-4 xl:p-5">
             <h3 className="flex items-center gap-2 text-sm font-semibold text-indigo-700 dark:text-indigo-300"><GitBranchIcon className="size-4" aria-hidden="true" />02 · 구조로 보기</h3>
-            <div className="mt-4"><LearningFlowCanvas title={p.name} graph={solidGraphs[p.letter]} height={480} /></div>
+            <div className="mt-4"><LearningFlowCanvas motion="static" title={p.name} graph={solidGraphs[p.letter]} height={480} /></div>
             <p className="mt-3 text-xs leading-6 text-muted-foreground">위의 호출자·구현체에서 아래의 계약으로 읽습니다. 실선은 사용·의존, 점선은 implements입니다. 실행 순서가 아니라 코드의 관계를 보여 줍니다.</p>
             <p className="mt-3 text-sm leading-6"><strong>확인 질문</strong><br />{p.check}</p>
           </div>

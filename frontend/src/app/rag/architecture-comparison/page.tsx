@@ -33,18 +33,18 @@ export default function RagArchitectureComparisonPage() {
         ))}
       </section>
       <div className="grid gap-4 xl:grid-cols-3">
-      <FlowSection orientation="vertical" title="Classic RAG · 고정된 검색 → 생성" steps={[
+      <FlowSection title="Classic RAG · 고정된 검색 → 생성" steps={[
         { label: "질문", icon: "user" }, { label: "질문 임베딩", icon: "model" },
         { label: "유사 문서 검색", icon: "database", detail: "벡터 검색 예시" },
         { label: "근거 조각 전달", icon: "document" }, { label: "근거 기반 생성", icon: "model" },
         { label: "출처와 답변", icon: "done" },
       ]} />
-      <FlowSection orientation="vertical" title="Graph RAG · 관계를 연결한 근거 검색" steps={[
+      <FlowSection title="Graph RAG · 관계를 연결한 근거 검색" steps={[
         { label: "질문", icon: "user" }, { label: "대상 개체 연결", icon: "search" },
         { label: "관련 관계 탐색", icon: "branch" }, { label: "연결된 근거 수집", icon: "document" },
         { label: "관계와 근거로 생성", icon: "model" }, { label: "출처와 답변", icon: "done" },
       ]} colorClass="border-sky-200 bg-sky-50/40 dark:border-sky-900/60 dark:bg-sky-950/20" />
-      <FlowSection orientation="vertical" title="Agentic RAG · 관찰 결과에 따라 경로 선택" defaultPathLabel="근거 충분" steps={[
+      <FlowSection title="Agentic RAG · 관찰 결과에 따라 경로 선택" defaultPathLabel="근거 충분" steps={[
         { label: "질문", icon: "user" }, { label: "조회 방법 선택", icon: "model" },
         { label: "검색·도구 실행", icon: "search" }, { label: "근거 점검", icon: "verify" },
         { label: "출처와 답변", icon: "done" },

@@ -392,7 +392,7 @@ export default function RagConceptsPage() {
 }
 
 function Flow({ values }: { values: string[] }) {
-  return <FlowSection title="처리 흐름" steps={values} orientation="vertical" />;
+  return <FlowSection title="처리 흐름" steps={values} />;
 }
 
 export const metadata = getStudyMetadata("/rag/concepts");

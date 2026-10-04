@@ -3,6 +3,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { FlowSection } from "@/components/flow-section";
 import { API_BASE_URL } from "@/constants/api";
 import type { ApiResponse } from "@/types/api";
 import {
@@ -25,7 +26,6 @@ import {
   ListTreeIcon,
   PlayIcon,
   RefreshCcwIcon,
-  RouteIcon,
 } from "lucide-react";
 
 import { getStudyPage } from "@/lib/study-pages";
@@ -292,17 +292,9 @@ export default function GraphPage() {
                         {(result.elapsedNanos / 1_000_000).toFixed(3)} ms
                       </span>
                     </div>
-                    <div className="mt-4 flex flex-wrap items-center gap-2">
-                      {result.visitedOrder.map((node, index) => (
-                        <div key={`${node}-${index}`} className="flex items-center gap-2">
-                          <span className="flex size-10 items-center justify-center rounded-md bg-emerald-600 text-sm font-bold text-white dark:bg-emerald-400 dark:text-emerald-950">
-                            {node}
-                          </span>
-                          {index < result.visitedOrder.length - 1 ? (
-                            <RouteIcon className="size-4 text-muted-foreground" />
-                          ) : null}
-                        </div>
-                      ))}
+                    <div className="mt-4 min-w-0">
+                      <p className="mb-3 text-sm text-muted-foreground">API가 반환한 방문 순서를 5개씩 나누어 재생합니다. 화살표는 방문 순서이며 원본 그래프의 간선이나 실시간 실행 상태가 아닙니다.</p>
+                      <TraversalReplay key={`${result.type}-${result.elapsedNanos}`} order={result.visitedOrder} />
                     </div>
                   </section>
 
@@ -332,6 +324,17 @@ export default function GraphPage() {
       </SidebarInset>
     </SidebarProvider>
   );
+}
+
+function TraversalReplay({ order }: { order: string[] }) {
+  const groups = Array.from({ length: Math.ceil(order.length / 5) }, (_, index) => ({
+    label: `${index * 5 + 1}–${Math.min(index * 5 + 5, order.length)}번째 방문`,
+    steps: order.slice(index * 5, index * 5 + 5).map((node, offset) => ({
+      label: node, detail: `${index * 5 + offset + 1}번째 방문`, icon: "search" as const,
+    })),
+  }));
+  if (!groups.length) return <p>방문한 노드가 없습니다.</p>;
+  return <FlowSection title="방문 순서 재생" defaultPathLabel={groups[0].label} steps={groups[0].steps} paths={groups.slice(1)} />;
 }
 
 function parseEdges(text: string): GraphEdge[] {

@@ -87,7 +87,7 @@ export default function Page() {
           </section>
         ))}
       </div>
-      <FlowSection title="핵심 흐름" orientation="vertical" steps={steps} />
+      <FlowSection title="핵심 흐름" steps={steps} />
       <ComparisonTable columns={[
   "동기 실행",
   "마이크로태스크",

@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState, useSyncExternalStore } from "react";
+import { useId, useRef, useState, useSyncExternalStore } from "react";
+import { useDiagramMotion } from "@/hooks/use-diagram-motion";
 import { Background, Controls, Handle, MarkerType, Position, ReactFlow, type Node, type NodeProps } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { TechnologyIcon } from "./technology-icon";
@@ -26,11 +27,6 @@ function ServiceCard({ data }: NodeProps<ServiceNode>) {
 }
 const nodeTypes = { service: ServiceCard };
 const subscribe = () => () => {};
-function subscribeMotion(onChange: () => void) {
-  const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
 
 export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
   const diagram = systemDiagrams[kind];
@@ -40,8 +36,8 @@ export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(diagram.nodes[0].id);
   const [view, setView] = useState<"diagram" | "list">("diagram");
-  const [motionPlaying, setMotionPlaying] = useState(true);
-  const reducedMotion = useSyncExternalStore(subscribeMotion, () => window.matchMedia("(prefers-reduced-motion: reduce)").matches, () => true);
+  const root = useRef<HTMLElement>(null);
+  const { playing: motionPlaying, setPlaying: setMotionPlaying, reducedMotion, canAnimate } = useDiagramMotion(root);
   const scene = diagram.scenes[sceneIndex];
   const selected = diagram.nodes.find((node) => node.id === selectedId)!;
   const active = new Set(scene.links.flatMap((edge) => [edge.source, edge.target]));
@@ -55,7 +51,7 @@ export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
     const backwards = diagram.nodes.find((node) => node.id === edge.source)!.x > diagram.nodes.find((node) => node.id === edge.target)!.x;
     return ({
     ...edge, id: `${sceneIndex}-${i}`, type: "default", label: edge.label,
-    animated: motionPlaying && !reducedMotion && view === "diagram",
+    animated: canAnimate && view === "diagram",
     sourceHandle: paired ? (backwards ? "response-out" : "request-out") : "out",
     targetHandle: paired ? (backwards ? "response-in" : "request-in") : "in",
     markerEnd: { type: MarkerType.ArrowClosed, color: "#0284c7" },
@@ -66,7 +62,7 @@ export function SystemDiagram({ kind }: { kind: keyof typeof systemDiagrams }) {
   });
   const label = (id: string) => diagram.nodes.find((node) => node.id === id)!.label;
 
-  return <section aria-labelledby={titleId} className="min-w-0 overflow-hidden rounded-xl border bg-card">
+  return <section ref={root} aria-labelledby={titleId} className="min-w-0 overflow-hidden rounded-xl border bg-card">
     <div className="space-y-3 border-b p-4 sm:p-5">
       <p className="text-xs font-semibold tracking-wide text-sky-700 dark:text-sky-300">시스템 다이어그램 · 학습용 모형</p>
       <h2 id={titleId} className="text-xl font-semibold">{diagram.title}</h2>

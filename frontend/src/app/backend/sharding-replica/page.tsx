@@ -44,13 +44,13 @@ export default function ShardingReplicaPage() {
         <article className="rounded-lg border bg-card p-4 shadow-sm">
           <h2 className="text-lg font-semibold">샤딩: 회원 100만 명 나누기</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">아래는 회원 ID 범위로 나눈 학습용 예시입니다. 실제 운영에서는 데이터 크기와 요청 분포를 함께 봅니다.</p>
-          <LearningFlowCanvas title="회원 ID 범위 샤딩" graph={referenceGraphs.sharding} />
+          <LearningFlowCanvas motion="flow" title="회원 ID 범위 샤딩" graph={referenceGraphs.sharding} />
           <p className="mt-3 text-sm leading-6">회원 100,000번은 샤드 A로, 800,000번은 샤드 B로 요청합니다. 전체 회원 수는 두 샤드의 결과를 모아 계산합니다.</p>
         </article>
         <article className="rounded-lg border bg-card p-4 shadow-sm">
           <h2 className="text-lg font-semibold">레플리카: 회원 100만 명 복제하기</h2>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">일반적인 단일 Primary와 읽기 가능한 Replica 구성의 예시입니다. 복제 방식과 읽기 지원은 제품마다 다릅니다.</p>
-          <LearningFlowCanvas title="Primary와 Replica" graph={referenceGraphs.replica} />
+          <LearningFlowCanvas motion="flow" title="Primary와 Replica" graph={referenceGraphs.replica} />
           <p className="mt-3 text-sm leading-6">세 노드가 같은 데이터 집합을 보관합니다. 비동기 복제 중에는 각 노드의 최신 반영 시점이 다를 수 있습니다.</p>
         </article>
       </section>

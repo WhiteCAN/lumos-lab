@@ -25,8 +25,8 @@ export default function DevopsToolchainPage() {
       </article>)}
     </section>
     <div className="grid gap-4 lg:grid-cols-2">
-      <FlowSection title="인프라를 준비하는 흐름" orientation="vertical" steps={["Terraform 구성·변경 검토", "네트워크·서버·클러스터 준비", "실행 환경 접근·상태 확인"]} colorClass="bg-card" />
-      <FlowSection title="애플리케이션을 전달하는 흐름" orientation="vertical" steps={["코드 변경·PR", "Jenkins 또는 GitHub Actions 검증", "이미지 빌드·레지스트리 발행", "실행 환경에 버전 반영", "사용자 요청·로그·지표 검증"]} colorClass="bg-card" />
+      <FlowSection title="인프라를 준비하는 흐름" steps={["Terraform 구성·변경 검토", "네트워크·서버·클러스터 준비", "실행 환경 접근·상태 확인"]} colorClass="bg-card" />
+      <FlowSection title="애플리케이션을 전달하는 흐름" steps={["코드 변경·PR", "Jenkins 또는 GitHub Actions 검증", "이미지 빌드·레지스트리 발행", "실행 환경에 버전 반영", "사용자 요청·로그·지표 검증"]} colorClass="bg-card" />
     </div>
     <ComparisonTable columns={["흔한 혼동", "구분 기준"]} rows={[
       { topic: "도입 순서", values: ["여섯 도구를 모두 직렬로 도입", "역할 지도입니다. 작은 서비스는 단일 서버와 간단한 CI로 시작할 수 있습니다."] },

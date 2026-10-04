@@ -30,6 +30,7 @@
 - [접속 대기열·가상 대기실](waiting-room.md): 실행 순서, API 입력 제한, Java 디버깅, 운영 설계와 모형의 경계
 
 - [React Flow 시스템 다이어그램](react-flow-diagrams.md): 적용 페이지, 경로 데이터, 왕복 연결점, 확장 제약
+- [2026-10-04 React Flow 전체 적용 점검](react-flow-coverage-2026-10-04.md): 자동 방향, 구성도 애니메이션, 정적 관계도 구분
 - [학습 흐름 애니메이션](flow-animation.md): FlowSection 재생·경로·아이콘
 - [책 예제 지도](book-examples-map.md): 원본과 학습 페이지·실습 매핑
 - [DB 환경 설정](database-environments.md): 프로필·환경변수·MariaDB 검증 절차

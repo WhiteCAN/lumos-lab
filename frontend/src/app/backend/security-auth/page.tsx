@@ -313,7 +313,7 @@ export default function SecurityAuthPage() {
 }
 
 function Flow({ title, steps }: { title: string; icon: typeof LockKeyholeIcon; steps: string[] }) {
-  return <FlowSection title={title} steps={steps} orientation="vertical" />;
+  return <FlowSection title={title} steps={steps} />;
 }
 
 function Rule({ title, text }: { title: string; text: string }) {

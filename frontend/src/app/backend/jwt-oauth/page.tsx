@@ -32,8 +32,8 @@ export default function JwtOauthPage() {
     </section>
     <CodeBlock title="클레임 예시 · 실제 자격 증명이 아닌 설명용 데이터" code={'{\n  "sub": "user-123",\n  "iss": "https://issuer.example",\n  "aud": "photo-api",\n  "exp": 1893456000\n}'} />
     <div className="grid items-stretch gap-4 lg:grid-cols-2">
-      <FlowSection orientation="vertical" title="OAuth · 외부 API 접근 권한 받기" steps={["사용자가 접근 권한 허용", "앱이 Authorization Code 수신", "Code와 PKCE verifier로 토큰 교환", "Access Token으로 외부 API 호출"]} />
-      <FlowSection orientation="vertical" title="OIDC · 로그인 결과 확인하기" steps={["openid scope로 인증 요청", "제공자에서 사용자 인증", "Code 교환으로 ID Token 수신", "서명·iss·aud·exp 및 nonce 검증", "우리 서비스 세션 수립"]} />
+      <FlowSection title="OAuth · 외부 API 접근 권한 받기" steps={["사용자가 접근 권한 허용", "앱이 Authorization Code 수신", "Code와 PKCE verifier로 토큰 교환", "Access Token으로 외부 API 호출"]} />
+      <FlowSection title="OIDC · 로그인 결과 확인하기" steps={["openid scope로 인증 요청", "제공자에서 사용자 인증", "Code 교환으로 ID Token 수신", "서명·iss·aud·exp 및 nonce 검증", "우리 서비스 세션 수립"]} />
     </div>
     <section className="rounded-xl border bg-card p-5">
       <h2 className="text-xl font-semibold">헷갈리기 쉬운 네 가지</h2>

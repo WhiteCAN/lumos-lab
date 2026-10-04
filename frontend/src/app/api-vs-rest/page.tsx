@@ -186,7 +186,7 @@ export default function ApiVsRestPage() {
           </section>
 
           <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
-            <FlowSection title="REST API 동작 흐름" steps={restFlow.map(item => item.label)} orientation="vertical" />
+            <FlowSection title="REST API 동작 흐름" steps={restFlow.map(item => item.label)} />
 
             <div className="rounded-lg border border-amber-200 bg-amber-50/40 p-4 shadow-sm dark:border-amber-900/60 dark:bg-amber-950/20">
               <h2 className="text-lg font-semibold">주요 HTTP 메서드</h2>

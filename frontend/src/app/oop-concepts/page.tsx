@@ -50,8 +50,8 @@ export default function OopConceptsPage() {
       {topic:"연관 / 집합 / 합성",values:["협력하나? / 부분이 독립적인가? / 전체가 부분을 소유하나?","객체 참조만 보고 소유권을 단정하지 않고 도메인의 수명 규칙을 확인합니다."]},
     ]} />
     <section><h2 className="mb-3 text-xl font-semibold">동작을 바꾸는 두 가지 경로</h2><div className="grid gap-4 xl:grid-cols-2">
-      <FlowSection orientation="vertical" title="상속 · 하위 타입에서 재정의" steps={[{label:"호출자가 공통 계약 사용",icon:"user"},{label:"하위 타입 객체 선택",icon:"branch"},{label:"오버라이딩 메서드 실행",icon:"code"},{label:"부모 계약에 맞는 결과",icon:"verify"}]} />
-      <FlowSection orientation="vertical" title="합성 · 협력 객체에 위임" steps={[{label:"호출자가 알림 요청",icon:"user"},{label:"Notifier가 요청 수신",icon:"server"},{label:"주입된 sender에 위임",icon:"branch"},{label:"Email 또는 SMS 처리",icon:"done"}]} />
+      <FlowSection title="상속 · 하위 타입에서 재정의" steps={[{label:"호출자가 공통 계약 사용",icon:"user"},{label:"하위 타입 객체 선택",icon:"branch"},{label:"오버라이딩 메서드 실행",icon:"code"},{label:"부모 계약에 맞는 결과",icon:"verify"}]} />
+      <FlowSection title="합성 · 협력 객체에 위임" steps={[{label:"호출자가 알림 요청",icon:"user"},{label:"Notifier가 요청 수신",icon:"server"},{label:"주입된 sender에 위임",icon:"branch"},{label:"Email 또는 SMS 처리",icon:"done"}]} />
     </div></section>
     <CodeBlock title="Python · 협력 객체를 바꿔 알림 방식 교체" code={delegation} />
     <p className="text-sm leading-6 text-muted-foreground">이 예제는 넓은 의미의 객체 합성과 덕 타이핑입니다. Notifier가 sender의 생성을 독점하거나 수명을 소유하는 UML 합성을 강제하는 예제는 아닙니다. 실제 메일·문자를 전송하지 않고 문자열을 반환합니다.</p>

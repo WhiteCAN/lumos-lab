@@ -14,7 +14,7 @@ export default function StackHeapPage() {
       <section className="rounded-lg border bg-card p-5">
         <h2 className="text-xl font-semibold">p와 new Person()은 같은 것이 아닙니다</h2>
         <p className="mt-3 text-sm leading-7 text-muted-foreground">지역 변수 p는 객체를 가리키는 참조 값을 담습니다. Person 객체에는 age 같은 필드가 있습니다. 다른 메서드에 p를 전달하면 참조 값이 복사됩니다. 복사된 참조로 객체를 수정하는 것과, 그 지역 참조에 새 객체를 대입하는 것은 결과가 다릅니다.</p>
-        <div className="mt-4"><LearningFlowCanvas title="지역 참조와 힙 객체" graph={referenceGraphs["stack-heap"]} /></div>
+        <div className="mt-4"><LearningFlowCanvas motion="static" title="지역 참조와 힙 객체" graph={referenceGraphs["stack-heap"]} /></div>
 
       </section>
       <ComparisonTable columns={["JVM 스택", "힙"]} rows={[

@@ -157,13 +157,13 @@ export default function JavaScriptAsyncPage() {
         <p className="mt-3 text-sm leading-7">상품 조회 800ms와 공지 조회 500ms가 서로 독립적이라고 가정합니다. 상품 조회가 끝난 뒤 공지 조회를 시작하면 약 1,300ms, 두 작업을 먼저 시작하면 약 800ms에 결과를 모을 수 있습니다. 실제 시간은 실행 환경과 작업 부하에 따라 달라집니다.</p>
       </section>
       <div className="grid min-w-0 items-stretch gap-4 lg:grid-cols-2">
-        <FlowSection orientation="vertical" title="순차 실행 · 하나씩 시작하고 기다리기" steps={[
+        <FlowSection title="순차 실행 · 하나씩 시작하고 기다리기" steps={[
           { label: "상품 조회 시작", icon: "server", detail: "첫 번째 비동기 작업" },
           { label: "상품 결과 대기", icon: "step", detail: "약 800ms · 공지 조회는 아직 시작하지 않음" },
           { label: "공지 조회 시작·대기", icon: "document", detail: "상품 완료 후 추가 약 500ms" },
           { label: "두 결과 사용", icon: "done", detail: "이 예제에서는 약 1,300ms" },
         ]} />
-        <FlowSection orientation="vertical" title="동시 실행 · 먼저 시작하고 함께 기다리기" steps={[
+        <FlowSection title="동시 실행 · 먼저 시작하고 함께 기다리기" steps={[
           { label: "상품·공지 조회를 모두 시작", icon: "branch", detail: "각 함수 호출이 작업을 시작함" },
           { label: "Promise.all로 결과 모으기", icon: "code", detail: "두 작업의 대기 시간이 겹침" },
           { label: "모든 작업의 성공 기다리기", icon: "verify", detail: "공지 500ms · 상품 800ms" },

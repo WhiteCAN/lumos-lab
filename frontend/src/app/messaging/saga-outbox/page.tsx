@@ -266,14 +266,14 @@ export default function SagaOutboxPage() {
               </div>
             </div>
 
-            <LearningFlowCanvas title="Kafka + Saga + Outbox" graph={referenceGraphs["saga-outbox"]} height={640} />
+            <LearningFlowCanvas motion="flow" title="Kafka + Saga + Outbox" graph={referenceGraphs["saga-outbox"]} height={640} />
             <p className="mt-3 text-sm text-muted-foreground">주문과 이벤트는 같은 DB 트랜잭션으로 저장합니다. Relay는 중복 발행할 수 있으므로 각 소비자는 업무 변경과 처리 기록을 원자적으로 저장합니다. DLQ에는 원본 payload와 실패 이유를 남기고, lag·실패율·relay 지연을 관측합니다.</p>
           </section>
 
           <FlowSection title="Saga 흐름 예시" steps={sagaSteps.map(step => ({label:step.service, detail:`${step.action} · ${step.event}`, icon:"server"}))} />
 
           <section className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
-            <FlowSection title="Outbox 패턴 그림" orientation="vertical" steps={[{label:"Service",detail:"업무 데이터 저장 요청",icon:"server"},{label:"DB Transaction",detail:"order + outbox 테이블 같이 저장",icon:"database"},{label:"Outbox Table",detail:"미발행 이벤트 대기",icon:"database"},{label:"Message Relay",detail:"이벤트를 Kafka로 발행",icon:"server"},{label:"Kafka",detail:"다른 서비스가 이벤트 소비",icon:"apachekafka"}]} />
+            <FlowSection title="Outbox 패턴 그림" steps={[{label:"Service",detail:"업무 데이터 저장 요청",icon:"server"},{label:"DB Transaction",detail:"order + outbox 테이블 같이 저장",icon:"database"},{label:"Outbox Table",detail:"미발행 이벤트 대기",icon:"database"},{label:"Message Relay",detail:"이벤트를 Kafka로 발행",icon:"server"},{label:"Kafka",detail:"다른 서비스가 이벤트 소비",icon:"apachekafka"}]} />
 
             <div className="rounded-lg border border-amber-200 bg-amber-50/45 p-4 shadow-sm dark:border-amber-900/60 dark:bg-amber-950/20">
               <div className="mb-4 flex items-center gap-2">

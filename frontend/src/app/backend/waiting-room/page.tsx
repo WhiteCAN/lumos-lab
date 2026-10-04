@@ -30,7 +30,7 @@ export default function WaitingRoomPage() {
     <section className="rounded-xl border bg-card p-5">
       <h2 className="text-xl font-semibold">운영용 구성: 대기실을 우회해도 서버가 막아야 합니다</h2>
       <p className="my-3 text-sm leading-7 text-muted-foreground">아래는 확장 설계도입니다. 위 실습의 Java 컬렉션을 공유 저장소로 바꾸는 것 외에도 인증·원자성·장애 정책이 필요합니다. 선은 왼쪽에서 오른쪽으로 요청이 흐르고, 저장소 접근만 아래로 분기합니다.</p>
-      <LearningFlowCanvas title="가상 대기실의 서버 경계" height={420} graph={{ nodes: [
+      <LearningFlowCanvas motion="flow" title="가상 대기실의 서버 경계" height={420} graph={{ nodes: [
         { id: "visitor", label: "방문자", detail: "진입·상태 조회", icon: "user", x: 0, y: 0 },
         { id: "gate", label: "입장 게이트", detail: "티켓 검증·정원 관리", icon: "verify", x: 300, y: 0 },
         { id: "app", label: "보호된 서비스", detail: "예약·주문 API", icon: "spring", x: 600, y: 0 },

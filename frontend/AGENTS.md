@@ -98,7 +98,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-흐름을 비교하는 페이지는 `FlowSection orientation="vertical"`과 반응형 열 배치를 우선 사용합니다. 단일 흐름의 기본 방향은 기존 가로 흐름을 유지합니다.
+순차 흐름은 `FlowSection`의 자동 방향을 사용합니다. 5단계 이하이고 실제 영역이 충분히 넓으면 가로, 좁은 비교 열과 모바일에서는 세로가 됩니다. 페이지에 `orientation="vertical"`을 고정하지 않습니다. 별도 `LearningFlowCanvas`는 데이터 이동 구성도에 `motion="flow"`, 상속·참조 관계에 `motion="static"`을 명시합니다.
 
 경로 전환이 있는 흐름은 모든 경로의 실제 콘텐츠 높이를 CSS grid로 확보하고 선택된 경로만 노출합니다. 비활성 경로는 접근성 트리·키보드 탐색·자동 재생에서 제외합니다. 비교 열은 같은 높이로 늘리고, 경로 전환 및 재생 완료 전후에 박스 높이와 아래 콘텐츠 위치가 유지되는지 확인합니다.
 

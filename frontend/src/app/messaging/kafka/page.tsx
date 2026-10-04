@@ -242,7 +242,7 @@ export default function KafkaReferencePage() {
           ]} />
           <section className="rounded-lg border bg-card p-4">
             <h2 className="mb-3 text-lg font-semibold">Producer에서 파티션으로 가는 흐름</h2>
-            <LearningFlowCanvas title="Kafka 파티션 선택 예시" graph={kafkaRoutingGraph} height={620} />
+            <LearningFlowCanvas motion="flow" title="Kafka 파티션 선택 예시" graph={kafkaRoutingGraph} height={620} />
             <p className="mt-3 text-sm leading-6 text-muted-foreground">A→P0, B→P1, C→P2는 가능한 배정 예시이며 실제 Kafka 해시 계산 결과가 아닙니다. 파티션 수·직렬화·파티셔너·키 무시 설정이 바뀌면 같은 키의 목적지도 달라질 수 있습니다.</p>
           </section>
 

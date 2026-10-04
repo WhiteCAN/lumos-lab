@@ -88,7 +88,7 @@ export default function Page() {
           </section>
         ))}
       </div>
-      <FlowSection title="핵심 흐름" orientation="vertical" steps={steps} />
+      <FlowSection title="핵심 흐름" steps={steps} />
       <ComparisonTable columns={[
   "사전 요청 없는 경우",
   "사전 요청이 필요한 경우"
