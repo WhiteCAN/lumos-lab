@@ -20,13 +20,13 @@ function LearningCard({ data }: NodeProps<CardNode>) {
 }
 const nodeTypes = { learning: LearningCard };
 
-function FitOnResize({ width, layout }: { width: number; layout: string }) {
+function FitOnResize({ width, layout, padding }: { width: number; layout: string; padding: number }) {
   const { fitView } = useReactFlow();
-  useEffect(() => { void fitView({ padding: 0.16, duration: 0 }); }, [width, layout, fitView]);
+  useEffect(() => { void fitView({ padding, duration: 0 }); }, [width, layout, padding, fitView]);
   return null;
 }
 
-export function LearningFlowCanvas({ title, graph, height = 440 }: { title: string; graph: LearningGraph; height?: number }) {
+export function LearningFlowCanvas({ title, graph, height = 440, fitPadding = 0.16 }: { title: string; graph: LearningGraph; height?: number; fitPadding?: number }) {
   const root = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const hydrated = useSyncExternalStore(subscribe, () => true, () => false);
@@ -49,8 +49,8 @@ export function LearningFlowCanvas({ title, graph, height = 440 }: { title: stri
   });
   return <div ref={root} className="min-w-0 max-w-full" data-learning-flow>
     <div role="group" aria-label={`${title} React Flow 구성도`} className="overflow-hidden rounded-lg border bg-muted/20" style={{height}}>
-      {width > 0 && <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={{padding:0.16}} minZoom={0.2} maxZoom={1.5} nodesDraggable={false} nodesConnectable={false} elementsSelectable={false} nodesFocusable={false} edgesFocusable={false} zoomOnScroll={false} zoomOnDoubleClick={false} preventScrolling={false} deleteKeyCode={null} colorMode={hydrated ? theme : "light"}>
-        <Background gap={20} /><Controls showInteractive={false} aria-label={`${title} 확대·축소·전체 보기`} /><FitOnResize width={width} layout={layout} />
+      {width > 0 && <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={{padding:fitPadding}} minZoom={0.2} maxZoom={1.5} nodesDraggable={false} nodesConnectable={false} elementsSelectable={false} nodesFocusable={false} edgesFocusable={false} zoomOnScroll={false} zoomOnDoubleClick={false} preventScrolling={false} deleteKeyCode={null} colorMode={hydrated ? theme : "light"}>
+        <Background gap={20} /><Controls showInteractive={false} aria-label={`${title} 확대·축소·전체 보기`} /><FitOnResize width={width} layout={layout} padding={fitPadding} />
       </ReactFlow>}
     </div>
     <details className="mt-2 text-xs leading-6"><summary className="cursor-pointer">구성 요소와 연결을 글로 보기</summary>

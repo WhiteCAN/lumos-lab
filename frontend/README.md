@@ -174,7 +174,7 @@ src/
 
 ## 검증 방법
 
-학습 흐름은 순차 강조·연결선 이동·재생 제어를 제공합니다. Redis·React·Spring 등의 제품 아이콘은 Devicon의 원본 SVG를 색상·형태 변경 없이 사용합니다. 사용법과 검증은 [흐름 애니메이션 가이드](../docs/flow-animation.md)를 참고합니다.
+학습 흐름은 순차 강조·연결선 이동·재생 제어를 제공합니다. 실제 구성도 너비가 1,200px 이상이면 5단계까지 가로 한 줄로 표시하고, 좁은 화면에서는 세로로 전환합니다. 세로 비교용 그림은 유지합니다. Redis·React·Spring 등의 제품 아이콘은 Devicon의 원본 SVG를 색상·형태 변경 없이 사용합니다. 사용법과 검증은 [흐름 애니메이션 가이드](../docs/flow-animation.md)를 참고합니다.
 
 ```powershell
 npm run test:study

@@ -5,10 +5,12 @@
 - `frontend/src/components/flow-section.tsx`는 기존 `FlowSection`의 문자열 배열과 호환됩니다. 공통 정리 페이지는 `reference-page.tsx`에서 그대로 가져옵니다.
 - React Flow 노드의 테두리를 1.1초마다 순차 강조하고 완료 문구를 표시합니다. 방향 화살표로 연결하며 재생 중 글자·아이콘 크기는 변하지 않습니다.
 - 화면에 들어오면 한 번 재생하고 완료 후 멈춥니다. 일시정지·재생·다시 보기를 지원하며 화면 밖과 숨겨진 탭에서는 진행을 멈춥니다.
-- `prefers-reduced-motion` 사용자는 모든 단계를 정적으로 읽습니다. 단계가 3개 이하인 넓은 영역은 왼쪽→오른쪽, 4개 이상 또는 좁은 영역은 위→아래로 연결합니다. 행을 거꾸로 읽는 지그재그 배치는 사용하지 않습니다. 확대·축소·이동과 전체 보기를 지원합니다.
+- `prefers-reduced-motion` 사용자는 모든 단계를 정적으로 읽습니다. 단계가 5개 이하이고 실제 구성도 영역이 충분히 넓으면 왼쪽→오른쪽 한 줄로 연결합니다. 2단계는 680px, 3단계는 720px, 4단계는 960px, 5단계는 1,200px 이상이 기준입니다. 좁은 영역·6단계 이상·명시적 vertical 비교는 위→아래로 연결합니다. 모니터 인치나 전체 창 너비가 아니라 사이드바·본문 여백을 제외한 영역을 ResizeObserver로 측정합니다. 행을 거꾸로 읽는 지그재그 배치는 사용하지 않습니다. 확대·축소·이동과 전체 보기를 지원합니다.
 - 개념 흐름의 재생은 실제 API 실행 상황이나 처리 시간 측정이 아닙니다. 색 외에 연결 순서·현재 단계 상태·완료 문구를 함께 제공합니다.
 
 ## 사용 방법
+
+방향·높이·간격 계산은 `frontend/src/lib/flow-layout.ts`의 `getFlowLayout`에 있습니다. 가로 흐름은 200px 카드 사이에 40px을 두고 캔버스 맞춤 여백을 줄입니다. 모든 대안 경로 중 가장 긴 경로를 기준으로 방향과 높이를 정하므로 경로를 바꿀 때 주변 본문 위치가 유지됩니다.
 
 ```tsx
 <FlowSection
@@ -38,7 +40,7 @@
 프론트엔드에서 다음 명령을 실행합니다. 재생 상태 테스트는 TypeScript 타입 제거를 지원하는 Node.js 22.6 이상이 필요합니다.
 
 ```powershell
-node --experimental-strip-types --test tests/flow-playback.test.mjs
+node --experimental-strip-types --test tests/flow-playback.test.mjs tests/flow-layout.test.mjs
 npm run lint
 npm run build
 ```

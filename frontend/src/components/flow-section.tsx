@@ -4,6 +4,7 @@ import { useEffect, useId, useReducer, useRef, useState, useSyncExternalStore } 
 import { PauseIcon, PlayIcon, RotateCcwIcon } from "lucide-react";
 import { type FlowIconName } from "@/components/technology-icon";
 import { initialPlayback, updatePlayback, type PlaybackAction } from "@/lib/flow-playback";
+import { getFlowLayout } from "@/lib/flow-layout";
 import { LearningFlowCanvas, type LearningGraph } from "./learning-flow-canvas";
 import styles from "./flow-section.module.css";
 
@@ -83,14 +84,13 @@ function FlowPlayback({ width, title, steps, enabled, orientation, maxSteps }: {
     return () => window.clearTimeout(timer);
   }, [running, state.index]);
 
-  const columns = orientation === "vertical" || width < 680 || maxSteps > 3 ? 1 : 3;
-  const canvasHeight = columns === 1 ? Math.max(340, maxSteps * 180) : Math.max(340, Math.ceil(maxSteps / 3) * 220);
+  const { columns, columnGap, height: canvasHeight, fitPadding } = getFlowLayout(width, maxSteps, orientation);
   const graph: LearningGraph = {
     nodes: steps.map((item, index) => {
       const step = typeof item === "string" ? {label:item} : item;
       const row = Math.floor(index / columns);
       const column = index % columns;
-      return {id:String(index),label:step.label,detail:step.detail,icon:step.icon ?? "step",x:column * 290,y:row * 240,active:!reducedMotion && state.started && !state.finished && index===state.index,completed:!reducedMotion && state.started && (state.finished || index<state.index)};
+      return {id:String(index),label:step.label,detail:step.detail,icon:step.icon ?? "step",x:column * columnGap,y:row * 240,active:!reducedMotion && state.started && !state.finished && index===state.index,completed:!reducedMotion && state.started && (state.finished || index<state.index)};
     }),
     edges: steps.slice(1).map((_,i)=>({source:String(i),target:String(i+1),label:String(i+1)})),
   };
@@ -107,7 +107,7 @@ function FlowPlayback({ width, title, steps, enabled, orientation, maxSteps }: {
         </div>}
       </div>
       <div style={{minHeight: canvasHeight + 34}}>
-        {enabled && <LearningFlowCanvas title={title} graph={graph} height={canvasHeight} />}
+        {enabled && <LearningFlowCanvas title={title} graph={graph} height={canvasHeight} fitPadding={fitPadding} />}
       </div>
     </div>
   );
