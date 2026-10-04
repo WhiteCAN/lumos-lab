@@ -1,3 +1,5 @@
+import { LearningFlowCanvas } from "@/components/learning-flow-canvas";
+import { kafkaRoutingGraph } from "@/components/learning-diagram-data";
 import { PageDebugLab } from "@/components/debug-lab";
 import { AppSidebar } from "@/components/app-sidebar";
 import { FlowSection } from "@/components/flow-section";
@@ -19,11 +21,9 @@ import {
   ArrowRightIcon,
   BoxesIcon,
   CheckCircle2Icon,
-  DatabaseIcon,
   GitBranchIcon,
   NetworkIcon,
   RefreshCwIcon,
-  RouteIcon,
   ServerIcon,
   Settings2Icon,
   ShuffleIcon,
@@ -32,6 +32,7 @@ import {
 import { getStudyPage, getStudyMetadata } from "@/lib/study-pages";
 
 const studyPage = getStudyPage("/messaging/kafka");
+export const metadata = getStudyMetadata("/messaging/kafka");
 
 const kafkaTerms = [
   {
@@ -72,7 +73,7 @@ const partitionRules = [
   {
     title: "partition을 직접 지정",
     example: "partition = 2",
-    result: "무조건 P2로 이동",
+    result: "유효한 P2를 명시적으로 선택",
     detail:
       "테스트나 특수 라우팅에는 명확하지만, 운영에서는 특정 파티션만 뜨거워질 수 있습니다.",
     colorClass:
@@ -81,18 +82,18 @@ const partitionRules = [
   {
     title: "key가 있음",
     example: "key = order-1004",
-    result: "같은 key는 같은 파티션",
+    result: "동일한 라우팅 조건에서 같은 파티션",
     detail:
-      "주문 ID, 사용자 ID처럼 순서가 중요한 단위에 씁니다. 같은 key의 메시지는 한 파티션에 쌓여 순서를 지키기 쉽습니다.",
+      "키 기반 파티셔너와 직렬화·파티션 수가 같고 키를 무시하지 않는 경우입니다. 파티션 수 변경·커스텀 파티셔너·명시적 partition 지정은 목적지를 바꿀 수 있습니다.",
     colorClass:
       "border-amber-200 bg-amber-50/50 dark:border-amber-900/60 dark:bg-amber-950/20",
   },
   {
     title: "key가 없음",
     example: "key = null",
-    result: "현대 Kafka 기본은 sticky에 가까움",
+    result: "배치와 가용성을 고려한 기본 선택",
     detail:
-      "예전에는 라운드로빈처럼 이해하는 경우가 많았지만, Kafka 2.4 이후 기본 producer는 배치 효율을 위해 한 파티션에 잠깐 붙어 있다가 옮기는 sticky partitioning을 사용합니다.",
+      "Kafka 4.1 기본 파티셔너는 키가 없으면 배치 단위 sticky 선택을 사용하며 적응형 배정 설정도 영향을 줍니다. 버전·클라이언트·partitioner.class 설정을 확인하세요.",
     colorClass:
       "border-sky-200 bg-sky-50/50 dark:border-sky-900/60 dark:bg-sky-950/20",
   },
@@ -113,7 +114,7 @@ const configEffects = [
     option: "acks",
     value: "0 / 1 / all",
     effect:
-      "`all`은 더 안전하지만 느릴 수 있고, `0`은 빠르지만 전송 성공 확인이 약합니다.",
+      "all은 현재 ISR의 확인, 1은 리더 기록 확인, 0은 브로커 확인을 기다리지 않습니다. 지연·내구성은 복제와 다른 설정에도 좌우됩니다.",
   },
   {
     option: "retries",
@@ -138,7 +139,7 @@ const configEffects = [
   {
     option: "auto.offset.reset",
     value: "earliest / latest",
-    effect: "처음 읽는 consumer가 오래된 메시지부터 볼지, 새 메시지부터 볼지 정합니다.",
+    effect: "유효한 커밋 offset이 없거나 보존 범위를 벗어났을 때 읽기 위치를 정합니다. earliest는 남아 있는 가장 이른 offset, latest는 끝 위치입니다.",
   },
   {
     option: "enable.auto.commit",
@@ -185,7 +186,7 @@ export default function KafkaReferencePage() {
           <ThemeToggle />
         </header>
 
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-4 p-4">
           <PageDebugLab href="/messaging/kafka" />
           <section className="overflow-hidden rounded-lg border border-sky-200 bg-card text-card-foreground shadow-sm dark:border-sky-900/60">
             <div className="border-b border-sky-200 bg-sky-50/70 p-5 dark:border-sky-900/60 dark:bg-sky-950/25">
@@ -239,39 +240,10 @@ export default function KafkaReferencePage() {
             { label: "Consumer", icon: "server", detail: "할당된 파티션에서 읽고 처리" },
             { label: "Offset 커밋", icon: "done", detail: "처리 위치 기록 · 정책에 따라 시점 결정" },
           ]} />
-          <section className="rounded-lg border border-cyan-200 bg-cyan-50/40 p-4 shadow-sm dark:border-cyan-900/60 dark:bg-cyan-950/20">
-            <div className="mb-4 flex items-center gap-2">
-              <RouteIcon className="size-4 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">Producer에서 파티션으로 가는 흐름</h2>
-            </div>
-            <div className="grid gap-4 xl:grid-cols-[300px_1fr]">
-              <div className="rounded-lg border bg-white/75 p-4 dark:bg-background/45">
-                <p className="text-sm font-semibold">Producer</p>
-                <div className="mt-4 grid gap-2 text-sm">
-                  <Message label="A" value="key=user-1" />
-                  <Message label="B" value="key=user-2" />
-                  <Message label="C" value="key=null" />
-                </div>
-              </div>
-              <div className="grid gap-3 md:grid-cols-3">
-                {["P0", "P1", "P2"].map((partition, index) => (
-                  <div
-                    key={partition}
-                    className="rounded-lg border bg-white/75 p-4 dark:bg-background/45"
-                  >
-                    <div className="mb-3 flex items-center justify-between">
-                      <p className="font-semibold">{partition}</p>
-                      <DatabaseIcon className="size-4 text-cyan-700 dark:text-cyan-300" />
-                    </div>
-                    <div className="grid gap-2">
-                      {index === 0 ? <Message label="A" value="user-1 이벤트" /> : null}
-                      {index === 1 ? <Message label="B" value="user-2 이벤트" /> : null}
-                      {index === 2 ? <Message label="C" value="key 없는 이벤트 묶음" /> : null}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <section className="rounded-lg border bg-card p-4">
+            <h2 className="mb-3 text-lg font-semibold">Producer에서 파티션으로 가는 흐름</h2>
+            <LearningFlowCanvas title="Kafka 파티션 선택 예시" graph={kafkaRoutingGraph} height={620} />
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">A→P0, B→P1, C→P2는 가능한 배정 예시이며 실제 Kafka 해시 계산 결과가 아닙니다. 파티션 수·직렬화·파티셔너·키 무시 설정이 바뀌면 같은 키의 목적지도 달라질 수 있습니다.</p>
           </section>
 
           <section className="grid gap-4 xl:grid-cols-3">
@@ -298,14 +270,14 @@ export default function KafkaReferencePage() {
             ))}
           </section>
 
-          <section className="grid gap-4 xl:grid-cols-[1fr_0.9fr]">
+          <section className="grid min-w-0 grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)]">
             <div className="rounded-lg border border-violet-200 bg-violet-50/40 p-4 shadow-sm dark:border-violet-900/60 dark:bg-violet-950/20">
               <div className="mb-4 flex items-center gap-2">
                 <Settings2Icon className="size-4 text-muted-foreground" />
                 <h2 className="text-lg font-semibold">설정 옵션이 데이터 흐름에 주는 영향</h2>
               </div>
-              <div className="overflow-hidden rounded-lg border bg-white/75 dark:bg-background/45">
-                <div className="grid grid-cols-[170px_150px_1fr] border-b bg-muted/60 text-sm font-semibold">
+              <div className="overflow-x-auto rounded-lg border bg-white/75 dark:bg-background/45">
+                <div className="grid min-w-[700px] grid-cols-[170px_150px_1fr] border-b bg-muted/60 text-sm font-semibold">
                   <div className="border-r p-3">옵션</div>
                   <div className="border-r p-3">값</div>
                   <div className="p-3">흐름 변화</div>
@@ -313,7 +285,7 @@ export default function KafkaReferencePage() {
                 {configEffects.map((item) => (
                   <div
                     key={item.option}
-                    className="grid grid-cols-[170px_150px_1fr] border-b text-sm last:border-b-0"
+                    className="grid min-w-[700px] grid-cols-[170px_150px_1fr] border-b text-sm last:border-b-0"
                   >
                     <div className="border-r p-3 font-mono text-xs">{item.option}</div>
                     <div className="border-r p-3">{item.value}</div>
@@ -385,21 +357,8 @@ export default function KafkaReferencePage() {
               Apache Kafka Documentation
             </a>
           </section>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
 }
-
-function Message({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-md border bg-background/75 px-3 py-2">
-      <span className="mr-2 inline-flex size-5 items-center justify-center rounded bg-sky-600 text-xs font-semibold text-white dark:bg-sky-400 dark:text-sky-950">
-        {label}
-      </span>
-      <span className="text-xs">{value}</span>
-    </div>
-  );
-}
-
-export const metadata = getStudyMetadata("/messaging/kafka");

@@ -1,5 +1,16 @@
 # Lumos Lab 프론트엔드
 
+## 2026-10-04 추가 화면
+
+- `/messaging/kafka-acks`: Kafka ACK · 복제 확인과 손실 경계
+- `/java/enums`: Java enum · 고정 값과 타입 안전성
+- `/frontend/javascript-basics`: JavaScript 기초 · 값·배열·실행 경계
+- `/ai-agent-lab`: 에이전트 실행 실습 · 수정과 검증 게이트
+- `/agent-rag-mcp`: Agent·RAG·MCP · 검색과 도구의 경계
+- `/backend/fastapi`: FastAPI 핵심 · 계약·검증·테스트
+
+JavaScript 화면의 array-browser-lab.tsx는 실제 브라우저 배열 연산과 Java API 결과를 비교합니다. FastAPI Python 예시는 public/examples/fastapi_quote.py에서 내려받을 수 있습니다. 실제 웹 API는 기존 Spring Boot 가격 실습입니다. [자료·검증 기록](../docs/instagram-learning-2026-10-04.md)
+
 React Hooks 상세는 `/frontend/react-hooks`이며 React 기초에서 연결됩니다. 카운터·Context·메모화·DOM 참조·Java API 요청과 취소를 실제 실행합니다. [15개 원문 순차 반영 현황](../docs/instagram-learning-2026-09-30.md)을 참고하세요.
 
 Next.js, React, TypeScript, Tailwind CSS, shadcn/ui를 공부하기 위한 프론트엔드입니다.

@@ -114,3 +114,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 상세 데이터 계약과 왕복 Handle 배치·확장 제약은 [React Flow 시스템 다이어그램 가이드](../docs/react-flow-diagrams.md)를 기준으로 확인합니다.
 
 React Hooks 전용 실습은 src/app/frontend/react-hooks/hooks-lab.tsx에 있으며 카운터·API 요청 취소·effect 타이머를 브라우저에서 실행합니다.
+
+JavaScript 배열 비교는 `src/app/frontend/javascript-basics/array-browser-lab.tsx` → `src/lib/array-pipeline.ts`에서 브라우저 연산을 실행하고 `/api/labs/array-pipeline`에 같은 입력을 보냅니다. FastAPI 독립 예시는 `public/examples/fastapi_quote.py`이며 웹 패널의 Java 가격 API와 실행 환경이 다릅니다. 2026-10-04 자료별 경로·검증 범위는 `../docs/instagram-learning-2026-10-04.md`를 참고합니다.

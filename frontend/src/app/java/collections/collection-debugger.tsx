@@ -51,7 +51,7 @@ export function CollectionDebugger() {
           <div className="mt-3 grid gap-2">{group.names.map(name => <button key={name} type="button" aria-pressed={selected === name} onClick={() => select(name)} className={`rounded-lg border px-3 py-2 text-left font-mono text-sm transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-ring ${selected === name ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:bg-muted"}`}>{name}{name === "Stack" ? " ← Vector" : ""}</button>)}</div>
         </article>)}
       </div>
-      <p className="mt-4 text-sm leading-6 text-muted-foreground">분류 지도이며 모든 상속선을 표시한 UML은 아닙니다. Deque는 Queue와 SequencedCollection을 확장합니다. LinkedList는 List·Deque 양쪽에 속합니다. TreeSet은 NavigableSet → SortedSet → SequencedSet → Set 계층이며, LinkedHashSet도 SequencedSet을 구현합니다. TreeMap은 NavigableMap → SortedMap → SequencedMap → Map 계층, LinkedHashMap은 SequencedMap 구현체입니다. PriorityQueue는 Deque가 아닙니다.</p>
+      <p className="mt-4 text-sm leading-6 text-muted-foreground">분류 지도이며 모든 상속선을 표시한 UML은 아닙니다. extends 화살표는 하위 타입에서 상위 타입을 가리키므로 시간순 처리 흐름과 방향이 다릅니다. Deque는 Queue와 SequencedCollection을 확장합니다. LinkedList는 List·Deque 양쪽에 속합니다. TreeSet은 NavigableSet → SortedSet → SequencedSet → Set 계층이며, LinkedHashSet도 SequencedSet을 구현합니다. TreeMap은 NavigableMap → SortedMap → SequencedMap → Map 계층, LinkedHashMap은 SequencedMap 구현체입니다. PriorityQueue는 Deque가 아닙니다.</p>
     </section>
 
     <section id="collection-debugger" className="min-w-0 rounded-lg border bg-card p-4 shadow-sm" aria-labelledby="debug-title">

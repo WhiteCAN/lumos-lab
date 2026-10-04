@@ -41,7 +41,7 @@ const producerOptions = [
 
 const consumerOptions = [
   ["group.id", "같은 그룹의 consumer는 파티션을 나눠 읽습니다. 다른 그룹은 같은 메시지를 각자 읽습니다."],
-  ["auto.offset.reset", "처음 시작 위치입니다. `earliest`는 처음부터, `latest`는 새 메시지부터 봅니다."],
+  ["auto.offset.reset", "유효한 커밋 offset이 없거나 보존 범위를 벗어났을 때 적용합니다. `earliest`는 남아 있는 가장 이른 offset, `latest`는 끝 위치입니다."],
   ["enable.auto.commit", "offset commit 자동 여부입니다. 장애 학습에는 수동 commit 흐름이 이해하기 좋습니다."],
   ["max.poll.records", "한 번 poll에서 가져올 최대 메시지 수입니다. 처리 시간이 긴 consumer에서 중요합니다."],
   ["max.poll.interval.ms", "poll 사이 허용 시간입니다. 처리 시간이 너무 길면 리밸런싱이 발생할 수 있습니다."],
@@ -98,6 +98,7 @@ export default function KafkaConfigPage() {
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
           <PageDebugLab href="/messaging/kafka-config" />
+          <section className="rounded-xl border bg-card p-5"><h2 className="text-lg font-semibold">ACK와 ISR을 직접 바꿔 보기</h2><p className="mt-2 text-sm leading-6"><a className="underline" href="/messaging/kafka-acks">Kafka ACK 상세 실습</a>에서 acks=0·1·all, 최소 ISR과 리더 손실 뒤 남는 사본을 비교합니다.</p></section>
           <section className="rounded-lg border border-sky-200 bg-sky-50/50 p-5 shadow-sm dark:border-sky-900/60 dark:bg-sky-950/20">
             <div className="flex items-start gap-3">
               <Settings2Icon className="mt-1 size-6 text-sky-700 dark:text-sky-300" />

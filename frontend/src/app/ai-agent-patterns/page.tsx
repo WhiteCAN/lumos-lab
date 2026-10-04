@@ -20,9 +20,10 @@ export default function AiAgentPatternsPage() {
       description="한 번 답하기, 도구를 쓰며 반복하기, 계획과 실행 나누기, 스스로 다듬기, 검증 후 진행하기. 작업이 요구하는 흐름에 맞춰 패턴을 선택하고 필요한 경우 조합합니다."
       icon={BotIcon} colorClass="border-violet-200 bg-violet-50/50 dark:border-violet-900/60 dark:bg-violet-950/20">
       <section className="rounded-lg border bg-card p-5 shadow-sm"><h2 className="text-lg font-semibold">이 분류를 읽는 방법</h2><p className="mt-3 text-sm leading-6">원문은 AI 시스템의 실행 방식을 다섯 가지로 묶어 설명합니다. 모든 프레임워크가 공유하는 공식 분류는 아니며, 패턴 이름보다 반복·계획·검증이 어느 지점에 들어가는지 보는 것이 중요합니다.</p></section>
-      <section className="grid gap-4 lg:grid-cols-2" aria-label="다섯 가지 패턴">{patterns.map((pattern, index) => (
+      <section className="grid gap-4 xl:grid-cols-3" aria-label="다섯 가지 패턴">{patterns.map((pattern, index) => (
         <article key={pattern.name} className="rounded-lg border bg-card p-5 shadow-sm"><p className="text-sm font-medium text-violet-700 dark:text-violet-300">0{index + 1} · {pattern.name}</p><h2 className="mt-2 text-xl font-semibold">{pattern.title}</h2><FlowSection title={`${pattern.name} 처리 흐름`} steps={pattern.flow.split(" → ")} orientation="vertical" /><p className="mt-3 text-sm leading-6"><strong>적용 예시:</strong> {pattern.use}</p><p className="mt-2 text-sm leading-6 text-muted-foreground">{pattern.caution}</p></article>
       ))}</section>
+      <section className="rounded-xl border bg-card p-5"><h2 className="text-lg font-semibold">입력을 바꿔 제어 흐름 비교</h2><p className="mt-2 text-sm leading-6">새 원문의 다섯 패턴을 기존 내용과 통합했습니다. <Link className="underline" href="/ai-agent-lab">초안 수정·검증 게이트 실습</Link>에서 같은 오답이 반환·거절·수정되는 차이를 확인하고, <Link className="underline" href="/agent-rag-mcp">Agent·RAG·MCP</Link>에서 검색과 도구 권한의 경계를 살펴보세요.</p><a className="mt-2 inline-block text-sm underline" href="https://www.instagram.com/reels/Dd5q-Zty7nP/">추가 원문 · 다섯 가지 실행 패턴</a></section>
       <ComparisonTable columns={["선택할 때 묻는 질문", "관리할 비용·위험"]} rows={[
         { topic: "Single-shot", values: ["현재 입력만으로 한 번에 답할 수 있는가?", "출력 형식, 정보 부족, 잘못된 답변"] },
         { topic: "ReAct", values: ["관찰 결과에 따라 다음 행동이 달라지는가?", "도구 실패와 무한 반복, 지연·호출 비용"] },

@@ -1,5 +1,16 @@
 # Lumos Lab
 
+## 2026-10-04 학습 페이지
+
+- `/messaging/kafka-acks`: Kafka ACK · 복제 확인과 손실 경계
+- `/java/enums`: Java enum · 고정 값과 타입 안전성
+- `/frontend/javascript-basics`: JavaScript 기초 · 값·배열·실행 경계
+- `/ai-agent-lab`: 에이전트 실행 실습 · 수정과 검증 게이트
+- `/agent-rag-mcp`: Agent·RAG·MCP · 검색과 도구의 경계
+- `/backend/fastapi`: FastAPI 핵심 · 계약·검증·테스트
+
+기존 Kafka 설정·FastAPI 구조·Agent 패턴에서 상세 실습으로 연결합니다. 중복 React Hooks 원문은 기존 페이지를 유지합니다. 원문 확인 범위와 모형의 한계는 [자료 정리 기록](docs/instagram-learning-2026-10-04.md)을 참고하세요.
+
 2026-09-30에 받은 15개 학습 자료의 순서·원문 확인·반영 현황은 [자료 정리 기록](docs/instagram-learning-2026-09-30.md)에 유지합니다. React Hooks 상세(`/frontend/react-hooks`)는 브라우저 Hooks와 Java API 요청·취소를 실습합니다.
 
 [![CI](https://github.com/WhiteCAN/lumos-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/WhiteCAN/lumos-lab/actions/workflows/ci.yml)

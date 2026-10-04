@@ -3,7 +3,7 @@
 ## 기존 구성도·단계 흐름 전환 (2026-09-28)
 
 - `LearningFlowCanvas`: 공통 카드·방향별 Handle·연결선·확대/축소·테마·텍스트 대체 목록. 모바일에도 캔버스를 표시하며 긴 설명은 펼침 목록에서 전부 읽습니다.
-- `learning-diagram-data.ts`: SOLID 다섯 원칙, Java 참조·컬렉션 계층, 샤딩·복제, Saga/Outbox 데이터. SOLID는 설명·구조·Java 코드의 3열을 유지합니다.
+- `learning-diagram-data.ts`: SOLID 다섯 원칙, Java 참조·컬렉션 계층, 샤딩·복제, Saga/Outbox, Kafka 파티션 선택 예시 데이터. Kafka 기초의 Producer → 선택 → 파티션 그림도 공통 React Flow로 표시합니다. SOLID는 설명·구조·Java 코드의 3열을 유지합니다.
 - `FlowSection`: 기존 `steps`, `paths`, `orientation` 계약을 유지합니다. 재생은 노드 상태만 바꾸고 카메라는 변경하지 않습니다. 경로 선택 시 재생을 초기화하며 비활성 경로에는 캔버스를 만들지 않습니다.
 - TCP/UDP·REST·Next.js·인증·RAG·아키텍처·AI 패턴·Saga의 개별 HTML 흐름도 교체했습니다. Kafka 복제본은 P0/P1/P2별 리더와 두 팔로워로 표시합니다.
 - 비교표, 원본 코드, API 응답·실행 로그, 컬렉션 변수 전후 값은 텍스트 표현을 유지합니다.

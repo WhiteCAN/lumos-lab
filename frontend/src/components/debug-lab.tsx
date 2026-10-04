@@ -55,7 +55,7 @@ export function DebugLab({ lab }: { lab: Lab }) {
     } finally { setBusy(false); }
   }
 
-  return <section className="min-w-0 rounded-xl border border-emerald-300 bg-card p-5 dark:border-emerald-800" aria-label="실행·디버깅 실습">
+  return <section className="min-w-0 [overflow-wrap:anywhere] rounded-xl border border-emerald-300 bg-card p-5 dark:border-emerald-800" aria-label="실행·디버깅 실습">
     <h2 className="text-xl font-semibold">{lab.title}</h2>
     <p className="mt-3 text-sm leading-7">{lab.note}</p>
     <p className="mt-2 break-all font-mono text-xs">POST {API_BASE_URL}{lab.endpoint}</p>

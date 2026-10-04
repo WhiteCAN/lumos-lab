@@ -1,5 +1,25 @@
 # API 계약과 통신 기준
 
+## 2026-10-04 학습 API
+
+모두 POST JSON, 성공은 HTTP 200과 ApiResponse.data입니다. 필수 값 누락·null·범위·허용 값 위반은 400입니다. 새 API의 숫자는 JSON 정수만 허용하며 소수·숫자 문자열을 자동 변환하지 않습니다. boolean 플래그도 예시대로 명시합니다. Bean Validation·업무 규칙 오류는 공통 ApiResponse, JSON 역직렬화 오류는 프레임워크의 400 응답일 수 있습니다. 실험 중 거절·권한 금지·도구 실패는 정상 계산 결과의 status이며 HTTP 오류와 구분합니다.
+
+| 경로 | 입력 | 주요 결과 | 구현 |
+| --- | --- | --- | --- |
+| /api/labs/kafka-acks | acks=0/1/all 문자열, replicas·inSyncReplicas·minInSyncReplicas 1~5, replicasWithRecord 0~ISR, leaderFailed | producerResult, requiredCopies, acceptedCopies, survivingCopies, observation, scope | KafkaAckLabController.run |
+| /api/labs/enums | day·selectedDays의 각 이름 1~12자, selectedDays 1~20개. MONDAY~SUNDAY 대문자만 | name, ordinal, code, weekend, allValues, orderedDistinct, counts | EnumLabController.run·parse |
+| /api/labs/array-pipeline | values 정수 1~30개, 각 -10000~10000 | numericSorted, doubled, evens, sum | ArrayPipelineLabController.run |
+| /api/labs/agent-loop | pattern=single-shot/reflexive/verifier-gated, values 정수 1~10개(-100~100), proposedTotal -1000~1000, maxAttempts 1~5, toolAllowed·failTool | status, candidate, attempts, trace, scope | AgentLabController.loop |
+| /api/labs/agent-context | query 1~80자, tool=none/read-metrics/write-report, toolAllowed·userApproved·failTool | sources(id/keyword/text), toolStatus, toolOutput, trace, scope | AgentLabController.context |
+
+Kafka: ISR·minISR는 replicas 이하여야 합니다. acks=all에서 최소 ISR 미달이면 기록을 수락하지 않습니다. 고정 ISR 전체 확인이 완료 조건이며 minISR만큼 기다리는 모형이 아닙니다. 0보다 큰 사본 수는 리더를 포함하고, 손실은 쓰기 판정 뒤 발생합니다. 네트워크·타임아웃·ELR·선출·소비자와 fsync는 생략합니다.
+
+Agent loop: attempts는 최초·수정 초안 개수입니다. 정답이면 즉시 종료합니다. single-shot은 UNVERIFIED, 검증 게이트는 PASSED/REJECTED, 수정 흐름은 상한→권한→실패 순으로 확인해 LIMIT_REACHED/TOOL_DENIED/TOOL_ERROR를 반환합니다. 로컬 계산기 수정은 최대 한 번이며 LLM을 호출하지 않습니다.
+
+Agent context: 공백·기호로 구분된 영문 cache/queue/rag 키워드를 대소문자 없이 고정 문서에서 찾습니다. none은 SKIPPED, 권한 금지는 DENIED, 쓰기 미승인은 APPROVAL_REQUIRED입니다. 승인 뒤에도 PREVIEW_ONLY이며 저장하지 않습니다. read-metrics는 READ_FIXTURE, 실패 주입은 TOOL_ERROR입니다. 사용자가 보낸 권한 플래그는 교육용으로 실제 인증·인가가 아닙니다.
+
+FastAPI는 기존 /api/labs/examples/pricing을 재사용합니다. 웹은 Java 계산, 다운로드한 Python 예시는 별도 FastAPI TestClient 실행입니다. Python 입력 검증 오류는 기본 422이고 Java 실습은 400입니다.
+
 접속 대기열 모형은 `POST /api/labs/waiting-room`입니다. 요청별 이력과 가상 시계로 실행하며 입력 범위·응답·실패 처리·운영 경계는 [가상 대기실 API 계약](waiting-room.md)에 명시합니다.
 
 ## 기본 주소와 구현 위치
@@ -63,7 +83,7 @@ REST API는 Spring MVC Controller와 요청·응답 record가 계약 원본입�
 
 ## 2026-09-30 상세 학습 API
 
-모두 POST JSON이며 `ApiResponse`로 응답합니다. 상태는 요청 내부에만 있고 외부 인프라를 호출하지 않습니다. 숫자·문자열·목록 제한 위반은 Bean Validation으로 HTTP 400을 반환합니다. boolean 생략 시 false입니다. 계약 원본은 `backend/src/main/java/com/lumos/lab/learning/`의 아래 Controller입니다.
+모두 POST JSON이며 `ApiResponse`로 응답합니다. 상태는 요청 내부에만 있고 외부 인프라를 호출하지 않습니다. 숫자·문자열·목록 제한 위반은 Bean Validation으로 HTTP 400을 반환합니다. 현재 HTTP 역직렬화에서는 boolean을 생략하거나 null로 보내면 400일 수 있으므로 예시의 모든 플래그를 명시합니다. 계약 원본은 `backend/src/main/java/com/lumos/lab/learning/`의 아래 Controller입니다.
 
 | 경로 | 입력 제한 | 주요 data·실행 범위 | Controller |
 | --- | --- | --- | --- |

@@ -1,5 +1,9 @@
 # 작업 이어가기 가이드
 
+## 2026-10-04 자료 반영
+
+6개 상세 페이지와 5개 Java API를 추가했습니다. [원문별 매핑과 실행 범위](instagram-learning-2026-10-04.md)를 기준으로 이어갑니다. 기존 Kafka 설정·FastAPI 구조·Agent 패턴에 상세 링크를 추가하고 React Hooks 중복은 재사용했습니다. 신규 API 구현은 learning 패키지의 KafkaAckLabController, EnumLabController, ArrayPipelineLabController, AgentLabController입니다. LabIntegerDeserializer는 이 신규 API에만 적용해 소수·문자열의 정수 자동 변환을 금지합니다. 후속 요청에 따라 콘텐츠 오류를 점검·수정하고 development 배포를 진행합니다. 검증 범위와 남은 제약은 [콘텐츠 점검 기록](content-audit-2026-10-04.md)을 확인합니다.
+
 2026-09-30 사용자 제공 Instagram 15개 자료를 순차 반영 중입니다. [순서와 검증 상태](instagram-learning-2026-09-30.md)를 기준으로 이어갑니다. 완료 항목을 다시 만들지 않고, 미확인 원문의 주제를 추정하지 않습니다.
 
 접속 대기열 학습 페이지 `/backend/waiting-room`과 `POST /api/labs/waiting-room`을 추가했습니다. 요청별 이력 재실행·가상 시계로 FIFO, 중복 진입, 퇴장, 만료를 실험합니다. 운영용 게이트나 Redis 연동은 포함하지 않습니다. [현재 계약](waiting-room.md)을 참고하세요.

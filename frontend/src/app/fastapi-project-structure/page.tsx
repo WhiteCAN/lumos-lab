@@ -52,6 +52,7 @@ const modules = [
 export default function FastApiProjectStructurePage() {
   return <ReferencePage pageHref="/fastapi-project-structure" label="폴더 책임 · 데이터 계약 · 요청 흐름" description="라우터는 HTTP 계약을, 서비스는 업무 규칙을, 스키마는 외부 데이터 형태를 맡도록 책임을 나누는 Python 백엔드 예시입니다." icon={FolderTreeIcon} colorClass="border-teal-200 bg-teal-50/50 dark:border-teal-900/60 dark:bg-teal-950/20">
     <section className="rounded-xl border bg-card p-5"><h2 className="text-lg font-semibold">구조는 필요에 맞춰 나눕니다</h2><p className="mt-2 text-sm leading-6">Smart Coder Hacker의 구조를 학습용으로 재구성했습니다. FastAPI의 필수 폴더 규칙은 아니며 작은 앱은 더 단순하게 시작할 수 있습니다. 원문의 실제 .env 대신 공유 가능한 .env.example을 표시했습니다. 반복되는 패키지 초기화 파일은 일부 생략했습니다.</p></section>
+    <section className="rounded-xl border bg-card p-5"><h2 className="text-lg font-semibold">라우트·검증·테스트는 별도 페이지에서</h2><p className="mt-2 text-sm leading-6"><Link className="underline" href="/backend/fastapi">FastAPI 핵심 치트시트</Link>에 Pydantic 입력 계약과 TestClient 예시를 분리했습니다. 이 페이지는 폴더별 책임과 연동 구조에 집중합니다.</p></section>
     <CodeBlock title="폴더 지도 · SQLAlchemy와 Pydantic을 구분한 예시" code={tree} />
     <section className="grid gap-4 lg:grid-cols-2" aria-label="FastAPI 모듈별 책임">{modules.map(([name,role,body])=><article key={name} className="rounded-xl border bg-card p-5"><h2 className="text-lg font-semibold">{name}</h2><p className="mt-1 text-sm font-medium text-teal-700 dark:text-teal-300">{role}</p><p className="mt-3 text-sm leading-6">{body}</p></article>)}</section>
     <ComparisonTable columns={["책임", "사용자 생성 예시"]} rows={[

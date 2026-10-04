@@ -21,6 +21,12 @@ export const studyCategories = [
 ] as const;
 
 export const studyPages: readonly StudyPage[] = [
+{"href":"/messaging/kafka-acks","title":"Kafka ACK · 복제 확인과 손실 경계","category":"데이터·메시징","description":"acks=0·1·all과 ISR·min.insync.replicas를 비교하고 리더 손실 후 남는 사본을 실험합니다.","keywords":["Kafka","ACK","ISR","acks","min.insync.replicas"],"aliases":[],"simulated":true},
+{"href":"/java/enums","title":"Java enum · 고정 값과 타입 안전성","category":"Java·객체지향","description":"요일을 실제 Java enum으로 변환하고 switch·EnumSet·EnumMap의 결과를 비교합니다.","keywords":["enum","열거형","EnumSet","EnumMap","valueOf"],"aliases":[]},
+{"href":"/frontend/javascript-basics","title":"JavaScript 기초 · 값·배열·실행 경계","category":"프론트엔드","description":"치트시트의 핵심을 값·함수·컬렉션·브라우저 실행으로 나누고 실제 배열 변환을 Java API와 비교합니다.","keywords":["JavaScript","배열","sort","map","reduce","closure"],"aliases":[]},
+{"href":"/ai-agent-lab","title":"에이전트 실행 실습 · 수정과 검증 게이트","category":"AI·RAG","description":"동일한 합계 초안을 검사 없이 반환하거나, 거절하거나, 수정 후 재검증하는 세 가지 제어 흐름을 비교합니다.","keywords":["Agent","Reflexive","Verifier","도구","반복"],"aliases":[],"simulated":true},
+{"href":"/agent-rag-mcp","title":"Agent·RAG·MCP · 검색과 도구의 경계","category":"AI·RAG","description":"Agent의 흐름 제어, RAG의 근거 검색, MCP의 도구 연결을 분리하고 검색 누락·도구 권한·쓰기 승인 경로를 실험합니다.","keywords":["Agent","RAG","MCP","tool","context"],"aliases":[],"simulated":true},
+{"href":"/backend/fastapi","title":"FastAPI 핵심 · 계약·검증·테스트","category":"Spring·백엔드","description":"원문 캡션의 라우팅·Pydantic·인증·CRUD·테스트·배포 범위를 학습 지도로 정리하고 가격 계산 계약을 비교합니다.","keywords":["FastAPI","Pydantic","Python","TestClient"],"aliases":[]},
 {href:"/backend/spring-security",title:"Spring Security · JWT 인증과 권한",category:"Spring·백엔드",description:"필터 체인·검증·권한·갱신·보안 테스트와 기존 토큰 실습을 연결합니다.",keywords:["SecurityFilterChain","JWT","CSRF","인증","인가"],aliases:[],simulated:true},
 {href:"/observability",title:"로깅·모니터링 · 지연과 장애 분석",category:"설계·테스트·배포",description:"Logs·Metrics·Traces를 연결하고 평균·p95·p99를 실제 Java로 계산합니다.",keywords:["관측","모니터링","Logging","Actuator","Micrometer","Prometheus","Grafana","p99"],aliases:[]},
 {href:"/llm-handbook",title:"LLM 핸드북 · 기초부터 평가·운영까지",category:"AI·RAG",description:"Transformer·튜닝·RAG·Agent·평가·운영 학습 지도와 확률 계산 실습",keywords:["LLM","RLHF","DPO","LoRA","temperature","softmax"],aliases:[]},

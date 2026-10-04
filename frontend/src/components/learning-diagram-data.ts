@@ -23,3 +23,19 @@ export const referenceGraphs: Record<string, LearningGraph> = {
     edges:[{source:"api",target:"order",label:"HTTP"},{source:"order",target:"db",label:"같이 commit"},{source:"relay",target:"db",label:"미발행 조회"},{source:"relay",target:"kafka",label:"publish"},{source:"kafka",target:"consumer",label:"그룹별 소비"},{source:"consumer",target:"dedup",label:"멱등 처리"},{source:"consumer",target:"saga",label:"결과 이벤트"},{source:"saga",target:"comp",label:"실패 보상",dashed:true},{source:"consumer",target:"retry",label:"처리 오류",dashed:true},{source:"retry",target:"dlq",label:"한도 초과",dashed:true},{source:"dlq",target:"observe",label:"운영 대응",dashed:true}],
   },
 };
+
+export const kafkaRoutingGraph: LearningGraph = {
+  nodes: [
+    n("producer", "Producer", 0, 240, "이벤트 A·B·C", "server"),
+    n("routing", "파티션 선택", 290, 240, "명시적 번호·키·파티셔너", "branch"),
+    n("p0", "P0", 580, 0, "A: user-1 · 예시 배정", "apachekafka"),
+    n("p1", "P1", 580, 240, "B: user-2 · 예시 배정", "apachekafka"),
+    n("p2", "P2", 580, 480, "C: 키 없음 · 예시 배정", "apachekafka"),
+  ],
+  edges: [
+    { source: "producer", target: "routing" },
+    { source: "routing", target: "p0", label: "예시 A" },
+    { source: "routing", target: "p1", label: "예시 B" },
+    { source: "routing", target: "p2", label: "예시 C" },
+  ],
+};
