@@ -117,3 +117,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 React Hooks 전용 실습은 src/app/frontend/react-hooks/hooks-lab.tsx에 있으며 카운터·API 요청 취소·effect 타이머를 브라우저에서 실행합니다.
 
 JavaScript 배열 비교는 `src/app/frontend/javascript-basics/array-browser-lab.tsx` → `src/lib/array-pipeline.ts`에서 브라우저 연산을 실행하고 `/api/labs/array-pipeline`에 같은 입력을 보냅니다. FastAPI 독립 예시는 `public/examples/fastapi_quote.py`이며 웹 패널의 Java 가격 API와 실행 환경이 다릅니다. 2026-10-04 자료별 경로·검증 범위는 `../docs/instagram-learning-2026-10-04.md`를 참고합니다.
+
+정렬 애니메이션: `src/app/page.tsx` → `src/components/sort-animation.tsx` → `src/lib/sort-trace.ts`. 입력 또는 알고리즘 변경 시 key로 재생을 초기화합니다. 브라우저 모형과 Java API의 구현 차이는 `../docs/sorting-animation.md`에 명시합니다. 기록 검증은 `scripts/study-sort-trace.test.mjs`이며 `npm run test:study`에 포함됩니다.

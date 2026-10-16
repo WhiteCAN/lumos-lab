@@ -26,11 +26,13 @@ import {
   PlayIcon,
 } from "lucide-react";
 
+import { SortAnimation } from "@/components/sort-animation";
+import { parseSortInput, type SortType } from "@/lib/sort-trace";
 import { getStudyPage } from "@/lib/study-pages";
 
 const studyPage = getStudyPage("/");
 
-type SortType = "BUBBLE" | "SELECTION" | "INSERTION" | "QUICK" | "MERGE" | "HEAP";
+
 
 type SortResponse = {
   type: SortType;
@@ -51,6 +53,15 @@ type SortGuide = {
   recommended: string;
   avoid: string;
   example: string;
+};
+
+const sortNames: Record<SortType, string> = {
+  QUICK: "퀵",
+  MERGE: "병합",
+  HEAP: "힙",
+  INSERTION: "삽입",
+  SELECTION: "선택",
+  BUBBLE: "버블",
 };
 
 const sortTypes: SortType[] = [
@@ -145,15 +156,13 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const selectedGuide = sortGuides[sortType];
 
-  const parsedNumbers = useMemo(() => {
-    return numbersText
-      .split(",")
-      .map((value) => Number(value.trim()))
-      .filter((value) => Number.isFinite(value));
+  const parsed = useMemo(() => {
+    try { return { values: parseSortInput(numbersText), error: null }; }
+    catch (error) { return { values: [], error: (error as Error).message }; }
   }, [numbersText]);
-
+  const parsedNumbers = parsed.values;
   function generateRandomNumbers() {
-    const count = Math.min(Math.max(randomCount, 1), 100);
+    const count = Math.min(Math.max(Math.trunc(randomCount) || 1, 1), 100);
     const numbers = Array.from({ length: count }, () =>
       Math.floor(Math.random() * 201) - 100,
     );
@@ -166,6 +175,7 @@ export default function Home() {
 
   async function runSort(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (parsed.error) return;
     setLoading(true);
     setError(null);
     setResult(null);
@@ -215,7 +225,7 @@ export default function Home() {
           <ThemeToggle />
         </header>
 
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex min-w-0 flex-1 flex-col gap-4 p-4">
           <section className="rounded-lg border bg-card p-4 text-card-foreground shadow-sm">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div>
@@ -231,31 +241,34 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="grid gap-4 xl:grid-cols-[420px_1fr]">
+          <section aria-labelledby="sort-selection-title" className="rounded-lg border bg-card p-4 shadow-sm">
+            <h2 id="sort-selection-title" className="mb-3 text-sm font-semibold">알고리즘 선택</h2>
+            <div role="group" aria-label="정렬 알고리즘 선택" className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
+              {sortTypes.map((type) => (
+                <Button
+                  key={type}
+                  type="button"
+                  variant={sortType === type ? "default" : "outline"}
+                  aria-pressed={sortType === type}
+                  onClick={() => setSortType(type)}
+                  className="h-auto flex-col gap-1 py-3"
+                >
+                  <span>{sortNames[type]} 정렬</span>
+                  <span className="text-xs opacity-80">{sortGuides[type].name}</span>
+                </Button>
+              ))}
+            </div>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              <strong className="text-foreground">현재 선택: {sortNames[sortType]} 정렬</strong> · {selectedGuide.summary}
+            </p>
+          </section>
+          {parsed.error ? null : <SortAnimation key={`${sortType}:${numbersText}`} values={parsedNumbers} type={sortType} />}
+
+          <section className="grid gap-4 xl:grid-cols-[420px_minmax(0,1fr)]">
             <form
               onSubmit={runSort}
               className="flex flex-col gap-4 rounded-lg border bg-card p-4 shadow-sm"
             >
-              <div className="grid gap-2">
-                <label htmlFor="sortType" className="text-sm font-medium">
-                  정렬 알고리즘
-                </label>
-                <select
-                  id="sortType"
-                  value={sortType}
-                  onChange={(event) =>
-                    setSortType(event.target.value as SortType)
-                  }
-                  className="h-9 rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                >
-                  {sortTypes.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               <SortGuidePanel guide={selectedGuide} />
 
               <div className="grid gap-2">
@@ -297,8 +310,9 @@ export default function Home() {
                   placeholder="7, 3, 9, 1, 5"
                 />
                 <p className="text-xs text-muted-foreground">
-                  현재 파싱 결과 {parsedNumbers.length}개: [
+                  입력 결과 {parsedNumbers.length}개: [
                   {parsedNumbers.join(", ")}]
+                  {parsed.error ? <span role="alert" className="block text-destructive">{parsed.error}</span> : null}
                 </p>
               </div>
 
@@ -318,7 +332,7 @@ export default function Home() {
               ) : null}
             </form>
 
-            <section className="flex min-h-[520px] flex-col gap-4 rounded-lg border bg-card p-4 shadow-sm">
+            <section className="flex min-h-[520px] min-w-0 flex-col gap-4 rounded-lg border bg-card p-4 shadow-sm">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b pb-4">
                 <div>
                   <h2 className="text-xl font-semibold tracking-tight">
@@ -373,7 +387,7 @@ export default function Home() {
               )}
             </section>
           </section>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

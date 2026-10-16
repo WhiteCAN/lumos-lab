@@ -280,3 +280,5 @@ Redis·Spring 시스템 설계·Kafka에 `SystemDiagram`을 적용했습니다. 
 2026-09-28: 공통 FlowSection과 페이지별 HTML 흐름을 React Flow로 전환했습니다. SOLID·Saga/Outbox·샤딩/복제·Java 참조/컬렉션·Kafka 복제 배치도도 같은 카드/아이콘을 사용합니다. 재생·경로 선택·API 실습을 유지하고 텍스트 대체 목록을 제공합니다. 상세 계약은 [구성도 가이드](react-flow-diagrams.md)를 참고하세요.
 
 2026-09-30 자료 15개를 순서대로 확인하고 상세 페이지 7개와 기존 페이지 보완을 완료했습니다. 항목별 URL·실습·출처 확인 범위·검증 결과는 [순차 정리 기록](instagram-learning-2026-09-30.md)이 기준입니다. 로컬 검증 후 사용자 요청으로 development 배포 절차를 진행합니다.
+
+정렬 애니메이션은 `/`에 연결되어 있습니다. 6종 알고리즘의 브라우저 모형과 Java API 로그는 별개입니다. 상세 범위·구현 경로·검증은 [정렬 애니메이션](sorting-animation.md)을 참고하세요.

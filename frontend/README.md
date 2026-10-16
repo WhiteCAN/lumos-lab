@@ -308,3 +308,5 @@ Redis 캐시(`/backend/redis-cache`), Spring 시스템 설계(`/spring-system-de
 | Spring Security | `/backend/spring-security` | 기존 HMAC 토큰 실습 연결 |
 
 Kafka 구조·설정, 캐싱, JWT·OAuth, 트랜잭션, 마이크로서비스 페이지는 기존 내용을 보존하면서 보완했습니다. 다이어그램은 React Flow, 예제는 Java를 기본으로 사용합니다. React 자체 실행은 TypeScript입니다.
+
+정렬 화면(`/`)의 애니메이션은 `src/components/sort-animation.tsx`, 실행 기록은 `src/lib/sort-trace.ts`에 있습니다. `npm run test:study`에서 정렬 기록을 검증합니다. Java API와의 차이 및 조작 방법은 [정렬 애니메이션](../docs/sorting-animation.md)을 참고하세요.
