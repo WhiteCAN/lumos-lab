@@ -1,5 +1,7 @@
 # 프로젝트 문서 지도
 
+- [공통 정책과 Lab 연계 범위](policy-implementation-plan.md): Photo 정책과 Lab 책임 구분, 향후 실제 인증·탈퇴 연계 확인
+
 ## 어디부터 읽을까요?
 
 실행 방법은 [루트 README](../README.md), 작업 규칙은 [루트 AGENTS](../AGENTS.md)가 시작점입니다. 작업마다 아래 문서를 모두 읽는 대신 관련 기준 문서와 수정 대상 소스를 확인합니다.
